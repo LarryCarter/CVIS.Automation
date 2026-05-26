@@ -2,13 +2,14 @@
 using CVIS.Automation.Tests.Shared.Helpers;
 using FluentAssertions;
 using NUnit.Framework;
+using CVIS.Automation.Tests.Shared.Playwright;
 
 namespace CVIS.Automation.Tests.Projects.PolicyDrift.Workflows;
 
 [TestFixture]
 [Category("PolicyDrift")]
 [Category("WorkflowRegression")]
-public sealed class PolicyDriftWorkflowTests
+public sealed class PolicyDriftWorkflowTests : PlaywrightFunctionalTestBase
 {
     public static IEnumerable<TestCaseData> PolicyDriftCases()
     {

@@ -2,6 +2,7 @@ using CVIS.Automation.Tests.Projects.PolicyDrift.Assertions;
 using CVIS.Automation.Tests.Projects.PolicyDrift.Matrix;
 using CVIS.Automation.Tests.Projects.PolicyDrift.Models;
 using NUnit.Framework;
+using CVIS.Automation.Tests.Shared.Playwright;
 
 namespace CVIS.Automation.Tests.Projects.PolicyDrift.Workflows;
 
@@ -9,11 +10,13 @@ namespace CVIS.Automation.Tests.Projects.PolicyDrift.Workflows;
 [Category("PolicyDrift")]
 [Category("ReportRegression")]
 [Category("WorkflowRegression")]
-public sealed class PolicyDriftReportMatrixTests
+public sealed class PolicyDriftReportMatrixTests : PlaywrightFunctionalTestBase
 {
     [TestCaseSource(typeof(PolicyDriftScenarioData), nameof(PolicyDriftScenarioData.ReportCases))]
-    public void ReportScenario_ShouldProduceExpectedOutput(PolicyDriftScenarioCase scenario)
+    public async Task ReportScenario_ShouldProduceExpectedOutput(PolicyDriftScenarioCase scenario)
     {
+        await ConfirmPlaywrightRuntimeAsync();
+
         PolicyDriftScenarioAssert.MarkAsHarnessScaffold(scenario, "report output");
     }
 }

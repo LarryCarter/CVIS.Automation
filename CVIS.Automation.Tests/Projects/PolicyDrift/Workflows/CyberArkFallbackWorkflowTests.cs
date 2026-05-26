@@ -2,6 +2,7 @@
 using CVIS.Automation.Tests.Shared.Helpers;
 using FluentAssertions;
 using NUnit.Framework;
+using CVIS.Automation.Tests.Shared.Playwright;
 
 namespace CVIS.Automation.Tests.Projects.PolicyDrift.Workflows;
 
@@ -10,7 +11,7 @@ namespace CVIS.Automation.Tests.Projects.PolicyDrift.Workflows;
 [Category("WorkflowRegression")]
 [Category("CyberArk")]
 [Category("Negative")]
-public sealed class CyberArkFallbackWorkflowTests
+public sealed class CyberArkFallbackWorkflowTests : PlaywrightFunctionalTestBase
 {
     public static IEnumerable<TestCaseData> CyberArkFailureCases()
     {
