@@ -1,0 +1,142 @@
+[
+  {
+    "name": "Report_ReportFileCreated",
+    "scenarioType": "ReportFileCreated",
+    "expectedBehavior": "ValidateReportOutput",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Report_ReportEmptyWhenNoDrift",
+    "scenarioType": "ReportEmptyWhenNoDrift",
+    "expectedBehavior": "ValidateReportOutput",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "Report_ReportContainsAddedPolicy",
+    "scenarioType": "ReportContainsAddedPolicy",
+    "expectedBehavior": "ValidateReportOutput",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Report_ReportContainsRemovedPolicy",
+    "scenarioType": "ReportContainsRemovedPolicy",
+    "expectedBehavior": "ValidateReportOutput",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Report_ReportContainsChangedPolicy",
+    "scenarioType": "ReportContainsChangedPolicy",
+    "expectedBehavior": "ValidateReportOutput",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Report_ReportContainsRunId",
+    "scenarioType": "ReportContainsRunId",
+    "expectedBehavior": "ValidateReportOutput",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Report_ReportContainsCorrelationId",
+    "scenarioType": "ReportContainsCorrelationId",
+    "expectedBehavior": "ValidateReportOutput",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Report_ReportContainsRunDate",
+    "scenarioType": "ReportContainsRunDate",
+    "expectedBehavior": "ValidateReportOutput",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Report_ReportContainsEnvironment",
+    "scenarioType": "ReportContainsEnvironment",
+    "expectedBehavior": "ValidateReportOutput",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Report_ReportHandlesLargeRun",
+    "scenarioType": "ReportHandlesLargeRun",
+    "expectedBehavior": "ValidateReportOutput",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Report_ReportCsvFormatValid",
+    "scenarioType": "ReportCsvFormatValid",
+    "expectedBehavior": "ValidateReportOutput",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Report_ReportJsonFormatValid",
+    "scenarioType": "ReportJsonFormatValid",
+    "expectedBehavior": "ValidateReportOutput",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Report_ReportHtmlFormatValid",
+    "scenarioType": "ReportHtmlFormatValid",
+    "expectedBehavior": "ValidateReportOutput",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Report_ReportOutputPathExists",
+    "scenarioType": "ReportOutputPathExists",
+    "expectedBehavior": "ValidateReportOutput",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Report_ReportDoesNotExposeSecrets",
+    "scenarioType": "ReportDoesNotExposeSecrets",
+    "expectedBehavior": "ValidateReportOutput",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Report_ReportOverwritesWhenAllowed",
+    "scenarioType": "ReportOverwritesWhenAllowed",
+    "expectedBehavior": "ValidateReportOutput",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Report_ReportDoesNotOverwriteWhenBlocked",
+    "scenarioType": "ReportDoesNotOverwriteWhenBlocked",
+    "expectedBehavior": "ValidateReportOutput",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Report_ReportArchiveCreated",
+    "scenarioType": "ReportArchiveCreated",
+    "expectedBehavior": "ValidateReportOutput",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Report_ReportArchiveMissingHandled",
+    "scenarioType": "ReportArchiveMissingHandled",
+    "expectedBehavior": "ValidateReportOutput",
+    "expectedFinalStatus": "Logged",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Report_ReportFinalStatusWritten",
+    "scenarioType": "ReportFinalStatusWritten",
+    "expectedBehavior": "ValidateReportOutput",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  }
+]

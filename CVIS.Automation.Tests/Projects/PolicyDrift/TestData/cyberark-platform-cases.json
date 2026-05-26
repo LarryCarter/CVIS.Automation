@@ -1,0 +1,212 @@
+[
+  {
+    "name": "GetPlatforms_Unauthorized401",
+    "scenarioType": "Unauthorized401",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_Forbidden403",
+    "scenarioType": "Forbidden403",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_NotFound404",
+    "scenarioType": "NotFound404",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_ServerError500",
+    "scenarioType": "ServerError500",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_BadGateway502",
+    "scenarioType": "BadGateway502",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_ServiceUnavailable503",
+    "scenarioType": "ServiceUnavailable503",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_GatewayTimeout504",
+    "scenarioType": "GatewayTimeout504",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_Timeout",
+    "scenarioType": "Timeout",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_DnsFailure",
+    "scenarioType": "DnsFailure",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_TlsFailure",
+    "scenarioType": "TlsFailure",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_ConnectionReset",
+    "scenarioType": "ConnectionReset",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_MalformedJson",
+    "scenarioType": "MalformedJson",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_EmptyJsonArray",
+    "scenarioType": "EmptyJsonArray",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "GetPlatforms_NullResponseBody",
+    "scenarioType": "NullResponseBody",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_MissingPlatformNameField",
+    "scenarioType": "MissingPlatformNameField",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_DuplicatePlatformNames",
+    "scenarioType": "DuplicatePlatformNames",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_WhitespacePlatformNames",
+    "scenarioType": "WhitespacePlatformNames",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_LargePlatformList",
+    "scenarioType": "LargePlatformList",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_PartialPayload206",
+    "scenarioType": "PartialPayload206",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_RateLimited429",
+    "scenarioType": "RateLimited429",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_TransientFailureAttempt21",
+    "scenarioType": "TransientFailureAttempt21",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_TransientFailureAttempt22",
+    "scenarioType": "TransientFailureAttempt22",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_TransientFailureAttempt23",
+    "scenarioType": "TransientFailureAttempt23",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_TransientFailureAttempt24",
+    "scenarioType": "TransientFailureAttempt24",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_TransientFailureAttempt25",
+    "scenarioType": "TransientFailureAttempt25",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_TransientFailureAttempt26",
+    "scenarioType": "TransientFailureAttempt26",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_TransientFailureAttempt27",
+    "scenarioType": "TransientFailureAttempt27",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_TransientFailureAttempt28",
+    "scenarioType": "TransientFailureAttempt28",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_TransientFailureAttempt29",
+    "scenarioType": "TransientFailureAttempt29",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_TransientFailureAttempt30",
+    "scenarioType": "TransientFailureAttempt30",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  }
+]

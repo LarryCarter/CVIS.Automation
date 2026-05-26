@@ -1,0 +1,177 @@
+[
+  {
+    "name": "Zip_ValidZip",
+    "scenarioType": "ValidZip",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Zip_MissingZip",
+    "scenarioType": "MissingZip",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "Zip_EmptyZip",
+    "scenarioType": "EmptyZip",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "Zip_CorruptedZip",
+    "scenarioType": "CorruptedZip",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "Zip_PasswordProtectedZip",
+    "scenarioType": "PasswordProtectedZip",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "Zip_ZipWithUnexpectedFolder",
+    "scenarioType": "ZipWithUnexpectedFolder",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "Zip_ZipWithMissingPolicyFile",
+    "scenarioType": "ZipWithMissingPolicyFile",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "Zip_ZipWithExtraFiles",
+    "scenarioType": "ZipWithExtraFiles",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Zip_ZipWithInvalidJson",
+    "scenarioType": "ZipWithInvalidJson",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "Zip_ZipWithMalformedXml",
+    "scenarioType": "ZipWithMalformedXml",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "Zip_LargeZip",
+    "scenarioType": "LargeZip",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Zip_ZeroBytePolicyFile",
+    "scenarioType": "ZeroBytePolicyFile",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "Zip_DuplicatePolicyFiles",
+    "scenarioType": "DuplicatePolicyFiles",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "Zip_OldZipAlreadyProcessed",
+    "scenarioType": "OldZipAlreadyProcessed",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "Zip_ZipNameDateMismatch",
+    "scenarioType": "ZipNameDateMismatch",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "Zip_ZipDownloadTimeout",
+    "scenarioType": "ZipDownloadTimeout",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "Zip_ZipDownloadUnauthorized",
+    "scenarioType": "ZipDownloadUnauthorized",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "Zip_ZipDownloadForbidden",
+    "scenarioType": "ZipDownloadForbidden",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "Zip_ZipDownloadServerError",
+    "scenarioType": "ZipDownloadServerError",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "Zip_ZipWriteAccessDenied",
+    "scenarioType": "ZipWriteAccessDenied",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "Zip_DiskFull",
+    "scenarioType": "DiskFull",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "Zip_PathTooLong",
+    "scenarioType": "PathTooLong",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "Zip_InvalidCharactersInFileName",
+    "scenarioType": "InvalidCharactersInFileName",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "Zip_ChecksumMismatch",
+    "scenarioType": "ChecksumMismatch",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "Zip_ChecksumMatch",
+    "scenarioType": "ChecksumMatch",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  }
+]

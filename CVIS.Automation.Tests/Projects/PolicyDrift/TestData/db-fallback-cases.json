@@ -1,0 +1,282 @@
+[
+  {
+    "name": "DbFallback_PlatformTableHasRows",
+    "scenarioType": "PlatformTableHasRows",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_PlatformTableEmpty",
+    "scenarioType": "PlatformTableEmpty",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "DbFallback_PlatformRowsInactive",
+    "scenarioType": "PlatformRowsInactive",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_PlatformRowsStale",
+    "scenarioType": "PlatformRowsStale",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_DuplicatePlatformRows",
+    "scenarioType": "DuplicatePlatformRows",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_NullPlatformName",
+    "scenarioType": "NullPlatformName",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_BlankPlatformName",
+    "scenarioType": "BlankPlatformName",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_WhitespacePlatformName",
+    "scenarioType": "WhitespacePlatformName",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_LongPlatformName",
+    "scenarioType": "LongPlatformName",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_SpecialCharacterPlatformName",
+    "scenarioType": "SpecialCharacterPlatformName",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_PolicyNameMapped",
+    "scenarioType": "PolicyNameMapped",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_PolicyNameMissing",
+    "scenarioType": "PolicyNameMissing",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "DbFallback_PolicyNameDuplicate",
+    "scenarioType": "PolicyNameDuplicate",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_PolicyNameInactive",
+    "scenarioType": "PolicyNameInactive",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_PolicyNameStale",
+    "scenarioType": "PolicyNameStale",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_DatabaseConnectionFails",
+    "scenarioType": "DatabaseConnectionFails",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_DatabaseTimeout",
+    "scenarioType": "DatabaseTimeout",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_StoredProcedureMissing",
+    "scenarioType": "StoredProcedureMissing",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "DbFallback_PermissionDenied",
+    "scenarioType": "PermissionDenied",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_DeadlockRetry",
+    "scenarioType": "DeadlockRetry",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_FallbackAuditWritten",
+    "scenarioType": "FallbackAuditWritten",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_FallbackRunStatusUpdated",
+    "scenarioType": "FallbackRunStatusUpdated",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_FallbackCorrelationIdWritten",
+    "scenarioType": "FallbackCorrelationIdWritten",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_FallbackErrorLogged",
+    "scenarioType": "FallbackErrorLogged",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_FallbackWarningLogged",
+    "scenarioType": "FallbackWarningLogged",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_PlatformRecord026",
+    "scenarioType": "PlatformRecord026",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_PlatformRecord027",
+    "scenarioType": "PlatformRecord027",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_PlatformRecord028",
+    "scenarioType": "PlatformRecord028",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_PlatformRecord029",
+    "scenarioType": "PlatformRecord029",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_PlatformRecord030",
+    "scenarioType": "PlatformRecord030",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_PlatformRecord031",
+    "scenarioType": "PlatformRecord031",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_PlatformRecord032",
+    "scenarioType": "PlatformRecord032",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_PlatformRecord033",
+    "scenarioType": "PlatformRecord033",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_PlatformRecord034",
+    "scenarioType": "PlatformRecord034",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_PlatformRecord035",
+    "scenarioType": "PlatformRecord035",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_PlatformRecord036",
+    "scenarioType": "PlatformRecord036",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_PlatformRecord037",
+    "scenarioType": "PlatformRecord037",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_PlatformRecord038",
+    "scenarioType": "PlatformRecord038",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_PlatformRecord039",
+    "scenarioType": "PlatformRecord039",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_PlatformRecord040",
+    "scenarioType": "PlatformRecord040",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  }
+]
