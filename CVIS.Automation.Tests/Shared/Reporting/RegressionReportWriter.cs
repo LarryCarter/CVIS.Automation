@@ -83,10 +83,10 @@ public static class RegressionReportWriter
     private static string Escape(string value)
     {
         var safe = value
-            .Replace(""", """")
+            .Replace("\"", "\"\"")
             .Replace("\r", " ")
             .Replace("\n", " ");
 
-        return $""{safe}"";
+        return $"\"{safe}\"";
     }
 }
