@@ -1,0 +1,91 @@
+{
+  "RunId": "20260617-211109-CVIS_Playwright_NUnit_Compatibility_Layer_RDEL",
+  "PackageName": "CVIS_Playwright_NUnit_Compatibility_Layer_RDEL",
+  "ZipPath": "C:\\Users\\larry\\Downloads\\CVIS_Playwright_NUnit_Compatibility_Layer_RDEL.zip",
+  "SolutionRoot": "C:\\Users\\larry\\source\\repos\\CVIS.Automation",
+  "SelectedProjectRoot": null,
+  "TargetRoot": "C:\\Users\\larry\\source\\repos\\CVIS.Automation",
+  "RunRoot": "C:\\Users\\larry\\source\\repos\\CVIS.Automation\\.contollo\\rdel\\runs\\20260617-211109-CVIS_Playwright_NUnit_Compatibility_Layer_RDEL",
+  "BackupRoot": "C:\\Users\\larry\\source\\repos\\CVIS.Automation\\.contollo\\rdel\\runs\\20260617-211109-CVIS_Playwright_NUnit_Compatibility_Layer_RDEL\\backup",
+  "StartedUtc": "2026-06-18T04:11:09.4712528Z",
+  "CompletedUtc": "2026-06-18T04:11:20.8197585Z",
+  "Succeeded": false,
+  "Error": null,
+  "Git": {
+    "IsGitRepository": true,
+    "HadChanges": false,
+    "HeadBefore": "5b38690a138e08da446f4b415ca77d5fda7b74ae",
+    "HeadAfter": "5b38690a138e08da446f4b415ca77d5fda7b74ae",
+    "CommitMessage": "RDEL checkpoint: before CVIS_Playwright_NUnit_Compatibility_Layer_RDEL",
+    "StatusBefore": "",
+    "StatusAfter": "",
+    "Error": null
+  },
+  "Manifest": {
+    "Name": "CVIS Playwright NUnit Compatibility Layer",
+    "Description": "Adds CVIS.Playwright.NUnitCompat as a separate class library that recreates Microsoft.Playwright.NUnit style base classes using Microsoft.Playwright and NUnit directly. Adds compatibility unit tests without replacing PolicyDrift tests yet.",
+    "Target": "solution",
+    "Commands": [
+      "python .\\add_cvis_playwright_nunit_compat_layer.py",
+      "dotnet restore .\\CVIS.Playwright.NUnitCompat\\CVIS.Playwright.NUnitCompat.csproj",
+      "dotnet build .\\CVIS.Playwright.NUnitCompat\\CVIS.Playwright.NUnitCompat.csproj",
+      "dotnet restore .\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj",
+      "dotnet build .\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj",
+      "dotnet test .\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj --filter TestCategory=CVISPlaywrightCompat"
+    ]
+  },
+  "AppliedFiles": [
+    "add_cvis_playwright_nunit_compat_layer.py",
+    "README_WINDOWS_COMMANDS.txt"
+  ],
+  "Commands": [
+    {
+      "Command": "python .\\add_cvis_playwright_nunit_compat_layer.py",
+      "WorkingDirectory": "C:\\Users\\larry\\source\\repos\\CVIS.Automation",
+      "ExitCode": 0,
+      "StartedUtc": "2026-06-18T04:11:09.8065094Z",
+      "CompletedUtc": "2026-06-18T04:11:11.2725634Z",
+      "Output": "Added CVIS.Playwright.NUnitCompat class library and compatibility tests.\r\nNo PolicyDrift tests were replaced by this package.\r\n"
+    },
+    {
+      "Command": "dotnet restore .\\CVIS.Playwright.NUnitCompat\\CVIS.Playwright.NUnitCompat.csproj",
+      "WorkingDirectory": "C:\\Users\\larry\\source\\repos\\CVIS.Automation",
+      "ExitCode": 0,
+      "StartedUtc": "2026-06-18T04:11:11.2745957Z",
+      "CompletedUtc": "2026-06-18T04:11:12.3078677Z",
+      "Output": "  Determining projects to restore...\r\n  Restored C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Playwright.NUnitCompat\\CVIS.Playwright.NUnitCompat.csproj (in 193 ms).\r\n"
+    },
+    {
+      "Command": "dotnet build .\\CVIS.Playwright.NUnitCompat\\CVIS.Playwright.NUnitCompat.csproj",
+      "WorkingDirectory": "C:\\Users\\larry\\source\\repos\\CVIS.Automation",
+      "ExitCode": 0,
+      "StartedUtc": "2026-06-18T04:11:12.3094282Z",
+      "CompletedUtc": "2026-06-18T04:11:15.6031613Z",
+      "Output": "  Determining projects to restore...\r\n  All projects are up-to-date for restore.\r\n  CVIS.Playwright.NUnitCompat -> C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Playwright.NUnitCompat\\bin\\Debug\\net8.0\\CVIS.Playwright.NUnitCompat.dll\r\n\r\nBuild succeeded.\r\n    0 Warning(s)\r\n    0 Error(s)\r\n\r\nTime Elapsed 00:00:03.04\r\n"
+    },
+    {
+      "Command": "dotnet restore .\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj",
+      "WorkingDirectory": "C:\\Users\\larry\\source\\repos\\CVIS.Automation",
+      "ExitCode": 0,
+      "StartedUtc": "2026-06-18T04:11:15.6048484Z",
+      "CompletedUtc": "2026-06-18T04:11:16.7308439Z",
+      "Output": "  Determining projects to restore...\r\n  Restored C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj (in 249 ms).\r\n  1 of 2 projects are up-to-date for restore.\r\n"
+    },
+    {
+      "Command": "dotnet build .\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj",
+      "WorkingDirectory": "C:\\Users\\larry\\source\\repos\\CVIS.Automation",
+      "ExitCode": 1,
+      "StartedUtc": "2026-06-18T04:11:16.7334357Z",
+      "CompletedUtc": "2026-06-18T04:11:19.3919493Z",
+      "Output": "  Determining projects to restore...\r\n  All projects are up-to-date for restore.\r\n  CVIS.Playwright.NUnitCompat -> C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Playwright.NUnitCompat\\bin\\Debug\\net8.0\\CVIS.Playwright.NUnitCompat.dll\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(35,30): error CS1010: Newline in constant [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(35,46): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(37,6): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(37,18): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(37,18): error CS1513: } expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(37,45): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(39,7): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(39,21): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(39,21): error CS1513: } expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(39,40): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(41,6): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(41,23): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(43,6): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(45,1): error CS1010: Newline in constant [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(45,3): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\n\r\nBuild FAILED.\r\n\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(35,30): error CS1010: Newline in constant [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(35,46): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(37,6): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(37,18): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(37,18): error CS1513: } expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(37,45): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(39,7): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(39,21): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(39,21): error CS1513: } expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(39,40): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(41,6): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(41,23): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(43,6): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(45,1): error CS1010: Newline in constant [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(45,3): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\n    0 Warning(s)\r\n    15 Error(s)\r\n\r\nTime Elapsed 00:00:02.41\r\n"
+    },
+    {
+      "Command": "dotnet test .\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj --filter TestCategory=CVISPlaywrightCompat",
+      "WorkingDirectory": "C:\\Users\\larry\\source\\repos\\CVIS.Automation",
+      "ExitCode": 1,
+      "StartedUtc": "2026-06-18T04:11:19.3928602Z",
+      "CompletedUtc": "2026-06-18T04:11:20.8167809Z",
+      "Output": "  Determining projects to restore...\r\n  All projects are up-to-date for restore.\r\n  CVIS.Playwright.NUnitCompat -> C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Playwright.NUnitCompat\\bin\\Debug\\net8.0\\CVIS.Playwright.NUnitCompat.dll\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(35,30): error CS1010: Newline in constant [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(35,46): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(37,6): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(37,18): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(37,18): error CS1513: } expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(37,45): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(39,7): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(39,21): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(39,21): error CS1513: } expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(39,40): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(41,6): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(41,23): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(43,6): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(45,1): error CS1010: Newline in constant [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\nC:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\Shared\\PlaywrightCompatTests\\LoopbackHttpServer.cs(45,3): error CS1002: ; expected [C:\\Users\\larry\\source\\repos\\CVIS.Automation\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj]\r\n"
+    }
+  ]
+}

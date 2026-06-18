@@ -1,0 +1,13 @@
+{
+  "name": "CVIS Playwright NUnit Compatibility Layer",
+  "description": "Adds CVIS.Playwright.NUnitCompat as a separate class library that recreates Microsoft.Playwright.NUnit style base classes using Microsoft.Playwright and NUnit directly. Adds compatibility unit tests without replacing PolicyDrift tests yet.",
+  "target": "solution",
+  "commands": [
+    "python .\\add_cvis_playwright_nunit_compat_layer.py",
+    "dotnet restore .\\CVIS.Playwright.NUnitCompat\\CVIS.Playwright.NUnitCompat.csproj",
+    "dotnet build .\\CVIS.Playwright.NUnitCompat\\CVIS.Playwright.NUnitCompat.csproj",
+    "dotnet restore .\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj",
+    "dotnet build .\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj",
+    "dotnet test .\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj --filter TestCategory=CVISPlaywrightCompat"
+  ]
+}

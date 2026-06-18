@@ -1,14 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<?xml version='1.0' encoding='utf-8'?>
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="8.10.0" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.1" />
@@ -20,8 +18,6 @@
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
     <PackageReference Include="System.Text.Json" Version="10.0.8" />
   </ItemGroup>
-
-
   <ItemGroup>
     <None Update="appsettings.test.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -33,5 +29,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CVIS.Playwright.NUnitCompat\CVIS.Playwright.NUnitCompat.csproj" />
+  </ItemGroup>
 </Project>
-
