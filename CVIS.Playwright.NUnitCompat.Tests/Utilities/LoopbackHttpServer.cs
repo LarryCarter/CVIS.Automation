@@ -2,7 +2,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-namespace CVIS.Automation.Tests.Shared.PlaywrightCompatTests;
+namespace CVIS.Playwright.NUnitCompat.Tests.Utilities;
 
 public sealed class LoopbackHttpServer : IAsyncDisposable
 {
