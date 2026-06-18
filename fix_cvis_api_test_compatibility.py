@@ -1,4 +1,34 @@
-using Microsoft.Playwright;
+r"""
+CVIS RDEL Update Script
+Package: CVIS Fix API Test Compatibility
+
+Purpose:
+    Adds missing CVISApiTest compatibility members expected by tests:
+    - ApiContext property
+    - NewApiRequestContextAsync(...)
+    - NewApiContextAsync(...)
+"""
+
+from __future__ import annotations
+
+from pathlib import Path
+
+
+SOLUTION_ROOT = Path.cwd()
+COMPAT_ROOT = SOLUTION_ROOT / "CVIS.Playwright.NUnitCompat"
+TARGET_FILE = COMPAT_ROOT / "CVISApiTest.cs"
+
+
+def require_layout() -> None:
+    if not COMPAT_ROOT.exists():
+        raise RuntimeError("Cannot find CVIS.Playwright.NUnitCompat. Run the feature layer package first.")
+
+    COMPAT_ROOT.mkdir(parents=True, exist_ok=True)
+
+
+def write_api_test() -> None:
+    TARGET_FILE.write_text(
+        """using Microsoft.Playwright;
 using NUnit.Framework;
 
 namespace CVIS.Playwright.NUnitCompat;
@@ -56,3 +86,16 @@ public class CVISApiTest : CVISPlaywrightTest
         return context;
     }
 }
+""",
+        encoding="utf-8",
+    )
+
+
+def main() -> None:
+    require_layout()
+    write_api_test()
+    print(f"Fixed {TARGET_FILE}")
+
+
+if __name__ == "__main__":
+    main()
