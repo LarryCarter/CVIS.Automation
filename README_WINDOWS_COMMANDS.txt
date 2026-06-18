@@ -1,67 +1,34 @@
-# CVIS Playwright NUnit Compatibility Layer
+# CVIS Fix Loopback HTTP Server
 
-This is a Contollo RDEL plugin-compatible update package.
+This is a Contollo RDEL plugin-compatible package.
 
-## Purpose
+## Problem
 
-This package creates a separate class library that recreates the useful features of `Microsoft.Playwright.NUnit` under CVIS-owned classes.
+`CVIS.Automation.Tests\Shared\PlaywrightCompatTests\LoopbackHttpServer.cs` had malformed C# string constants in the HTTP response header section.
 
-This does **not** replace PolicyDrift tests yet.
-
-## New class library
+The build errors included:
 
 ```text
-CVIS.Playwright.NUnitCompat
+CS1010 Newline in constant
+CS1002 ; expected
+CS0103 Content does not exist in the current context
 ```
 
-## New CVIS compatibility classes
+## Fix
+
+This package rewrites only:
 
 ```text
-CVISPlaywrightSettingsProvider
-CVISPlaywrightTest
-CVISBrowserService
-CVISBrowserTest
-CVISContextTest
-CVISPageTest
-CVISApiTest
+CVIS.Automation.Tests\Shared\PlaywrightCompatTests\LoopbackHttpServer.cs
 ```
 
-## New compatibility tests
+The replacement uses `StringBuilder` and explicit `\r\n` escape sequences.
 
-```text
-CVIS.Automation.Tests\Shared\PlaywrightCompatTests
-```
-
-## Feature coverage
-
-- NUnit `[SetUp]` lifecycle integration.
-- Shared `IPlaywright` runtime.
-- `BrowserName` resolution from environment.
-- `BrowserType` resolution.
-- Test-id selector attribute support.
-- `Expect(...)` assertion helpers.
-- Default expect timeout support.
-- Browser launch support.
-- Browser context creation and tracking.
-- Context cleanup on successful tests.
-- Context defaults: `Locale = en-US`, `ColorScheme = Light`.
-- Page creation.
-- API request context creation.
-- Real Playwright API request test through a local loopback HTTP probe.
-
-## Explicitly not changed yet
-
-- PolicyDrift tests are not replaced.
-- `Microsoft.Playwright.NUnit` is not removed from the main test project yet.
-- This package only builds the CVIS compatibility layer and validates it.
-
-## Commands run by the plugin
+## Commands
 
 ```powershell
-python .\add_cvis_playwright_nunit_compat_layer.py
-dotnet restore .\CVIS.Playwright.NUnitCompat\CVIS.Playwright.NUnitCompat.csproj
-dotnet build .\CVIS.Playwright.NUnitCompat\CVIS.Playwright.NUnitCompat.csproj
+python .\fix_loopback_http_server.py
 dotnet restore .\CVIS.Automation.Tests\CVIS.Automation.Tests.csproj
 dotnet build .\CVIS.Automation.Tests\CVIS.Automation.Tests.csproj
-dotnet test .\CVIS.Automation.Tests\CVIS.Automation.Tests.csproj --filter TestCategory=CVISPlaywrightCompat
+dotnet test .\CVIS.Automation.Tests\CVIS.Automation.Tests.csproj --filter TestCategory=PlaywrightCompatibility
 ```

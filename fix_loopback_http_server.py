@@ -1,4 +1,31 @@
-using System.Net;
+r"""
+CVIS RDEL Update Script
+Package: CVIS Fix Loopback HTTP Server
+
+Purpose:
+    Fixes malformed C# string constants in:
+    CVIS.Automation.Tests\Shared\PlaywrightCompatTests\LoopbackHttpServer.cs
+"""
+
+from __future__ import annotations
+
+from pathlib import Path
+
+
+SOLUTION_ROOT = Path.cwd()
+TEST_PROJECT_ROOT = SOLUTION_ROOT / "CVIS.Automation.Tests"
+TARGET_FILE = TEST_PROJECT_ROOT / "Shared" / "PlaywrightCompatTests" / "LoopbackHttpServer.cs"
+
+
+def require_layout() -> None:
+    if not TEST_PROJECT_ROOT.exists():
+        raise RuntimeError("Cannot find CVIS.Automation.Tests. Run from the CVIS.Automation solution root.")
+
+    TARGET_FILE.parent.mkdir(parents=True, exist_ok=True)
+
+
+def write_loopback_http_server() -> None:
+    content = """using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
@@ -22,7 +49,7 @@ public sealed class LoopbackHttpServer : IAsyncDisposable
         _listener.Start();
 
         var port = ((IPEndPoint)_listener.LocalEndpoint).Port;
-        Uri = new Uri($"http://127.0.0.1:{port}/");
+        Uri = new Uri($\"http://127.0.0.1:{port}/\");
 
         _acceptLoop = Task.Run(AcceptLoopAsync);
     }
@@ -39,17 +66,17 @@ public sealed class LoopbackHttpServer : IAsyncDisposable
                 var buffer = new byte[4096];
                 _ = await stream.ReadAsync(buffer, _cancellationTokenSource.Token);
 
-                var body = "CVIS loopback ok";
+                var body = \"CVIS loopback ok\";
                 var bodyBytes = Encoding.UTF8.GetBytes(body);
 
                 var headerBuilder = new StringBuilder();
-                headerBuilder.Append("HTTP/1.1 200 OK\r\n");
-                headerBuilder.Append("Content-Type: text/plain; charset=utf-8\r\n");
-                headerBuilder.Append("Content-Length: ");
+                headerBuilder.Append(\"HTTP/1.1 200 OK\\r\\n\");
+                headerBuilder.Append(\"Content-Type: text/plain; charset=utf-8\\r\\n\");
+                headerBuilder.Append(\"Content-Length: \");
                 headerBuilder.Append(bodyBytes.Length);
-                headerBuilder.Append("\r\n");
-                headerBuilder.Append("Connection: close\r\n");
-                headerBuilder.Append("\r\n");
+                headerBuilder.Append(\"\\r\\n\");
+                headerBuilder.Append(\"Connection: close\\r\\n\");
+                headerBuilder.Append(\"\\r\\n\");
 
                 var headerBytes = Encoding.ASCII.GetBytes(headerBuilder.ToString());
 
@@ -84,3 +111,15 @@ public sealed class LoopbackHttpServer : IAsyncDisposable
         _cancellationTokenSource.Dispose();
     }
 }
+"""
+    TARGET_FILE.write_text(content, encoding="utf-8")
+
+
+def main() -> None:
+    require_layout()
+    write_loopback_http_server()
+    print(f"Fixed {TARGET_FILE}")
+
+
+if __name__ == "__main__":
+    main()
