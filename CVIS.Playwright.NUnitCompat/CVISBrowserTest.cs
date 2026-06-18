@@ -1,35 +1,17 @@
 using Microsoft.Playwright;
 using NUnit.Framework;
-using NUnit.Framework.Interfaces;
 
 namespace CVIS.Playwright.NUnitCompat;
 
-public abstract class CVISBrowserTest : CVISPlaywrightTest
+/// <summary>
+/// CVIS equivalent of Microsoft.Playwright.NUnit.BrowserTest.
+/// Provides Browser, NewContext, LaunchOptionsAsync, and ConnectOptionsAsync.
+/// </summary>
+public class CVISBrowserTest : CVISPlaywrightTest
 {
     private readonly List<IBrowserContext> _contexts = new();
+
     public IBrowser Browser { get; private set; } = null!;
-
-    [SetUp]
-    public async Task CVISBrowserSetupAsync()
-    {
-        var connectOptions = await ConnectOptionsAsync().ConfigureAwait(false);
-        if (connectOptions is not null)
-        {
-            Browser = await BrowserType.ConnectAsync(connectOptions.Value.wsEndpoint, connectOptions.Value.options).ConfigureAwait(false);
-            return;
-        }
-        Browser = await CVISBrowserService.GetOrLaunchAsync(BrowserType, await LaunchOptionsAsync().ConfigureAwait(false)).ConfigureAwait(false);
-    }
-
-    [TearDown]
-    public async Task CVISBrowserTearDownAsync()
-    {
-        if (TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Passed)
-        {
-            foreach (var context in _contexts) await context.CloseAsync().ConfigureAwait(false);
-        }
-        _contexts.Clear();
-    }
 
     public async Task<IBrowserContext> NewContext(BrowserNewContextOptions? options = null)
     {
@@ -38,6 +20,38 @@ public abstract class CVISBrowserTest : CVISPlaywrightTest
         return context;
     }
 
-    public virtual Task<BrowserTypeLaunchOptions> LaunchOptionsAsync() => Task.FromResult(CVISPlaywrightSettingsProvider.LaunchOptions);
-    public virtual Task<(string wsEndpoint, BrowserTypeConnectOptions? options)?> ConnectOptionsAsync() => Task.FromResult<(string wsEndpoint, BrowserTypeConnectOptions? options)?>(null);
+    [SetUp]
+    public async Task CVISBrowserSetupAsync()
+    {
+        var launchOptions = await LaunchOptionsAsync().ConfigureAwait(false)
+            ?? CVISPlaywrightSettingsProvider.ToLaunchOptions(Settings);
+
+        var service = await CVISBrowserService.RegisterAsync(
+            BrowserType,
+            await ConnectOptionsAsync().ConfigureAwait(false),
+            launchOptions).ConfigureAwait(false);
+
+        Browser = service.Browser;
+    }
+
+    [TearDown]
+    public async Task CVISBrowserTearDownAsync()
+    {
+        if (TestOk())
+        {
+            foreach (var context in _contexts)
+            {
+                await context.CloseAsync().ConfigureAwait(false);
+            }
+        }
+
+        _contexts.Clear();
+        Browser = null!;
+    }
+
+    public virtual Task<(string Endpoint, BrowserTypeConnectOptions? Options)?> ConnectOptionsAsync() =>
+        Task.FromResult<(string Endpoint, BrowserTypeConnectOptions? Options)?>(null);
+
+    public virtual Task<BrowserTypeLaunchOptions?> LaunchOptionsAsync() =>
+        Task.FromResult<BrowserTypeLaunchOptions?>(null);
 }

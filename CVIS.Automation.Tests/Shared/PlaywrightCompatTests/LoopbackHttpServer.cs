@@ -4,10 +4,6 @@ using System.Text;
 
 namespace CVIS.Automation.Tests.Shared.PlaywrightCompatTests;
 
-/// <summary>
-/// Minimal local HTTP server used by CVIS Playwright compatibility tests.
-/// This avoids depending on external network access.
-/// </summary>
 public sealed class LoopbackHttpServer : IAsyncDisposable
 {
     private readonly TcpListener _listener;

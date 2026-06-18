@@ -3,7 +3,11 @@ using NUnit.Framework;
 
 namespace CVIS.Playwright.NUnitCompat;
 
-public abstract class CVISContextTest : CVISBrowserTest
+/// <summary>
+/// CVIS equivalent of Microsoft.Playwright.NUnit.ContextTest.
+/// Creates one BrowserContext per test.
+/// </summary>
+public class CVISContextTest : CVISBrowserTest
 {
     public IBrowserContext Context { get; private set; } = null!;
 
@@ -13,5 +17,12 @@ public abstract class CVISContextTest : CVISBrowserTest
         Context = await NewContext(ContextOptions()).ConfigureAwait(false);
     }
 
-    public virtual BrowserNewContextOptions ContextOptions() => new() { Locale = "en-US", ColorScheme = ColorScheme.Light };
+    public virtual BrowserNewContextOptions ContextOptions()
+    {
+        return new BrowserNewContextOptions
+        {
+            Locale = "en-US",
+            ColorScheme = ColorScheme.Light
+        };
+    }
 }

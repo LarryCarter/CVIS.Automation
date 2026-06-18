@@ -3,7 +3,11 @@ using NUnit.Framework;
 
 namespace CVIS.Playwright.NUnitCompat;
 
-public abstract class CVISPageTest : CVISContextTest
+/// <summary>
+/// CVIS equivalent of Microsoft.Playwright.NUnit.PageTest.
+/// Creates one Page per test.
+/// </summary>
+public class CVISPageTest : CVISContextTest
 {
     public IPage Page { get; private set; } = null!;
 

@@ -1,48 +1,52 @@
 using CVIS.Playwright.NUnitCompat;
-using Microsoft.Playwright;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace CVIS.Automation.Tests.Shared.PlaywrightCompatTests;
 
 [TestFixture]
-[Category("CVISPlaywrightCompat")]
+[Category("PlaywrightCompatibility")]
 public sealed class CVISPlaywrightSettingsProviderTests
 {
     [Test]
-    public void BrowserName_ShouldDefaultToChromium()
+    public void FromEnvironment_ShouldDefaultToChromiumHeadless()
     {
-        using var scope = new EnvironmentScope("BROWSER", null);
-        using var cvisScope = new EnvironmentScope("CVIS_PLAYWRIGHT_BROWSER", null);
-        Assert.That(CVISPlaywrightSettingsProvider.BrowserName, Is.EqualTo(BrowserType.Chromium));
+        Environment.SetEnvironmentVariable("BROWSER", null);
+        Environment.SetEnvironmentVariable("HEADED", null);
+        Environment.SetEnvironmentVariable("PWDEBUG", null);
+
+        var settings = CVISPlaywrightSettingsProvider.FromEnvironment();
+
+        settings.BrowserName.Should().Be("chromium");
+        settings.Headless.Should().BeTrue();
+        settings.TestIdAttribute.Should().Be("data-testid");
     }
 
     [Test]
-    public void BrowserName_ShouldReadCvisBrowserEnvironmentVariable()
+    public void FromEnvironment_ShouldRespectBrowserAndHeaded()
     {
-        using var scope = new EnvironmentScope("BROWSER", null);
-        using var cvisScope = new EnvironmentScope("CVIS_PLAYWRIGHT_BROWSER", BrowserType.Firefox);
-        Assert.That(CVISPlaywrightSettingsProvider.BrowserName, Is.EqualTo(BrowserType.Firefox));
+        Environment.SetEnvironmentVariable("BROWSER", "firefox");
+        Environment.SetEnvironmentVariable("HEADED", "1");
+
+        var settings = CVISPlaywrightSettingsProvider.FromEnvironment();
+
+        settings.BrowserName.Should().Be("firefox");
+        settings.Headed.Should().BeTrue();
+        settings.Headless.Should().BeFalse();
+
+        Environment.SetEnvironmentVariable("BROWSER", null);
+        Environment.SetEnvironmentVariable("HEADED", null);
     }
 
     [Test]
-    public void BrowserName_ShouldRejectInvalidBrowser()
+    public void FromEnvironment_ShouldRejectInvalidBrowser()
     {
-        using var scope = new EnvironmentScope("BROWSER", "not-a-browser");
-        Assert.Throws<ArgumentException>(() => _ = CVISPlaywrightSettingsProvider.BrowserName);
-    }
+        Environment.SetEnvironmentVariable("BROWSER", "invalid-browser");
 
-    [Test]
-    public void LaunchOptions_ShouldHonorHeadedEnvironmentVariable()
-    {
-        using var scope = new EnvironmentScope("HEADED", "1");
-        Assert.That(CVISPlaywrightSettingsProvider.LaunchOptions.Headless, Is.False);
-    }
+        Action action = () => CVISPlaywrightSettingsProvider.FromEnvironment();
 
-    private sealed class EnvironmentScope : IDisposable
-    {
-        private readonly string _name;
-        private readonly string? _originalValue;
-        public EnvironmentScope(string name, string? value) { _name = name; _originalValue = Environment.GetEnvironmentVariable(name); Environment.SetEnvironmentVariable(name, value); }
-        public void Dispose() => Environment.SetEnvironmentVariable(_name, _originalValue);
+        action.Should().Throw<InvalidOperationException>();
+
+        Environment.SetEnvironmentVariable("BROWSER", null);
     }
 }

@@ -2,56 +2,104 @@ using Microsoft.Playwright;
 
 namespace CVIS.Playwright.NUnitCompat;
 
+public sealed record CVISPlaywrightSettings
+{
+    public string BrowserName { get; init; } = "chromium";
+    public bool Headed { get; init; }
+    public bool Headless { get; init; } = true;
+    public float? ExpectTimeout { get; init; }
+    public float? SlowMo { get; init; }
+    public string TestIdAttribute { get; init; } = "data-testid";
+}
+
 public static class CVISPlaywrightSettingsProvider
 {
-    public static string BrowserName
-    {
-        get
+    private static readonly HashSet<string> ValidBrowsers =
+        new(StringComparer.OrdinalIgnoreCase)
         {
-            var browserFromEnv = Environment.GetEnvironmentVariable("BROWSER")?.ToLowerInvariant();
-            if (!string.IsNullOrWhiteSpace(browserFromEnv) && !browserFromEnv.StartsWith("/vscode/"))
-            {
-                ValidateBrowserName(browserFromEnv, "'BROWSER' environment variable");
-                return browserFromEnv;
-            }
-            var cvisBrowser = Environment.GetEnvironmentVariable("CVIS_PLAYWRIGHT_BROWSER")?.ToLowerInvariant();
-            if (!string.IsNullOrWhiteSpace(cvisBrowser))
-            {
-                ValidateBrowserName(cvisBrowser, "'CVIS_PLAYWRIGHT_BROWSER' environment variable");
-                return cvisBrowser;
-            }
-            return BrowserType.Chromium;
+            "chromium",
+            "firefox",
+            "webkit"
+        };
+
+    public static CVISPlaywrightSettings Current => FromEnvironment();
+
+    public static CVISPlaywrightSettings FromEnvironment()
+    {
+        var browserName = Environment.GetEnvironmentVariable("BROWSER");
+
+        if (string.IsNullOrWhiteSpace(browserName))
+        {
+            browserName = "chromium";
         }
+
+        browserName = browserName.Trim().ToLowerInvariant();
+
+        if (!ValidBrowsers.Contains(browserName))
+        {
+            throw new InvalidOperationException(
+                $"Invalid BROWSER value '{browserName}'. Expected chromium, firefox, or webkit.");
+        }
+
+        var headed = ReadBoolean("HEADED") || ReadBoolean("PWDEBUG");
+        var expectTimeout = ReadNullableFloat("EXPECT_TIMEOUT");
+        var slowMo = ReadNullableFloat("SLOW_MO");
+
+        var testIdAttribute = Environment.GetEnvironmentVariable("TEST_ID_ATTRIBUTE");
+
+        if (string.IsNullOrWhiteSpace(testIdAttribute))
+        {
+            testIdAttribute = "data-testid";
+        }
+
+        return new CVISPlaywrightSettings
+        {
+            BrowserName = browserName,
+            Headed = headed,
+            Headless = !headed,
+            ExpectTimeout = expectTimeout,
+            SlowMo = slowMo,
+            TestIdAttribute = testIdAttribute
+        };
     }
 
-    public static string TestIdAttribute => Environment.GetEnvironmentVariable("CVIS_PLAYWRIGHT_TEST_ID_ATTRIBUTE") ?? "data-testid";
-
-    public static float? ExpectTimeout
+    public static BrowserTypeLaunchOptions ToLaunchOptions(CVISPlaywrightSettings settings)
     {
-        get
+        return new BrowserTypeLaunchOptions
         {
-            var raw = Environment.GetEnvironmentVariable("CVIS_PLAYWRIGHT_EXPECT_TIMEOUT");
-            return float.TryParse(raw, out var timeout) ? timeout : null;
-        }
+            Headless = settings.Headless,
+            SlowMo = settings.SlowMo
+        };
     }
 
-    public static BrowserTypeLaunchOptions LaunchOptions
+    private static bool ReadBoolean(string name)
     {
-        get
+        var value = Environment.GetEnvironmentVariable(name);
+
+        if (string.IsNullOrWhiteSpace(value))
         {
-            var options = new BrowserTypeLaunchOptions();
-            if (Environment.GetEnvironmentVariable("HEADED") == "1") options.Headless = false;
-            var cvisHeadless = Environment.GetEnvironmentVariable("CVIS_PLAYWRIGHT_HEADLESS");
-            if (bool.TryParse(cvisHeadless, out var headless)) options.Headless = headless;
-            var channel = Environment.GetEnvironmentVariable("CVIS_PLAYWRIGHT_CHANNEL");
-            if (!string.IsNullOrWhiteSpace(channel)) options.Channel = channel;
-            return options;
+            return false;
         }
+
+        return value.Equals("1", StringComparison.OrdinalIgnoreCase)
+            || value.Equals("true", StringComparison.OrdinalIgnoreCase)
+            || value.Equals("yes", StringComparison.OrdinalIgnoreCase);
     }
 
-    public static void ValidateBrowserName(string browserName, string source)
+    private static float? ReadNullableFloat(string name)
     {
-        if (browserName is BrowserType.Chromium or BrowserType.Firefox or BrowserType.Webkit) return;
-        throw new ArgumentException($"Invalid browser name from {source}. Supported browsers: '{BrowserType.Chromium}', '{BrowserType.Firefox}', and '{BrowserType.Webkit}'. Actual browser: '{browserName}'.");
+        var value = Environment.GetEnvironmentVariable(name);
+
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return null;
+        }
+
+        if (float.TryParse(value, out var parsed))
+        {
+            return parsed;
+        }
+
+        return null;
     }
 }
