@@ -1,76 +1,87 @@
-# CVIS Playwright NUnitCompat Test Project
+# CVIS Organize Shared CPN Projects
 
-This is a Contollo RDEL plugin-compatible update package.
+This is a Contollo RDEL plugin-compatible package.
 
-## Purpose
+## Goal
 
-This creates a separate NUnit test project for the CVIS replacement of `Microsoft.Playwright.NUnit`.
+Separate responsibilities cleanly:
 
-## New project
+```text
+CVIS.Playwright.NUnitCompat
+CVIS.Playwright.NUnitCompat.Tests
+CVIS.Playwright.Automation.Shared
+CVIS.Automation.Tests
+```
+
+## Moves to CVIS.Playwright.Automation.Shared
+
+From:
+
+```text
+CVIS.Automation.Tests\Shared
+```
+
+To:
+
+```text
+CVIS.Playwright.Automation.Shared
+```
+
+Folders moved:
+
+```text
+Console
+Database
+Helpers
+Reporting
+```
+
+Namespaces change from:
+
+```csharp
+CVIS.Automation.Tests.Shared.*
+```
+
+to:
+
+```csharp
+CVIS.Playwright.Automation.Shared.*
+```
+
+## Removed from CVIS.Automation.Tests
+
+```text
+Shared\PlaywrightCompatTests
+```
+
+Those tests belong in:
 
 ```text
 CVIS.Playwright.NUnitCompat.Tests
 ```
 
-## Why separate project
+## Stays in CVIS.Automation.Tests for now
 
-The compatibility layer should be tested like its own library. These tests should not live inside:
+If present:
 
 ```text
-CVIS.Automation.Tests
+Shared\Api
+Shared\Playwright
 ```
 
-because that project is for functional automation such as PolicyDrift.
+Those are transitional until PolicyDrift is migrated to CPN.
 
-## What this package does
-
-- Creates `CVIS.Playwright.NUnitCompat.Tests`
-- References `CVIS.Playwright.NUnitCompat`
-- Adds NUnit-based unit/compatibility tests
-- Removes previously embedded compatibility tests under:
-  `CVIS.Automation.Tests\Shared\PlaywrightCompatTests`
-- Adds the new test project to the solution when a `.sln` file exists
-
-## Test coverage added
-
-- Settings provider:
-  - default browser
-  - supported browsers
-  - invalid browser rejection
-  - `HEADED`
-  - `PWDEBUG`
-  - `EXPECT_TIMEOUT`
-  - `SLOW_MO`
-  - `TEST_ID_ATTRIBUTE`
-- Base class hierarchy:
-  - `CVISPlaywrightTest`
-  - `CVISBrowserTest`
-  - `CVISContextTest`
-  - `CVISPageTest`
-  - `CVISApiTest`
-- Runtime setup:
-  - Playwright runtime initializes
-  - browser name resolves
-  - browser type resolves
-- API request support:
-  - default `ApiContext`
-  - `NewApiRequestContextAsync`
-  - `NewApiContextAsync`
-- Browser/context contract:
-  - context defaults
-  - browser launch/connect extension points
-
-## Commands run by plugin
+## Commands
 
 ```powershell
-python .\add_cvis_playwright_nunitcompat_test_project.py
+python .\organize_shared_cpn_projects.py
+dotnet restore .\CVIS.Playwright.Automation.Shared\CVIS.Playwright.Automation.Shared.csproj
+dotnet build .\CVIS.Playwright.Automation.Shared\CVIS.Playwright.Automation.Shared.csproj
 dotnet restore .\CVIS.Playwright.NUnitCompat\CVIS.Playwright.NUnitCompat.csproj
 dotnet build .\CVIS.Playwright.NUnitCompat\CVIS.Playwright.NUnitCompat.csproj
 dotnet restore .\CVIS.Playwright.NUnitCompat.Tests\CVIS.Playwright.NUnitCompat.Tests.csproj
 dotnet build .\CVIS.Playwright.NUnitCompat.Tests\CVIS.Playwright.NUnitCompat.Tests.csproj
 dotnet test .\CVIS.Playwright.NUnitCompat.Tests\CVIS.Playwright.NUnitCompat.Tests.csproj --filter TestCategory=PlaywrightCompatUnit
+dotnet restore .\CVIS.Automation.Tests\CVIS.Automation.Tests.csproj
+dotnet build .\CVIS.Automation.Tests\CVIS.Automation.Tests.csproj
 ```
-
-## Important
-
-This package does not replace PolicyDrift tests and does not remove `Microsoft.Playwright.NUnit` from `CVIS.Automation.Tests`.

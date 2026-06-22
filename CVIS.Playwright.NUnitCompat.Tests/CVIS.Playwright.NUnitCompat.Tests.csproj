@@ -1,5 +1,5 @@
+<?xml version='1.0' encoding='utf-8'?>
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -7,7 +7,6 @@
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="8.10.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
@@ -16,9 +15,10 @@
     <PackageReference Include="NUnit.Analyzers" Version="3.6.1" />
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\CVIS.Playwright.NUnitCompat\CVIS.Playwright.NUnitCompat.csproj" />
   </ItemGroup>
-
+  <ItemGroup>
+    <ProjectReference Include="..\CVIS.Playwright.Automation.Shared\CVIS.Playwright.Automation.Shared.csproj" />
+  </ItemGroup>
 </Project>

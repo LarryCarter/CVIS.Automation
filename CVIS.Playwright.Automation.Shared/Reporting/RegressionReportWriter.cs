@@ -1,7 +1,7 @@
 using System.Text;
 using System.Text.Json;
 
-namespace CVIS.Automation.Tests.Shared.Reporting;
+namespace CVIS.Playwright.Automation.Shared.Reporting;
 
 public static class RegressionReportWriter
 {

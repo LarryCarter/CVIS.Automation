@@ -1,4 +1,4 @@
-﻿using CVIS.Automation.Tests.Shared.Helpers;
+﻿using CVIS.Playwright.Automation.Shared.Helpers;
 using NUnit.Framework;
 
 namespace CVIS.Automation.Tests.Projects.Unity.Workflows;

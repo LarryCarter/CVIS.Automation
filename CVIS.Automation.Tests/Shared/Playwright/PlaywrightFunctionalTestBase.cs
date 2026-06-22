@@ -1,8 +1,8 @@
-using CVIS.Automation.Tests.Shared.Reporting;
+using CVIS.Playwright.Automation.Shared.Reporting;
 using Microsoft.Playwright;
 using NUnit.Framework;
 
-namespace CVIS.Automation.Tests.Shared.Playwright;
+namespace CVIS.Playwright.Automation.Shared.Playwright;
 
 public abstract class PlaywrightFunctionalTestBase
 {

@@ -1,4 +1,4 @@
-namespace CVIS.Automation.Tests.Shared.Reporting;
+namespace CVIS.Playwright.Automation.Shared.Reporting;
 
 public sealed class RegressionReportEntry
 {

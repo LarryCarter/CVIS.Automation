@@ -32,4 +32,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CVIS.Playwright.NUnitCompat\CVIS.Playwright.NUnitCompat.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CVIS.Playwright.Automation.Shared\CVIS.Playwright.Automation.Shared.csproj" />
+  </ItemGroup>
 </Project>

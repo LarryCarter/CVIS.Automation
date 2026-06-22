@@ -1,6 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 
-namespace CVIS.Automation.Tests.Shared.Database;
+namespace CVIS.Playwright.Automation.Shared.Database;
 
 public static class DbAssert
 {

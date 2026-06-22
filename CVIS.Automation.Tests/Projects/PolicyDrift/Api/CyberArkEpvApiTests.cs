@@ -1,4 +1,4 @@
-﻿using CVIS.Automation.Tests.Shared.Api;
+﻿using CVIS.Playwright.Automation.Shared.Api;
 using FluentAssertions;
 using NUnit.Framework;
 

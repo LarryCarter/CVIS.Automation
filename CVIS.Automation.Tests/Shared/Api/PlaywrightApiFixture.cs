@@ -1,7 +1,7 @@
-﻿using CVIS.Automation.Tests.Shared.Helpers;
+﻿using CVIS.Playwright.Automation.Shared.Helpers;
 using Microsoft.Playwright;
 
-namespace CVIS.Automation.Tests.Shared.Api;
+namespace CVIS.Playwright.Automation.Shared.Api;
 
 public abstract class PlaywrightApiFixture
 {

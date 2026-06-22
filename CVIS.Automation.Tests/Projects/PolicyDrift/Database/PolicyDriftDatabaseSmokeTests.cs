@@ -1,5 +1,5 @@
-﻿using CVIS.Automation.Tests.Shared.Database;
-using CVIS.Automation.Tests.Shared.Helpers;
+﻿using CVIS.Playwright.Automation.Shared.Database;
+using CVIS.Playwright.Automation.Shared.Helpers;
 using FluentAssertions;
 using Microsoft.Data.SqlClient;
 using NUnit.Framework;

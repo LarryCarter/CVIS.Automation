@@ -2,8 +2,8 @@ using CVIS.Automation.Tests.Projects.PolicyDrift.Assertions;
 using CVIS.Automation.Tests.Projects.PolicyDrift.Matrix;
 using CVIS.Automation.Tests.Projects.PolicyDrift.Models;
 using NUnit.Framework;
-using CVIS.Automation.Tests.Shared.Playwright;
-using CVIS.Automation.Tests.Shared.Reporting;
+using CVIS.Playwright.Automation.Shared.Playwright;
+using CVIS.Playwright.Automation.Shared.Reporting;
 
 namespace CVIS.Automation.Tests.Projects.PolicyDrift.Workflows;
 

@@ -1,4 +1,4 @@
-﻿namespace CVIS.Automation.Tests.Shared.Console;
+﻿namespace CVIS.Playwright.Automation.Shared.Console;
 
 public sealed class ConsoleRunResult
 {

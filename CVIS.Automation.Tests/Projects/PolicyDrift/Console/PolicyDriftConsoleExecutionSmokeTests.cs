@@ -1,5 +1,5 @@
-﻿using CVIS.Automation.Tests.Shared.Console;
-using CVIS.Automation.Tests.Shared.Helpers;
+﻿using CVIS.Playwright.Automation.Shared.Console;
+using CVIS.Playwright.Automation.Shared.Helpers;
 using FluentAssertions;
 using NUnit.Framework;
 

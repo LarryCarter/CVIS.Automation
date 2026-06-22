@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace CVIS.Automation.Tests.Shared.Helpers;
+namespace CVIS.Playwright.Automation.Shared.Helpers;
 
 public static class TestDataLoader
 {
