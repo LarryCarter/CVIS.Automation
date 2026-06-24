@@ -1,5 +1,6 @@
 using Microsoft.Playwright;
 using NUnit.Framework;
+using CVIS.Playwright.NUnitCompat;
 
 namespace CVIS.Playwright.NUnitCompat;
 

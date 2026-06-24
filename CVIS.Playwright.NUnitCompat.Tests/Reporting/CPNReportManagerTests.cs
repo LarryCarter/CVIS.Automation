@@ -1,5 +1,6 @@
 using System.Text.Json;
 using CVIS.Playwright.NUnitCompat.Reporting;
+using CVIS.Playwright.NUnitCompat;
 
 namespace CVIS.Playwright.NUnitCompat.Tests.Reporting;
 

@@ -1,4 +1,5 @@
 using CVIS.Playwright.NUnitCompat.Tests.Utilities;
+using CVIS.Playwright.NUnitCompat;
 
 namespace CVIS.Playwright.NUnitCompat.Tests.Runtime;
 

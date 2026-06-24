@@ -1,4 +1,5 @@
 using Microsoft.Playwright;
+using CVIS.Playwright.NUnitCompat;
 
 namespace CVIS.Playwright.NUnitCompat.Tests.Browser;
 

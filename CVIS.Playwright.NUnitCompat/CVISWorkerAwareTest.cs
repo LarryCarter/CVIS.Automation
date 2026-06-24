@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
+using CVIS.Playwright.NUnitCompat;
 
 namespace CVIS.Playwright.NUnitCompat;
 
