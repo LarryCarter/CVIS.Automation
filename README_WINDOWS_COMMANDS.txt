@@ -1,76 +1,47 @@
-# Switch To CPN Remove Bad NuGets
+# Fix PolicyDrift DB Config
 
-This is a Contollo RDEL plugin-compatible package.
+This is a focused Contollo RDEL plugin-compatible package.
 
-## Removes
+## Fix
 
-```text
-Microsoft.Playwright.NUnit
-System.Text.Json explicit PackageReference
-xUnit packages
-```
-
-## Keeps / uses
+The failing database tests read:
 
 ```text
-Microsoft.Playwright
-NUnit
-NUnit3TestAdapter
-NUnit.Analyzers
-Microsoft.NET.Test.Sdk
-FluentAssertions
-coverlet.collector
-Microsoft.Data.SqlClient
+Projects:PolicyDrift:Database:ConnectionString
 ```
 
-## Project updates
-
-- Ensures `CVIS.Playwright.NUnitCompat` references `Microsoft.Playwright` and `NUnit`
-- Ensures test projects reference CPN
-- Ensures automation tests reference `CVIS.Playwright.Automation.Shared`
-- Removes forbidden `PackageVersion` entries from `Directory.Packages.props`
-
-## Code updates
-
-Basic replacements:
+So this package writes the DB connection string there and also writes:
 
 ```text
-using Microsoft.Playwright.NUnit; -> using CVIS.Playwright.NUnitCompat;
-PageTest       -> CVISPageTest
-ContextTest    -> CVISContextTest
-BrowserTest    -> CVISBrowserTest
-PlaywrightTest -> CVISPlaywrightTest
+ConnectionStrings:DefaultConnection
 ```
 
-## DB config update
-
-Updates:
+## Connection string
 
 ```text
-CVIS.Automation.Tests\appsettings.test.json
+Server=THOUSANDSUNNY;Database=EPV_REPORTING;Trusted_Connection=True;TrustServerCertificate=True;
 ```
 
-to include:
+## Database tests default
+
+This package sets:
 
 ```json
 {
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=THOUSANDSUNNY;Database=EPV_REPORTING;Trusted_Connection=True;TrustServerCertificate=True;"
+  "TestSettings": {
+    "RunDatabaseTests": false
   }
 }
 ```
 
-## Commands
+That makes DB smoke tests skip unless you intentionally enable them on a machine that can reach SQL Server.
 
-```powershell
-python .\switch_to_cpn_remove_bad_nugets.py
-dotnet restore .\CVIS.Playwright.Automation.Shared\CVIS.Playwright.Automation.Shared.csproj
-dotnet build .\CVIS.Playwright.Automation.Shared\CVIS.Playwright.Automation.Shared.csproj
-dotnet restore .\CVIS.Playwright.NUnitCompat\CVIS.Playwright.NUnitCompat.csproj
-dotnet build .\CVIS.Playwright.NUnitCompat\CVIS.Playwright.NUnitCompat.csproj
-dotnet restore .\CVIS.Playwright.NUnitCompat.Tests\CVIS.Playwright.NUnitCompat.Tests.csproj
-dotnet build .\CVIS.Playwright.NUnitCompat.Tests\CVIS.Playwright.NUnitCompat.Tests.csproj
-dotnet test .\CVIS.Playwright.NUnitCompat.Tests\CVIS.Playwright.NUnitCompat.Tests.csproj --filter TestCategory=CPNReporting
-dotnet restore .\CVIS.Automation.Tests\CVIS.Automation.Tests.csproj
-dotnet build .\CVIS.Automation.Tests\CVIS.Automation.Tests.csproj
+## Why
+
+Your failure is:
+
+```text
+Named Pipes Provider, error: 40 - Could not open a connection to SQL Server
 ```
+
+That means the SQL Server is not reachable from the test runner. This is not a CPN failure.
