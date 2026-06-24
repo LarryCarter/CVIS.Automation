@@ -25,10 +25,16 @@ dotnet test "$Root\CVIS.Automation.Tests\CVIS.Automation.Tests.csproj" `
     --results-directory "$NUnitResults" `
     -- NUnit.TestOutputXml="$NUnitXmlResults"
 
+powershell -ExecutionPolicy Bypass -File "$Root\scripts\merge-nunitxml-into-cpn-report.ps1" `
+    -NUnitXmlRoot "$NUnitXmlResults" `
+    -CpnRoot "$CpnResults" `
+    -FrameworkName "CVIS.Automation.Tests"
+
 Write-Host ""
 Write-Host "Expected output:"
 Write-Host "  $NUnitXmlResults"
 Write-Host "  $NUnitResults"
 Write-Host "  $CpnResults"
 Write-Host ""
-Write-Host "Note: CPN report files only include tests that inherit from CPN base classes."
+Write-Host "Open full CVIS HTML report:"
+Write-Host "  $CpnResults\cpn-report.html"
