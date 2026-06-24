@@ -1,9 +1,9 @@
-# Separate CPN Lifecycle And Full Reports
+# Authoritative HyperExecute NUnit Reporting
 
 After applying, run:
 
 ```powershell
-.\scripts\run-cvis-automation-reporting-local.ps1
+.\scripts\run-all-nunit-reporting-local.ps1
 ```
 
 Open:
@@ -12,10 +12,18 @@ Open:
 TestResults\CPN\cpn-report.html
 ```
 
-That is the full all-tests report.
-
-The lifecycle-only report is now:
+HyperExecute should parse:
 
 ```text
-TestResults\CPN\cpn-lifecycle-report.html
+TestResults\NUnitXml
+```
+
+using:
+
+```yaml
+report: true
+partialReports:
+  type: nunit
+  location: .\TestResults\NUnitXml
+  frameworkName: nunit
 ```

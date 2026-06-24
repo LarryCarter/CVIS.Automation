@@ -1,0 +1,39 @@
+version: "0.1"
+runson: win
+
+autosplit: false
+concurrency: 1
+testRunnerExecutor: cmd
+workingDirectory: .
+
+env:
+  CPN_REPORT_ENABLED: "true"
+  CPN_REPORT_ROOT: ".\TestResults\CPN"
+
+pre:
+  - if exist .\TestResults rmdir /s /q .\TestResults
+  - dotnet restore .\CVIS.Automation.Tests\CVIS.Automation.Tests.csproj
+  - dotnet restore .\CVIS.Playwright.NUnitCompat.Tests\CVIS.Playwright.NUnitCompat.Tests.csproj
+  - dotnet build .\CVIS.Automation.Tests\CVIS.Automation.Tests.csproj --no-restore
+  - dotnet build .\CVIS.Playwright.NUnitCompat.Tests\CVIS.Playwright.NUnitCompat.Tests.csproj --no-restore
+
+testSuites:
+  - dotnet test .\CVIS.Automation.Tests\CVIS.Automation.Tests.csproj --no-build --logger "trx;LogFileName=CVIS.Automation.Tests.trx" --results-directory ".\TestResults\NUnit\CVIS.Automation.Tests" -- NUnit.TestOutputXml=.\TestResults\NUnitXml\CVIS.Automation.Tests
+  - dotnet test .\CVIS.Playwright.NUnitCompat.Tests\CVIS.Playwright.NUnitCompat.Tests.csproj --no-build --logger "trx;LogFileName=CVIS.Playwright.NUnitCompat.Tests.trx" --results-directory ".\TestResults\NUnit\CVIS.Playwright.NUnitCompat.Tests" -- NUnit.TestOutputXml=.\TestResults\NUnitXml\CVIS.Playwright.NUnitCompat.Tests
+
+post:
+  - python .\scripts\build-cpn-report-from-nunitxml.py --nunit-xml-root .\TestResults\NUnitXml --output-root .\TestResults\CPN --framework-name "CVIS HyperExecute NUnit Run" --minimum-total 250
+
+report: true
+partialReports:
+  type: nunit
+  location: .\TestResults\NUnitXml
+  frameworkName: nunit
+
+mergeArtifacts: true
+uploadArtefacts:
+  - name: cvis-authoritative-test-output
+    path:
+      - .\TestResults\NUnitXml
+      - .\TestResults\NUnit
+      - .\TestResults\CPN
