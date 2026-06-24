@@ -1,25 +1,42 @@
-# CPN Fix ResultAdapter Output
+# Add HyperExecute CPN Reporting
 
-This is a focused Contollo RDEL plugin-compatible fix.
+This is a Contollo RDEL plugin-compatible package.
 
-## Error fixed
-
-```text
-CS1061: TestContext.ResultAdapter does not contain a definition for Output
-```
-
-## Fix
-
-Updates:
+## Adds
 
 ```text
-CVIS.Playwright.NUnitCompat\Reporting\CPNReportManager.cs
+hyperexecute-cpn-reporting.yaml
+hyperexecute-cvis-automation-reporting.yaml
+README_HYPEREXECUTE_CPN_REPORTING.md
 ```
 
-Changes invalid result output access to:
+## Report output format
 
-```csharp
-OutputLines = Array.Empty<string>()
+```text
+TestResults\NUnitXml\*.xml
+TestResults\NUnit\*.trx
+TestResults\CPN\cpn-report.html
+TestResults\CPN\cpn-report.json
+TestResults\CPN\Tests\*.json
 ```
 
-Later, we can add a dedicated CPN output collector if we want captured output in the report.
+## HyperExecute parsing
+
+```yaml
+report: true
+partialReports:
+  type: nunit
+  location: .\TestResults\NUnitXml
+  frameworkName: nunit
+```
+
+## CPN artifacts
+
+```yaml
+uploadArtefacts:
+  - name: cpn-test-output
+    path:
+      - .\TestResults\NUnitXml
+      - .\TestResults\NUnit
+      - .\TestResults\CPN
+```

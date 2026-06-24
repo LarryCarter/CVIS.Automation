@@ -1,0 +1,37 @@
+version: "0.1"
+runson: win
+
+autosplit: false
+concurrency: 1
+testRunnerExecutor: cmd
+workingDirectory: .
+
+env:
+  CPN_REPORT_ENABLED: "true"
+  CPN_REPORT_ROOT: ".\\TestResults\\CPN"
+
+pre:
+  - if exist .\\TestResults rmdir /s /q .\\TestResults
+  - dotnet restore .\\CVIS.Playwright.Automation.Shared\\CVIS.Playwright.Automation.Shared.csproj
+  - dotnet restore .\\CVIS.Playwright.NUnitCompat\\CVIS.Playwright.NUnitCompat.csproj
+  - dotnet restore .\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj
+  - dotnet build .\\CVIS.Playwright.Automation.Shared\\CVIS.Playwright.Automation.Shared.csproj --no-restore
+  - dotnet build .\\CVIS.Playwright.NUnitCompat\\CVIS.Playwright.NUnitCompat.csproj --no-restore
+  - dotnet build .\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj --no-restore
+
+testSuites:
+  - dotnet test .\\CVIS.Automation.Tests\\CVIS.Automation.Tests.csproj --no-build --logger "trx;LogFileName=cvis-automation-tests.trx" --results-directory ".\\TestResults\\NUnit" -- NUnit.TestOutputXml=.\\TestResults\\NUnitXml
+
+report: true
+partialReports:
+  type: nunit
+  location: .\\TestResults\\NUnitXml
+  frameworkName: nunit
+
+mergeArtifacts: true
+uploadArtefacts:
+  - name: cvis-automation-test-output
+    path:
+      - .\\TestResults\\NUnitXml
+      - .\\TestResults\\NUnit
+      - .\\TestResults\\CPN
