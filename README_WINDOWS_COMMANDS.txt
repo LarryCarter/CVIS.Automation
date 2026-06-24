@@ -1,87 +1,25 @@
-# CVIS Organize Shared CPN Projects
+# CPN Fix ResultAdapter Output
 
-This is a Contollo RDEL plugin-compatible package.
+This is a focused Contollo RDEL plugin-compatible fix.
 
-## Goal
-
-Separate responsibilities cleanly:
+## Error fixed
 
 ```text
-CVIS.Playwright.NUnitCompat
-CVIS.Playwright.NUnitCompat.Tests
-CVIS.Playwright.Automation.Shared
-CVIS.Automation.Tests
+CS1061: TestContext.ResultAdapter does not contain a definition for Output
 ```
 
-## Moves to CVIS.Playwright.Automation.Shared
+## Fix
 
-From:
+Updates:
 
 ```text
-CVIS.Automation.Tests\Shared
+CVIS.Playwright.NUnitCompat\Reporting\CPNReportManager.cs
 ```
 
-To:
-
-```text
-CVIS.Playwright.Automation.Shared
-```
-
-Folders moved:
-
-```text
-Console
-Database
-Helpers
-Reporting
-```
-
-Namespaces change from:
+Changes invalid result output access to:
 
 ```csharp
-CVIS.Automation.Tests.Shared.*
+OutputLines = Array.Empty<string>()
 ```
 
-to:
-
-```csharp
-CVIS.Playwright.Automation.Shared.*
-```
-
-## Removed from CVIS.Automation.Tests
-
-```text
-Shared\PlaywrightCompatTests
-```
-
-Those tests belong in:
-
-```text
-CVIS.Playwright.NUnitCompat.Tests
-```
-
-## Stays in CVIS.Automation.Tests for now
-
-If present:
-
-```text
-Shared\Api
-Shared\Playwright
-```
-
-Those are transitional until PolicyDrift is migrated to CPN.
-
-## Commands
-
-```powershell
-python .\organize_shared_cpn_projects.py
-dotnet restore .\CVIS.Playwright.Automation.Shared\CVIS.Playwright.Automation.Shared.csproj
-dotnet build .\CVIS.Playwright.Automation.Shared\CVIS.Playwright.Automation.Shared.csproj
-dotnet restore .\CVIS.Playwright.NUnitCompat\CVIS.Playwright.NUnitCompat.csproj
-dotnet build .\CVIS.Playwright.NUnitCompat\CVIS.Playwright.NUnitCompat.csproj
-dotnet restore .\CVIS.Playwright.NUnitCompat.Tests\CVIS.Playwright.NUnitCompat.Tests.csproj
-dotnet build .\CVIS.Playwright.NUnitCompat.Tests\CVIS.Playwright.NUnitCompat.Tests.csproj
-dotnet test .\CVIS.Playwright.NUnitCompat.Tests\CVIS.Playwright.NUnitCompat.Tests.csproj --filter TestCategory=PlaywrightCompatUnit
-dotnet restore .\CVIS.Automation.Tests\CVIS.Automation.Tests.csproj
-dotnet build .\CVIS.Automation.Tests\CVIS.Automation.Tests.csproj
-```
+Later, we can add a dedicated CPN output collector if we want captured output in the report.

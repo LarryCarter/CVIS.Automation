@@ -60,7 +60,7 @@ public static class CPNReportManager
                 ?? "0",
             BrowserName = Environment.GetEnvironmentVariable("BROWSER") ?? "chromium",
             Categories = Array.Empty<string>(),
-            OutputLines = SplitLines(result.Output),
+            OutputLines = Array.Empty<string>(),
             Attachments = Array.Empty<string>()
         });
     }
@@ -206,19 +206,7 @@ public static class CPNReportManager
 
     private static string? NullIfEmpty(string? value) => string.IsNullOrWhiteSpace(value) ? null : value;
 
-    private static IReadOnlyList<string> SplitLines(string? output)
-    {
-        if (string.IsNullOrWhiteSpace(output))
-        {
-            return Array.Empty<string>();
-        }
-
-        return output.Replace("\r\n", "\n", StringComparison.Ordinal)
-            .Split('\n', StringSplitOptions.RemoveEmptyEntries)
-            .ToList();
-    }
-
-    private static string CreateStableId(string value)
+private static string CreateStableId(string value)
     {
         var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(value));
         return Convert.ToHexString(bytes)[..16].ToLowerInvariant();
