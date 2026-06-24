@@ -1,49 +1,27 @@
 # HyperExecute CPN Reporting
 
-## Purpose
-
-This repo produces two kinds of output for HyperExecute:
-
-1. **Framework report output** for HyperExecute to parse.
-2. **CPN report artifacts** for humans and downstream tooling.
-
-HyperExecute report generation is enabled with:
-
-```yaml
-report: true
-partialReports:
-```
-
 ## Output folders
 
 ```text
-TestResults\\
-  NUnitXml\\
-    *.xml
-  NUnit\\
-    *.trx
-  CPN\\
-    cpn-report.html
-    cpn-report.json
-    Tests\\
-      *.json
+TestResults
+├── NUnitXml
+│   └── *.xml
+├── NUnit
+│   └── *.trx
+└── CPN
+    ├── cpn-report.html
+    ├── cpn-report.json
+    └── Tests
+        └── *.json
 ```
 
 ## HyperExecute parsed report
 
-HyperExecute should parse the NUnit XML folder:
+HyperExecute should parse:
 
 ```text
-TestResults\\NUnitXml
+TestResults\NUnitXml
 ```
-
-It is produced by the NUnit3 test adapter using:
-
-```powershell
--- NUnit.TestOutputXml=.\TestResults\NUnitXml
-```
-
-YAML:
 
 ```yaml
 report: true
@@ -55,16 +33,6 @@ partialReports:
 
 ## CPN artifact report
 
-CPN writes:
-
-```text
-TestResults\CPN\cpn-report.html
-TestResults\CPN\cpn-report.json
-TestResults\CPN\Tests\*.json
-```
-
-HyperExecute uploads it using:
-
 ```yaml
 uploadArtefacts:
   - name: cpn-test-output
@@ -74,13 +42,26 @@ uploadArtefacts:
       - .\TestResults\CPN
 ```
 
-## Local validation command
+## Required environment variables
 
-Run this from the solution root:
+```yaml
+env:
+  CPN_REPORT_ENABLED: "true"
+  CPN_REPORT_ROOT: ".\TestResults\CPN"
+```
+
+Local cmd:
 
 ```powershell
 set CPN_REPORT_ENABLED=true
-set CPN_REPORT_ROOT=.\TestResults\CPN
+set CPN_REPORT_ROOT=%CD%\TestResults\CPN
+```
+
+## Local command
+
+```powershell
+set CPN_REPORT_ENABLED=true
+set CPN_REPORT_ROOT=%CD%\TestResults\CPN
 
 dotnet test .\CVIS.Playwright.NUnitCompat.Tests\CVIS.Playwright.NUnitCompat.Tests.csproj ^
   --logger "trx;LogFileName=cpn-tests.trx" ^
@@ -88,33 +69,17 @@ dotnet test .\CVIS.Playwright.NUnitCompat.Tests\CVIS.Playwright.NUnitCompat.Test
   -- NUnit.TestOutputXml=.\TestResults\NUnitXml
 ```
 
-Verify:
+## Local scripts
 
 ```powershell
-dir .\TestResults\NUnitXml
-dir .\TestResults\NUnit
-dir .\TestResults\CPN
-```
-
-## HyperExecute YAML files
-
-```text
-hyperexecute-cpn-reporting.yaml
-hyperexecute-cvis-automation-reporting.yaml
-```
-
-## HyperExecute run command
-
-```powershell
-hyperexecute.exe --user %LT_USERNAME% --key %LT_ACCESS_KEY% --config .\hyperexecute-cpn-reporting.yaml --download-report --download-artifacts
-```
-
-```powershell
-hyperexecute.exe --user %LT_USERNAME% --key %LT_ACCESS_KEY% --config .\hyperexecute-cvis-automation-reporting.yaml --download-report --download-artifacts
+.\scripts\run-cpn-reporting-local.ps1
+.\scripts\run-cvis-automation-reporting-local.ps1
 ```
 
 ## Important
 
-HyperExecute gets its parsed report from NUnit XML.
+NUnit XML contains all NUnit tests.
 
-The CPN HTML/JSON report is uploaded as an artifact.
+CPN HTML/JSON contains only tests that use CPN base classes.
+
+That is intentional. HyperExecute gets the full framework test count from NUnit XML, while the CPN report gives detailed CPN-owned reporting for tests running through the CPN layer.

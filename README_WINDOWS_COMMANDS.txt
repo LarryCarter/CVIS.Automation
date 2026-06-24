@@ -1,47 +1,26 @@
-# Fix PolicyDrift DB Config
+# CPN Report README And Local Scripts
 
-This is a focused Contollo RDEL plugin-compatible package.
-
-## Fix
-
-The failing database tests read:
+Adds:
 
 ```text
-Projects:PolicyDrift:Database:ConnectionString
+README_CPN_REPORT_OUTPUT.md
+README_HYPEREXECUTE_CPN_REPORTING.md
+scripts\run-cpn-reporting-local.ps1
+scripts\run-cvis-automation-reporting-local.ps1
 ```
 
-So this package writes the DB connection string there and also writes:
+After applying, run:
+
+```powershell
+.\scripts\run-cpn-reporting-local.ps1
+```
+
+Expected output:
 
 ```text
-ConnectionStrings:DefaultConnection
+TestResults\NUnitXml\*.xml
+TestResults\NUnit\*.trx
+TestResults\CPN\cpn-report.html
+TestResults\CPN\cpn-report.json
+TestResults\CPN\Tests\*.json
 ```
-
-## Connection string
-
-```text
-Server=THOUSANDSUNNY;Database=EPV_REPORTING;Trusted_Connection=True;TrustServerCertificate=True;
-```
-
-## Database tests default
-
-This package sets:
-
-```json
-{
-  "TestSettings": {
-    "RunDatabaseTests": false
-  }
-}
-```
-
-That makes DB smoke tests skip unless you intentionally enable them on a machine that can reach SQL Server.
-
-## Why
-
-Your failure is:
-
-```text
-Named Pipes Provider, error: 40 - Could not open a connection to SQL Server
-```
-
-That means the SQL Server is not reachable from the test runner. This is not a CPN failure.
