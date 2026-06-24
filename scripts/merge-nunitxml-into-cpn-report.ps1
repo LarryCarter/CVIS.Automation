@@ -1,7 +1,7 @@
 param(
     [string]$NUnitXmlRoot = ".\TestResults\NUnitXml",
     [string]$CpnRoot = ".\TestResults\CPN",
-    [string]$FrameworkName = "CVIS.Playwright.NUnitCompat"
+    [string]$FrameworkName = "CVIS.Automation.Tests"
 )
 
 $ErrorActionPreference = "Stop"
@@ -26,9 +26,8 @@ function Get-AttributeValue($Node, [string]$Name) {
     return $Node.Attributes[$Name].Value
 }
 
-$NUnitXmlPath = Resolve-Path -Path $NUnitXmlRoot -ErrorAction SilentlyContinue
-
-if ($null -eq $NUnitXmlPath) {
+$resolvedNUnitXml = Resolve-Path -Path $NUnitXmlRoot -ErrorAction SilentlyContinue
+if ($null -eq $resolvedNUnitXml) {
     throw "NUnit XML folder not found: $NUnitXmlRoot"
 }
 
@@ -37,9 +36,8 @@ New-Item -ItemType Directory -Force -Path (Join-Path $CpnRoot "Tests") | Out-Nul
 
 $tests = New-Object System.Collections.Generic.List[object]
 
-Get-ChildItem -Path $NUnitXmlPath -Filter "*.xml" -Recurse | ForEach-Object {
+Get-ChildItem -Path $resolvedNUnitXml -Filter "*.xml" -Recurse | ForEach-Object {
     [xml]$xml = Get-Content -Path $_.FullName -Raw
-
     $nodes = $xml.SelectNodes("//test-case")
 
     foreach ($node in $nodes) {
@@ -65,26 +63,18 @@ Get-ChildItem -Path $NUnitXmlPath -Filter "*.xml" -Recurse | ForEach-Object {
 
         $message = ""
         $messageNode = $node.SelectSingleNode("failure/message")
-        if ($null -eq $messageNode) {
-            $messageNode = $node.SelectSingleNode("reason/message")
-        }
-        if ($null -ne $messageNode) {
-            $message = $messageNode.InnerText
-        }
+        if ($null -eq $messageNode) { $messageNode = $node.SelectSingleNode("reason/message") }
+        if ($null -ne $messageNode) { $message = $messageNode.InnerText }
 
         $stackTrace = ""
         $stackNode = $node.SelectSingleNode("failure/stack-trace")
-        if ($null -ne $stackNode) {
-            $stackTrace = $stackNode.InnerText
-        }
+        if ($null -ne $stackNode) { $stackTrace = $stackNode.InnerText }
 
         $categories = @()
         $categoryNodes = $node.SelectNodes("properties/property[@name='Category']")
         foreach ($category in $categoryNodes) {
             $value = Get-AttributeValue $category "value"
-            if (-not [string]::IsNullOrWhiteSpace($value)) {
-                $categories += $value
-            }
+            if (-not [string]::IsNullOrWhiteSpace($value)) { $categories += $value }
         }
 
         $tests.Add([ordered]@{
@@ -121,8 +111,8 @@ $summary = [ordered]@{
 }
 
 $jsonPath = Join-Path $CpnRoot "cpn-report.json"
-$allJsonPath = Join-Path $CpnRoot "cpn-report-all-tests.json"
 $htmlPath = Join-Path $CpnRoot "cpn-report.html"
+$allJsonPath = Join-Path $CpnRoot "cpn-report-all-tests.json"
 $allHtmlPath = Join-Path $CpnRoot "cpn-report-all-tests.html"
 
 $summary | ConvertTo-Json -Depth 20 | Set-Content -Path $jsonPath -Encoding UTF8
@@ -144,10 +134,7 @@ foreach ($test in ($tests | Sort-Object Status, FullName)) {
     [void]$testRows.AppendLine("</tr>")
 
     $safeName = ($test.FullName -replace '[\\/:*?"<>|]', '_')
-    if ($safeName.Length -gt 150) {
-        $safeName = $safeName.Substring(0, 150)
-    }
-
+    if ($safeName.Length -gt 150) { $safeName = $safeName.Substring(0, 150) }
     $test | ConvertTo-Json -Depth 20 | Set-Content -Path (Join-Path $CpnRoot "Tests\$safeName.json") -Encoding UTF8
 }
 
@@ -157,7 +144,7 @@ $html = @"
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>CPN Test Report</title>
+<title>CPN Full Test Report</title>
 <style>
 body{font-family:Segoe UI,Arial,sans-serif;margin:24px;background:#f7f7f8;color:#1f2328;}
 h1{margin-bottom:4px;}
@@ -176,7 +163,7 @@ pre{white-space:pre-wrap;}
 </style>
 </head>
 <body>
-<h1>CPN Test Report</h1>
+<h1>CPN Full Test Report</h1>
 <div class="meta">Framework: $(HtmlEncode $FrameworkName) | Source: NUnit XML | Generated UTC: $(HtmlEncode $summary.GeneratedUtc)</div>
 <div class="cards">
   <div class="card"><div class="number">$total</div><div>Total</div></div>
@@ -198,7 +185,7 @@ $($testRows.ToString())
 $html | Set-Content -Path $htmlPath -Encoding UTF8
 $html | Set-Content -Path $allHtmlPath -Encoding UTF8
 
-Write-Host "Created full CPN report from NUnit XML:"
+Write-Host "Created FULL CPN report from NUnit XML:"
 Write-Host "  $htmlPath"
 Write-Host "  $jsonPath"
 Write-Host "Total: $total Passed: $passed Failed: $failed Skipped: $skipped Other: $other"

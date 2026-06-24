@@ -5,8 +5,8 @@ public sealed record CPNReportOptions
 {
     public bool Enabled { get; init; } = true;
     public string ReportRoot { get; init; } = string.Empty;
-    public string JsonFileName { get; init; } = "cpn-report.json";
-    public string HtmlFileName { get; init; } = "cpn-report.html";
+    public string JsonFileName { get; init; } = "cpn-lifecycle-report.json";
+    public string HtmlFileName { get; init; } = "cpn-lifecycle-report.html";
 
     public static CPNReportOptions FromEnvironment()
     {

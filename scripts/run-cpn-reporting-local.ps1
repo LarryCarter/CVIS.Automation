@@ -28,13 +28,11 @@ dotnet test "$Root\CVIS.Playwright.NUnitCompat.Tests\CVIS.Playwright.NUnitCompat
 powershell -ExecutionPolicy Bypass -File "$Root\scripts\merge-nunitxml-into-cpn-report.ps1" `
     -NUnitXmlRoot "$NUnitXmlResults" `
     -CpnRoot "$CpnResults" `
-    -FrameworkName "CVIS.Playwright.NUnitCompat"
+    -FrameworkName "CVIS.Playwright.NUnitCompat.Tests"
 
 Write-Host ""
-Write-Host "Expected output:"
-Write-Host "  $NUnitXmlResults"
-Write-Host "  $NUnitResults"
-Write-Host "  $CpnResults"
-Write-Host ""
-Write-Host "Open full CPN HTML report:"
+Write-Host "FULL REPORT:"
 Write-Host "  $CpnResults\cpn-report.html"
+Write-Host ""
+Write-Host "LIFECYCLE REPORT, CPN-base tests only:"
+Write-Host "  $CpnResults\cpn-lifecycle-report.html"
