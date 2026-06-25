@@ -1,33 +1,78 @@
-# Hard Fix: Authoritative All Tests Report
+# Authoritative Test Reporting
 
-The old HTML was a CPN lifecycle report. It measured teardown on tests that directly inherited from CPN base classes, so it could show 2 tests while Visual Studio showed hundreds or thousands.
+## Problem
 
-The new authoritative report is built from the actual test runner outputs:
+The old CPN HTML report was generated from CPN teardown.
+
+That means it only saw tests inheriting from:
+
+```csharp
+CVISPlaywrightTest
+CVISBrowserTest
+CVISContextTest
+CVISPageTest
+CVISApiTest
+```
+
+That is why it could show only 2 tests while Visual Studio showed hundreds or thousands.
+
+## Correct source of truth
+
+The correct source of truth is the actual test runner output:
 
 ```text
 TestResults\TRX
 TestResults\NUnitXml
 ```
 
-Run:
+The authoritative CPN HTML is generated after `dotnet test` from those result files.
+
+## Projects added
+
+```text
+CVIS.Playwright.Reporting
+CVIS.Playwright.Reporting.Tool
+```
+
+## Local run
 
 ```powershell
 .\scripts\run-authoritative-test-report-local.ps1
 ```
 
-Open:
+Then open:
 
 ```text
 TestResults\CPN\cpn-report.html
 ```
 
-HyperExecute should parse:
+That report should match the actual NUnit/TRX output.
+
+## Lifecycle report
+
+The lifecycle report is now intentionally separate:
+
+```text
+TestResults\CPN\cpn-lifecycle-report.html
+```
+
+It is not the report to submit to HyperExecute.
+
+## HyperExecute
+
+Use:
+
+```text
+hyperexecute-authoritative-nunit-reporting.yaml
+```
+
+HyperExecute parses:
 
 ```text
 TestResults\NUnitXml
 ```
 
-using:
+with:
 
 ```yaml
 report: true
@@ -37,4 +82,18 @@ partialReports:
   frameworkName: nunit
 ```
 
-The script fails if fewer than 250 tests are found, so it will not silently submit a 2-test report.
+The CPN HTML is uploaded as an artifact:
+
+```text
+TestResults\CPN\cpn-report.html
+```
+
+## Guardrail
+
+The report tool uses:
+
+```text
+--minimum-total 250
+```
+
+If the result files only contain 2 or 11 tests, the tool fails the run.

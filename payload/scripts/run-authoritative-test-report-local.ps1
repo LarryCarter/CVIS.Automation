@@ -1,13 +1,19 @@
-param([string]$Configuration = "Debug", [int]$MinimumTotal = 250)
+param(
+    [string]$Configuration = "Debug",
+    [int]$MinimumTotal = 250
+)
 
 $ErrorActionPreference = "Stop"
+
 $Root = Split-Path -Parent $PSScriptRoot
 $TestResults = Join-Path $Root "TestResults"
 $CpnResults = Join-Path $TestResults "CPN"
 $TrxResults = Join-Path $TestResults "TRX"
 $NUnitXmlResults = Join-Path $TestResults "NUnitXml"
 
-if (Test-Path $TestResults) { Remove-Item $TestResults -Recurse -Force }
+if (Test-Path $TestResults) {
+    Remove-Item $TestResults -Recurse -Force
+}
 
 New-Item -ItemType Directory -Force -Path $CpnResults | Out-Null
 New-Item -ItemType Directory -Force -Path $TrxResults | Out-Null
@@ -44,12 +50,12 @@ foreach ($Project in $Projects) {
         -- NUnit.TestOutputXml="$ProjectNUnitXml"
 }
 
-python "$Root\scripts\build-authoritative-cpn-report.py" `
+dotnet run --project "$Root\CVIS.Playwright.Reporting.Tool\CVIS.Playwright.Reporting.Tool.csproj" -- `
     --trx-root "$TrxResults" `
     --nunit-xml-root "$NUnitXmlResults" `
     --output-root "$CpnResults" `
     --framework-name "CVIS Authoritative Test Run" `
-    --minimum-total $MinimumTotal
+    --minimum-total "$MinimumTotal"
 
 Write-Host ""
 Write-Host "AUTHORITATIVE REPORT:"
@@ -58,7 +64,7 @@ Write-Host ""
 Write-Host "HYPEREXECUTE PARSES:"
 Write-Host "  $NUnitXmlResults"
 Write-Host ""
-Write-Host "TRX / Visual Studio OUTPUT:"
+Write-Host "TRX / VISUAL STUDIO OUTPUT:"
 Write-Host "  $TrxResults"
 Write-Host ""
 Get-Content (Join-Path $CpnResults "cpn-report-summary.txt")
