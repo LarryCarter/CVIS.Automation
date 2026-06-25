@@ -2,8 +2,8 @@
 
 This RDEL package applies the architecture:
 
-1. Plain NUnit functional lane
-2. Optional Playwright browser lane
+1. Plain NUnit functional lane (BaseFunctionalTest)
+2. Optional Playwright browser lane (CVISPlaywrightTest / CVISPageTest)
 3. Authoritative reporting from TRX/NUnit XML
 
 ## After applying
@@ -34,4 +34,6 @@ HyperExecute parses:
 TestResults\NUnitXml
 ```
 
-The CPN HTML report is generated from the same source plus TRX.
+The CPN HTML report is generated from the same TRX + NUnit XML source.
+The cpn-lifecycle-report.* files come from CPN base class teardown hooks
+and are for debugging only — do NOT use them for test totals.

@@ -6,16 +6,13 @@ using CVIS.FunctionalTesting.Config;
 namespace CVIS.FunctionalTesting.Helpers;
 
 /// <summary>
-/// Lightweight HTTP helper for API functional tests. No Playwright dependency.
+/// HTTP helper for API functional tests. No Playwright dependency.
+/// Use in tests that inherit BaseFunctionalTest.
 /// </summary>
 public sealed class ApiClient : IDisposable
 {
     private readonly HttpClient _client;
-    private readonly JsonSerializerOptions _jsonOptions = new()
-    {
-        PropertyNameCaseInsensitive = true
-    };
-
+    private readonly JsonSerializerOptions _jsonOptions;
     private bool _disposed;
 
     public ApiClient(FunctionalTestConfig config, string? baseUrl = null)
@@ -23,7 +20,12 @@ public sealed class ApiClient : IDisposable
         _client = new HttpClient
         {
             BaseAddress = new Uri(baseUrl ?? config.ApiBaseUrl),
-            Timeout = TimeSpan.FromMilliseconds(config.DefaultTimeoutMilliseconds)
+            Timeout = TimeSpan.FromMilliseconds(config.DefaultTimeoutMs)
+        };
+
+        _jsonOptions = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
         };
 
         if (!string.IsNullOrWhiteSpace(config.Api.AuthToken))
@@ -33,34 +35,35 @@ public sealed class ApiClient : IDisposable
         }
     }
 
-    public async Task<T?> GetJsonAsync<T>(string path, CancellationToken cancellationToken = default)
+    public Task<HttpResponseMessage> GetAsync(string path) =>
+        _client.GetAsync(path);
+
+    public async Task<T?> GetJsonAsync<T>(string path)
     {
-        using var response = await _client.GetAsync(path, cancellationToken).ConfigureAwait(false);
+        var response = await _client.GetAsync(path);
         response.EnsureSuccessStatusCode();
-
-        await using var stream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
-        return await JsonSerializer.DeserializeAsync<T>(stream, _jsonOptions, cancellationToken).ConfigureAwait(false);
+        var json = await response.Content.ReadAsStringAsync();
+        return JsonSerializer.Deserialize<T>(json, _jsonOptions);
     }
 
-    public async Task<HttpResponseMessage> PostJsonAsync<T>(
-        string path,
-        T body,
-        CancellationToken cancellationToken = default)
-    {
-        var json = JsonSerializer.Serialize(body, _jsonOptions);
-        using var content = new StringContent(json, Encoding.UTF8, "application/json");
+    public Task<HttpResponseMessage> PostJsonAsync<T>(string path, T payload) =>
+        _client.PostAsync(path, Serialize(payload));
 
-        return await _client.PostAsync(path, content, cancellationToken).ConfigureAwait(false);
-    }
+    public Task<HttpResponseMessage> PutJsonAsync<T>(string path, T payload) =>
+        _client.PutAsync(path, Serialize(payload));
+
+    public Task<HttpResponseMessage> DeleteAsync(string path) =>
+        _client.DeleteAsync(path);
 
     public void Dispose()
     {
-        if (_disposed)
+        if (!_disposed)
         {
-            return;
+            _client.Dispose();
+            _disposed = true;
         }
-
-        _client.Dispose();
-        _disposed = true;
     }
+
+    private StringContent Serialize<T>(T payload) =>
+        new(JsonSerializer.Serialize(payload, _jsonOptions), Encoding.UTF8, "application/json");
 }

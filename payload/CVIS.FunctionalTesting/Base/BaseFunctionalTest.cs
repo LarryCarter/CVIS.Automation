@@ -1,62 +1,67 @@
 using CVIS.FunctionalTesting.Config;
 using CVIS.FunctionalTesting.Reporting;
 using NUnit.Framework;
+using NUnit.Framework.Interfaces;
 
 namespace CVIS.FunctionalTesting.Base;
 
 /// <summary>
-/// Base class for non-browser functional NUnit tests.
-/// Use this for PolicyDrift, API, config, file, database, and service tests.
-/// This class has no Playwright dependency.
+/// Base class for ALL non-Playwright functional tests.
+/// Inherit from this for: API tests, PolicyDrift tests, DB tests, config/logic tests.
+/// No Playwright dependency.
 /// </summary>
 [TestFixture]
 public abstract class BaseFunctionalTest
 {
-    private DateTimeOffset _testStartedUtc;
-
     protected FunctionalTestConfig Config { get; private set; } = null!;
     protected TestLogger Logger { get; private set; } = null!;
 
+    private DateTime _testStartTime;
+
     [OneTimeSetUp]
-    public virtual void FunctionalFixtureSetUp()
+    public virtual void FixtureSetUp()
     {
         Config = FunctionalTestConfig.Load();
-        Logger = new TestLogger(TestContext.CurrentContext.Test.ClassName ?? GetType().FullName ?? GetType().Name);
-        Logger.Info($"[Fixture] Starting {TestContext.CurrentContext.Test.ClassName}");
+        Logger = new TestLogger(TestContext.CurrentContext.Test.ClassName);
+        Logger.Info($"[Fixture] Starting: {TestContext.CurrentContext.Test.ClassName}");
     }
 
     [SetUp]
-    public virtual void FunctionalTestSetUp()
+    public virtual void TestSetUp()
     {
-        _testStartedUtc = DateTimeOffset.UtcNow;
-        Logger.Info($"[Test] Starting {TestContext.CurrentContext.Test.FullName}");
+        _testStartTime = DateTime.UtcNow;
+        Logger?.Info($"[Test] Starting: {TestContext.CurrentContext.Test.Name}");
     }
 
     [TearDown]
-    public virtual void FunctionalTestTearDown()
+    public virtual void TestTearDown()
     {
         var result = TestContext.CurrentContext.Result;
-        var duration = DateTimeOffset.UtcNow - _testStartedUtc;
+        var duration = DateTime.UtcNow - _testStartTime;
 
-        Logger.Info(
-            $"[Test] Finished {TestContext.CurrentContext.Test.FullName}; " +
-            $"Outcome={result.Outcome.Status}; Duration={duration.TotalMilliseconds:N0}ms");
+        Logger?.Info(
+            $"[Test] Finished: {TestContext.CurrentContext.Test.Name} " +
+            $"| Outcome: {result.Outcome.Status} " +
+            $"| Duration: {duration.TotalSeconds:F2}s");
 
+        // Records to cpn-lifecycle-report only.
+        // The authoritative cpn-report.html is generated after dotnet test
+        // by CVIS.Playwright.Reporting.Tool reading TRX and NUnit XML files.
         TestLifecycleLog.Record(new TestLifecycleEntry
         {
             TestName = TestContext.CurrentContext.Test.FullName,
-            FixtureClass = GetType().FullName ?? GetType().Name,
             Outcome = result.Outcome.Status.ToString(),
+            DurationMs = (long)duration.TotalMilliseconds,
             Message = result.Message,
             StackTrace = result.StackTrace,
-            DurationMilliseconds = duration.TotalMilliseconds,
-            StartedUtc = _testStartedUtc
+            FixtureClass = GetType().FullName ?? string.Empty,
+            StartedAt = _testStartTime
         });
     }
 
     [OneTimeTearDown]
-    public virtual void FunctionalFixtureTearDown()
+    public virtual void FixtureTearDown()
     {
-        Logger.Info($"[Fixture] Completed {TestContext.CurrentContext.Test.ClassName}");
+        Logger?.Info($"[Fixture] Completed: {TestContext.CurrentContext.Test.ClassName}");
     }
 }

@@ -7,6 +7,7 @@ ROOT = Path.cwd()
 PACKAGE_ROOT = Path(__file__).resolve().parent
 PAYLOAD = PACKAGE_ROOT / "payload"
 
+
 def copy_payload():
     for source in PAYLOAD.rglob("*"):
         if source.is_file():
@@ -15,6 +16,7 @@ def copy_payload():
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(source, target)
             print(f"Copied {relative}")
+
 
 def ensure_project_reference(project_path: Path, include: str):
     if not project_path.exists():
@@ -42,6 +44,7 @@ def ensure_project_reference(project_path: Path, include: str):
     tree.write(project_path, encoding="utf-8", xml_declaration=False)
     print(f"Added ProjectReference to {project_path.name}: {include}")
 
+
 def indent(element, level=0):
     space = "\n" + level * "  "
     if len(element):
@@ -53,6 +56,7 @@ def indent(element, level=0):
             element[-1].tail = space
     if level and (not element.tail or not element.tail.strip()):
         element.tail = space
+
 
 def patch_lifecycle_report_names():
     options = ROOT / "CVIS.Playwright.NUnitCompat" / "Reporting" / "CPNReportOptions.cs"
@@ -71,6 +75,7 @@ def patch_lifecycle_report_names():
     options.write_text(text, encoding="utf-8")
     print("Renamed lifecycle report output to cpn-lifecycle-report.*")
 
+
 def add_projects_to_solution():
     solutions = list(ROOT.glob("*.sln"))
     if not solutions:
@@ -86,7 +91,11 @@ def add_projects_to_solution():
 
     for project in projects:
         if project.exists():
-            subprocess.run(["dotnet", "sln", str(solution), "add", str(project)], cwd=ROOT, check=False)
+            subprocess.run(
+                ["dotnet", "sln", str(solution), "add", str(project)],
+                cwd=ROOT,
+                check=False)
+
 
 def main():
     patch_lifecycle_report_names()
@@ -104,8 +113,9 @@ def main():
 
     print("")
     print("Three-lane NUnit/HyperExecute architecture applied.")
-    print("Run: .\\scripts\\run-cvis-authoritative-report-local.ps1")
-    print("Open: TestResults\\CPN\\cpn-report.html")
+    print(r"Run: .\scripts\run-cvis-authoritative-report-local.ps1")
+    print(r"Open: TestResults\CPN\cpn-report.html")
+
 
 if __name__ == "__main__":
     main()
