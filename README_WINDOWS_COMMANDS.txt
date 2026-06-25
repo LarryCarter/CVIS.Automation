@@ -1,34 +1,17 @@
-# Hard Restructure CPN Reporting
+# Three Lane NUnit HyperExecute Architecture
 
-This package separates the reports correctly.
+This RDEL package applies the architecture:
 
-## Lifecycle report
-
-```text
-TestResults\CPN\cpn-lifecycle-report.html
-```
-
-Only CPN base-class teardown tests.
-
-## Authoritative all-tests report
-
-```text
-TestResults\CPN\cpn-report.html
-```
-
-Generated from:
-
-```text
-TestResults\TRX
-TestResults\NUnitXml
-```
+1. Plain NUnit functional lane
+2. Optional Playwright browser lane
+3. Authoritative reporting from TRX/NUnit XML
 
 ## After applying
 
 Run:
 
 ```powershell
-.\scripts\run-authoritative-test-report-local.ps1
+.\scripts\run-cvis-authoritative-report-local.ps1
 ```
 
 Open:
@@ -42,5 +25,13 @@ TestResults\CPN\cpn-report.html
 Use:
 
 ```text
-hyperexecute-authoritative-nunit-reporting.yaml
+hyperexecute-cvis-authoritative-nunit.yaml
 ```
+
+HyperExecute parses:
+
+```text
+TestResults\NUnitXml
+```
+
+The CPN HTML report is generated from the same source plus TRX.

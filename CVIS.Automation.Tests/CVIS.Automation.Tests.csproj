@@ -1,4 +1,3 @@
-<?xml version='1.0' encoding='utf-8'?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -16,6 +15,7 @@
     <PackageReference Include="NUnit.Analyzers" />
     <PackageReference Include="coverlet.collector" />
     <PackageReference Include="Microsoft.Playwright" />
+    <ProjectReference Include="..\CVIS.FunctionalTesting\CVIS.FunctionalTesting.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.test.json">

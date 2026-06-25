@@ -15,26 +15,25 @@ public sealed class NUnitResultReportBuilder
         var entries = new List<CvisTestReportEntry>();
 
         var trxRoot = new DirectoryInfo(options.TrxRoot);
-        var nunitXmlRoot = new DirectoryInfo(options.NUnitXmlRoot);
-
         if (trxRoot.Exists)
         {
             entries.AddRange(ReadTrxFiles(trxRoot));
         }
 
+        var nunitXmlRoot = new DirectoryInfo(options.NUnitXmlRoot);
         if (nunitXmlRoot.Exists)
         {
             entries.AddRange(ReadNUnitXmlFiles(nunitXmlRoot));
         }
 
-        var deduped = Deduplicate(entries)
+        var tests = Deduplicate(entries)
             .OrderBy(item => item.FullName, StringComparer.OrdinalIgnoreCase)
             .ToList();
 
-        if (deduped.Count < options.MinimumTotal)
+        if (tests.Count < options.MinimumTotal)
         {
             throw new InvalidOperationException(
-                $"Authoritative report found only {deduped.Count} tests. Expected at least {options.MinimumTotal}. " +
+                $"Authoritative report found only {tests.Count} tests. Expected at least {options.MinimumTotal}. " +
                 $"TRX root: {options.TrxRoot}; NUnit XML root: {options.NUnitXmlRoot}");
         }
 
@@ -43,19 +42,18 @@ public sealed class NUnitResultReportBuilder
             Framework = options.FrameworkName,
             Source = "TRX+NUnitXml",
             GeneratedUtc = DateTimeOffset.UtcNow,
-            Total = deduped.Count,
-            Passed = deduped.Count(item => item.Status == CvisTestReportStatus.Passed),
-            Failed = deduped.Count(item => item.Status == CvisTestReportStatus.Failed),
-            Skipped = deduped.Count(item => item.Status == CvisTestReportStatus.Skipped),
-            Other = deduped.Count(item =>
+            Total = tests.Count,
+            Passed = tests.Count(item => item.Status == CvisTestReportStatus.Passed),
+            Failed = tests.Count(item => item.Status == CvisTestReportStatus.Failed),
+            Skipped = tests.Count(item => item.Status == CvisTestReportStatus.Skipped),
+            Other = tests.Count(item =>
                 item.Status != CvisTestReportStatus.Passed &&
                 item.Status != CvisTestReportStatus.Failed &&
                 item.Status != CvisTestReportStatus.Skipped),
-            Tests = deduped
+            Tests = tests
         };
 
         WriteReport(summary, new DirectoryInfo(options.OutputRoot));
-
         return summary;
     }
 
@@ -126,9 +124,6 @@ public sealed class NUnitResultReportBuilder
                     ?? (string?)result.Attribute("testName")
                     ?? fullName;
 
-                var message = result.Descendants(ns + "Message").FirstOrDefault()?.Value;
-                var stackTrace = result.Descendants(ns + "StackTrace").FirstOrDefault()?.Value;
-
                 yield return new CvisTestReportEntry
                 {
                     Id = StableId($"trx:{file.FullName}:{fullName}"),
@@ -137,8 +132,8 @@ public sealed class NUnitResultReportBuilder
                     FixtureName = FixtureName(fullName),
                     Status = MapTrxOutcome((string?)result.Attribute("outcome")),
                     DurationMilliseconds = ParseTrxDuration((string?)result.Attribute("duration")),
-                    Message = NullIfWhiteSpace(message),
-                    StackTrace = NullIfWhiteSpace(stackTrace),
+                    Message = NullIfWhiteSpace(result.Descendants(ns + "Message").FirstOrDefault()?.Value),
+                    StackTrace = NullIfWhiteSpace(result.Descendants(ns + "StackTrace").FirstOrDefault()?.Value),
                     Categories = Array.Empty<string>(),
                     Source = "TRX",
                     SourceFile = file.FullName
@@ -172,11 +167,6 @@ public sealed class NUnitResultReportBuilder
                 var failure = testCase.Element("failure");
                 var reason = testCase.Element("reason");
 
-                var message = failure?.Element("message")?.Value
-                    ?? reason?.Element("message")?.Value;
-
-                var stackTrace = failure?.Element("stack-trace")?.Value;
-
                 var categories = testCase
                     .Element("properties")
                     ?.Elements("property")
@@ -195,12 +185,10 @@ public sealed class NUnitResultReportBuilder
                     TestName = testName,
                     FullName = fullName,
                     FixtureName = FixtureName(fullName),
-                    Status = MapNUnitOutcome(
-                        (string?)testCase.Attribute("result"),
-                        (string?)testCase.Attribute("label")),
+                    Status = MapNUnitOutcome((string?)testCase.Attribute("result"), (string?)testCase.Attribute("label")),
                     DurationMilliseconds = ParseSecondsToMilliseconds((string?)testCase.Attribute("duration")),
-                    Message = NullIfWhiteSpace(message),
-                    StackTrace = NullIfWhiteSpace(stackTrace),
+                    Message = NullIfWhiteSpace(failure?.Element("message")?.Value ?? reason?.Element("message")?.Value),
+                    StackTrace = NullIfWhiteSpace(failure?.Element("stack-trace")?.Value),
                     Categories = categories,
                     Source = "NUnitXml",
                     SourceFile = file.FullName
@@ -233,23 +221,16 @@ public sealed class NUnitResultReportBuilder
 
         foreach (var test in summary.Tests)
         {
-            var safeName = SanitizeFileName(test.FullName);
-
             File.WriteAllText(
-                Path.Combine(testsRoot.FullName, $"{safeName}.json"),
+                Path.Combine(testsRoot.FullName, $"{SanitizeFileName(test.FullName)}.json"),
                 JsonSerializer.Serialize(test, jsonOptions),
                 Encoding.UTF8);
         }
 
-        File.WriteAllText(
-            Path.Combine(outputRoot.FullName, "cpn-report.html"),
-            BuildHtml(summary),
-            Encoding.UTF8);
+        var html = BuildHtml(summary);
 
-        File.WriteAllText(
-            Path.Combine(outputRoot.FullName, "cpn-report-all-tests.html"),
-            BuildHtml(summary),
-            Encoding.UTF8);
+        File.WriteAllText(Path.Combine(outputRoot.FullName, "cpn-report.html"), html, Encoding.UTF8);
+        File.WriteAllText(Path.Combine(outputRoot.FullName, "cpn-report-all-tests.html"), html, Encoding.UTF8);
 
         File.WriteAllText(
             Path.Combine(outputRoot.FullName, "cpn-report-summary.txt"),
@@ -282,18 +263,10 @@ public sealed class NUnitResultReportBuilder
             rows.Append("<td class=\"").Append(test.Status).Append("\">")
                 .Append(WebUtility.HtmlEncode(test.Status.ToString()))
                 .AppendLine("</td>");
-            rows.Append("<td><code>")
-                .Append(WebUtility.HtmlEncode(test.FullName))
-                .AppendLine("</code></td>");
-            rows.Append("<td>")
-                .Append(WebUtility.HtmlEncode($"{test.DurationMilliseconds:N2} ms"))
-                .AppendLine("</td>");
-            rows.Append("<td>")
-                .Append(WebUtility.HtmlEncode(test.Source))
-                .AppendLine("</td>");
-            rows.Append("<td>")
-                .Append(message)
-                .AppendLine("</td>");
+            rows.Append("<td><code>").Append(WebUtility.HtmlEncode(test.FullName)).AppendLine("</code></td>");
+            rows.Append("<td>").Append(WebUtility.HtmlEncode($"{test.DurationMilliseconds:N2} ms")).AppendLine("</td>");
+            rows.Append("<td>").Append(WebUtility.HtmlEncode(test.Source)).AppendLine("</td>");
+            rows.Append("<td>").Append(message).AppendLine("</td>");
             rows.AppendLine("</tr>");
         }
 
@@ -303,7 +276,7 @@ public sealed class NUnitResultReportBuilder
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>CPN Full Test Report</title>
+<title>CVIS Authoritative Test Report</title>
 <style>
 body{font-family:Segoe UI,Arial,sans-serif;margin:24px;background:#f7f7f8;color:#1f2328;}
 h1{margin-bottom:4px;}
@@ -322,7 +295,7 @@ pre{white-space:pre-wrap;}
 </style>
 </head>
 <body>
-<h1>CPN Full Test Report</h1>
+<h1>CVIS Authoritative Test Report</h1>
 <div class="meta">Framework: {{WebUtility.HtmlEncode(summary.Framework)}} | Source: {{WebUtility.HtmlEncode(summary.Source)}} | Generated UTC: {{WebUtility.HtmlEncode(summary.GeneratedUtc.ToString("O"))}}</div>
 <div class="cards">
   <div class="card"><div class="number">{{summary.Total}}</div><div>Total</div></div>
@@ -367,47 +340,35 @@ pre{white-space:pre-wrap;}
             "Inconclusive" => CvisTestReportStatus.Inconclusive,
             "Warning" => CvisTestReportStatus.Warning,
             _ when !string.IsNullOrWhiteSpace(label) &&
-                   label.Contains("Skipped", StringComparison.OrdinalIgnoreCase) => CvisTestReportStatus.Skipped,
-            _ when !string.IsNullOrWhiteSpace(label) &&
-                   label.Contains("Ignored", StringComparison.OrdinalIgnoreCase) => CvisTestReportStatus.Skipped,
+                   (label.Contains("Skipped", StringComparison.OrdinalIgnoreCase) ||
+                    label.Contains("Ignored", StringComparison.OrdinalIgnoreCase)) => CvisTestReportStatus.Skipped,
             _ => CvisTestReportStatus.Unknown
         };
     }
 
     private static double ParseTrxDuration(string? value)
     {
-        if (TimeSpan.TryParse(value, CultureInfo.InvariantCulture, out var parsed))
-        {
-            return Math.Round(parsed.TotalMilliseconds, 2);
-        }
-
-        return 0;
+        return TimeSpan.TryParse(value, CultureInfo.InvariantCulture, out var parsed)
+            ? Math.Round(parsed.TotalMilliseconds, 2)
+            : 0;
     }
 
     private static double ParseSecondsToMilliseconds(string? value)
     {
-        if (double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out var seconds))
-        {
-            return Math.Round(seconds * 1000, 2);
-        }
-
-        return 0;
+        return double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out var seconds)
+            ? Math.Round(seconds * 1000, 2)
+            : 0;
     }
 
     private static string FixtureName(string fullName)
     {
         var index = fullName.LastIndexOf('.');
-
-        return index <= 0
-            ? fullName
-            : fullName[..index];
+        return index <= 0 ? fullName : fullName[..index];
     }
 
     private static string? NullIfWhiteSpace(string? value)
     {
-        return string.IsNullOrWhiteSpace(value)
-            ? null
-            : value;
+        return string.IsNullOrWhiteSpace(value) ? null : value;
     }
 
     private static string StableId(string value)
@@ -427,9 +388,6 @@ pre{white-space:pre-wrap;}
         }
 
         var sanitized = builder.ToString();
-
-        return sanitized.Length <= 150
-            ? sanitized
-            : sanitized[..150];
+        return sanitized.Length <= 150 ? sanitized : sanitized[..150];
     }
 }
