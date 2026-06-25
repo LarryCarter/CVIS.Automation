@@ -22,7 +22,7 @@ public abstract class BaseFunctionalTest
     public virtual void FixtureSetUp()
     {
         Config = FunctionalTestConfig.Load();
-        Logger = new TestLogger(TestContext.CurrentContext.Test.ClassName);
+        Logger = new TestLogger(TestContext.CurrentContext.Test.ClassName ?? nameof(BaseFunctionalTest));
         Logger.Info($"[Fixture] Starting: {TestContext.CurrentContext.Test.ClassName}");
     }
 
