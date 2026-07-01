@@ -3,31 +3,34 @@ using System.Text.Json;
 namespace CVIS.FunctionalTesting.Config;
 
 /// <summary>
-/// Loads test configuration from appsettings.test.json.
-/// Config controls test BEHAVIOUR only — never test EXECUTION.
-/// Use [Ignore] or NUnit categories to skip tests, not config flags.
+/// Shared configuration for CVIS automation tests.
+/// This configuration is intentionally not domain-specific.
+/// Domains such as PolicyDrift, Unity, and LegacySustainment should consume capabilities
+/// through API, database, browser, or normal automation base classes.
 /// </summary>
 public sealed class FunctionalTestConfig
 {
+    private static readonly object Gate = new();
+    private static FunctionalTestConfig? _instance;
+
     public string BaseUrl { get; set; } = "http://localhost";
     public string ApiBaseUrl { get; set; } = "http://localhost/api";
     public string DatabaseConnection { get; set; } = string.Empty;
     public string Environment { get; set; } = "Test";
-    public int DefaultTimeoutMs { get; set; } = 30_000;
+    public int DefaultTimeoutMilliseconds { get; set; } = 30_000;
     public bool VerboseLogging { get; set; }
 
     public PolicyDriftConfig PolicyDrift { get; set; } = new();
     public ApiTestConfig Api { get; set; } = new();
 
-    private static FunctionalTestConfig? _instance;
-    private static readonly object _lock = new();
-
     public static FunctionalTestConfig Load(string? configPath = null)
     {
-        lock (_lock)
+        lock (Gate)
         {
             if (_instance is not null)
+            {
                 return _instance;
+            }
 
             configPath ??= FindConfigFile();
 
@@ -40,13 +43,17 @@ public sealed class FunctionalTestConfig
             try
             {
                 var json = File.ReadAllText(configPath);
-                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+
                 _instance = JsonSerializer.Deserialize<FunctionalTestConfig>(json, options)
-                    ?? new FunctionalTestConfig();
+                            ?? new FunctionalTestConfig();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"[CVIS Config] Failed to load config from {configPath}: {ex.Message}");
+                Console.WriteLine($"[CVIS Config] Failed to load {configPath}: {ex.Message}");
                 _instance = new FunctionalTestConfig();
             }
 
@@ -54,29 +61,38 @@ public sealed class FunctionalTestConfig
         }
     }
 
-    private static string? FindConfigFile()
+    internal static void ResetForTests()
     {
-        var dir = AppContext.BaseDirectory;
-
-        for (var i = 0; i < 6; i++)
-        {
-            var candidate = Path.Combine(dir, "appsettings.test.json");
-
-            if (File.Exists(candidate))
-                return candidate;
-
-            dir = Path.GetDirectoryName(dir) ?? dir;
-        }
-
-        return null;
-    }
-
-    internal static void Reset()
-    {
-        lock (_lock)
+        lock (Gate)
         {
             _instance = null;
         }
+    }
+
+    private static string? FindConfigFile()
+    {
+        var directory = AppContext.BaseDirectory;
+
+        for (var index = 0; index < 8; index++)
+        {
+            var candidate = Path.Combine(directory, "appsettings.test.json");
+
+            if (File.Exists(candidate))
+            {
+                return candidate;
+            }
+
+            var parent = Directory.GetParent(directory);
+
+            if (parent is null)
+            {
+                return null;
+            }
+
+            directory = parent.FullName;
+        }
+
+        return null;
     }
 }
 

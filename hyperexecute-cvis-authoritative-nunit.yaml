@@ -8,19 +8,11 @@ workingDirectory: .
 
 pre:
   - if exist .\TestResults rmdir /s /q .\TestResults
-  - dotnet restore .\CVIS.Automation.Tests\CVIS.Automation.Tests.csproj
-  - dotnet restore .\CVIS.Playwright.NUnitCompat.Tests\CVIS.Playwright.NUnitCompat.Tests.csproj
-  - dotnet restore .\CVIS.Playwright.Reporting.Tool\CVIS.Playwright.Reporting.Tool.csproj
-  - dotnet build .\CVIS.Automation.Tests\CVIS.Automation.Tests.csproj --no-restore
-  - dotnet build .\CVIS.Playwright.NUnitCompat.Tests\CVIS.Playwright.NUnitCompat.Tests.csproj --no-restore
-  - dotnet build .\CVIS.Playwright.Reporting.Tool\CVIS.Playwright.Reporting.Tool.csproj --no-restore
+  - dotnet restore .\CVIS.Automation.sln
+  - dotnet build .\CVIS.Automation.sln --no-restore
 
 testSuites:
-  - dotnet test .\CVIS.Automation.Tests\CVIS.Automation.Tests.csproj --no-build --logger "trx;LogFileName=CVIS.Automation.Tests.trx" --results-directory ".\TestResults\TRX\CVIS.Automation.Tests" -- NUnit.TestOutputXml=.\TestResults\NUnitXml\CVIS.Automation.Tests
-  - dotnet test .\CVIS.Playwright.NUnitCompat.Tests\CVIS.Playwright.NUnitCompat.Tests.csproj --no-build --logger "trx;LogFileName=CVIS.Playwright.NUnitCompat.Tests.trx" --results-directory ".\TestResults\TRX\CVIS.Playwright.NUnitCompat.Tests" -- NUnit.TestOutputXml=.\TestResults\NUnitXml\CVIS.Playwright.NUnitCompat.Tests
-
-post:
-  - dotnet run --project .\CVIS.Playwright.Reporting.Tool\CVIS.Playwright.Reporting.Tool.csproj -- --trx-root .\TestResults\TRX --nunit-xml-root .\TestResults\NUnitXml --output-root .\TestResults\CPN --framework-name "CVIS HyperExecute Authoritative Test Run" --minimum-total 250
+  - powershell -ExecutionPolicy Bypass -File .\scripts\run-cvis-authoritative-report-hyperexecute.ps1 -Configuration Debug -MinimumTotal 250
 
 report: true
 partialReports:
@@ -35,3 +27,4 @@ uploadArtefacts:
       - .\TestResults\NUnitXml
       - .\TestResults\TRX
       - .\TestResults\CPN
+      - .\docs
