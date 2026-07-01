@@ -7,7 +7,7 @@ namespace CVIS.FunctionalTesting.Helpers;
 
 /// <summary>
 /// HTTP helper for API functional tests. No Playwright dependency.
-/// Use in tests that inherit BaseFunctionalTest.
+/// Use in tests that inherit BaseAutomationCvisApiTest.
 /// </summary>
 public sealed class ApiClient : IDisposable
 {
