@@ -17,3 +17,20 @@ Use:
 
 Every major folder should have a README.md following the repository README standard: Purpose, Responsibilities, When to use, When NOT to use, Architecture, Examples, Common mistakes, Related folders.
 
+
+<!-- RDEL-DOCOPS-ID: 12E450E91261BD20 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/memory/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-01 13:09:16Z -->
+
+## RDEL 1.2.6 Memory — Playwright PageTab TestContext Fix
+
+A compile error was found after the clean base-class naming package:
+
+```text
+CS0103: The name 'TestContext' does not exist in the current context
+```
+
+Cause: `BaseAutomationCvisPlaywrightPageTabTest.cs` referenced `TestContext.CurrentContext.Test.FullName` without importing `NUnit.Framework`.
+
+Fix: add `using NUnit.Framework;` to `CVIS.Playwright.NUnitCompat/Base/BaseAutomationCvisPlaywrightPageTabTest.cs`.
+
