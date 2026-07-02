@@ -1,5 +1,7 @@
+using Automation.ConsoleApp.Tests.Integration.PolicyDrift.Assertions;
 using Automation.ConsoleApp.Tests.Integration.PolicyDrift.Matrix;
 using Automation.ConsoleApp.Tests.Integration.PolicyDrift.Models;
+using FluentAssertions;
 
 namespace Automation.ConsoleApp.Tests.Integration.PolicyDrift.Workflows;
 
@@ -7,15 +9,13 @@ public sealed class PolicyDriftWorkflowTests : UnitTestBase
 {
     [Theory]
     [Trait("PolicyDrift", "true")]
-    [Trait("Category", "WorkflowRegression")]
+    [Trait("WorkflowRegression", "true")]
     [MemberData(nameof(PolicyDriftScenarioData.PolicyDriftWorkflowCases), MemberType = typeof(PolicyDriftScenarioData))]
-    public async Task PolicyDriftScenario_ShouldProduceExpectedFinalState(PolicyDriftWorkflowCase testCase)
+    public Task PolicyDriftScenario_ShouldProduceExpectedFinalState(PolicyDriftWorkflowCase testCase)
     {
-        await Task.CompletedTask;
-
-        testCase.Name.Should().NotBeNullOrWhiteSpace();
-        testCase.ScenarioType.Should().NotBeNullOrWhiteSpace();
+        PolicyDriftScenarioAssert.ValidateWorkflowDefinition(testCase);
         testCase.ExpectedFinalStatus.Should().Be("Completed");
-        testCase.ExpectedMinimumDriftCount.Should().BeGreaterThanOrEqualTo(0);
+
+        return Task.CompletedTask;
     }
 }

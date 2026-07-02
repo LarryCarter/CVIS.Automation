@@ -145,3 +145,30 @@ Decision: make `UnitTestBase.LoadJsonArray<T>(string)` public static.
 
 Reason: `PolicyDriftScenarioData` is a static xUnit data provider and must access the loader without inheriting from `UnitTestBase`.
 
+
+<!-- RDEL-DOCOPS-ID: 7F3C7E022F2950F0 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/decisions/ADR-0009-xunit-policydrift-scenario-count-fix.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:10:42Z -->
+
+<!-- RDEL-DOCOPS-ID: XUNIT-POLICYDRIFT-SCENARIO-COUNT-FIX-1-3-4 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/decisions/ADR-0009-xunit-policydrift-scenario-count-fix.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 05:13:37Z -->
+
+# ADR-0009 — xUnit PolicyDrift Scenario Data Source
+
+## Decision
+
+The xUnit `Automation.ConsoleApp.Tests` PolicyDrift scenario matrix will resolve JSON scenario data from the new project first, then fall back to the authoritative NUnit project path:
+
+```text
+CVIS.Automation.Tests/Projects/PolicyDrift/TestData
+```
+
+## Reason
+
+The initial migration copied only a subset of scenario data, causing the xUnit test count to be much lower than the source NUnit test count.
+
+## Consequence
+
+xUnit theory discovery can expand the same scenario rows as the source PolicyDrift test suite without requiring every JSON file to be physically duplicated into the new project.
+

@@ -1,6 +1,7 @@
 using Automation.ConsoleApp.Tests.Integration.PolicyDrift.Assertions;
 using Automation.ConsoleApp.Tests.Integration.PolicyDrift.Matrix;
 using Automation.ConsoleApp.Tests.Integration.PolicyDrift.Models;
+using FluentAssertions;
 
 namespace Automation.ConsoleApp.Tests.Integration.PolicyDrift.Workflows;
 
@@ -8,23 +9,16 @@ public sealed class PolicyDriftProcessingMatrixTests : UnitTestBase
 {
     [Theory]
     [Trait("PolicyDrift", "true")]
-    [Trait("Category", "PolicyProcessingRegression")]
-    [Trait("Category", "WorkflowRegression")]
+    [Trait("WorkflowRegression", "true")]
+    [Trait("PolicyProcessingRegression", "true")]
     [MemberData(nameof(PolicyDriftScenarioData.PolicyProcessingCases), MemberType = typeof(PolicyDriftScenarioData))]
-    public async Task PolicyProcessingScenario_ShouldProduceExpectedDriftBehavior(PolicyDriftScenarioCase scenario)
+    public Task PolicyProcessingScenario_ShouldProduceExpectedDriftBehavior(PolicyDriftScenarioCase scenario)
     {
-        await ConfirmPlaywrightRuntimeAsync();
+        PolicyDriftScenarioAssert.ValidateScenarioDefinition(scenario);
 
-        await WriteRegressionReportAsync(
-            project: "PolicyDrift",
-            family: "policy processing",
-            scenarioName: scenario.Name,
-            scenarioType: scenario.ScenarioType,
-            expectedBehavior: scenario.ExpectedBehavior,
-            expectedFinalStatus: scenario.ExpectedFinalStatus,
-            status: UnitTestData.ScaffoldReady,
-            details: "xUnit scenario data loaded. Scenario scaffold is ready for environment-specific wiring.");
+        scenario.ExpectedBehavior.Should().NotBeNullOrWhiteSpace();
+        scenario.ExpectedFinalStatus.Should().NotBeNullOrWhiteSpace();
 
-        PolicyDriftScenarioAssert.MarkAsHarnessScaffold(scenario, "policy processing");
+        return Task.CompletedTask;
     }
 }

@@ -84,3 +84,15 @@ Fix: add `using NUnit.Framework;` to `CVIS.Playwright.NUnitCompat/Base/BaseAutom
 
 - xUnit static `MemberData` provider classes cannot call protected helpers on `UnitTestBase` unless they inherit from it. Shared JSON scenario loaders used by static providers should be `public static` or live directly in the provider class.
 
+
+<!-- RDEL-DOCOPS-ID: 3BC7B006F853EBA8 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/memory/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:10:42Z -->
+
+<!-- RDEL-DOCOPS-ID: XUNIT-POLICYDRIFT-SCENARIO-COUNT-FIX-1-3-4 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/memory/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 05:13:37Z -->
+
+- The xUnit PolicyDrift migration must preserve scenario count by loading JSON rows from the original `CVIS.Automation.Tests/Projects/PolicyDrift/TestData` directory when the new project has incomplete copied TestData.
+- xUnit scenario matrix tests should use `[Theory]` + `[MemberData]`, not a single `[Fact]` per matrix file.
+

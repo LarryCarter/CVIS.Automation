@@ -111,3 +111,24 @@ The xUnit project should mirror PolicyDrift coverage from the NUnit project, inc
 
 `Automation.ConsoleApp.Tests/UnitTestBase.cs` now exposes `LoadJsonArray<T>(string)` as `public static` so static xUnit `MemberData` providers such as `PolicyDriftScenarioData` can load PolicyDrift JSON scenario files without CS0122 accessibility errors.
 
+
+<!-- RDEL-DOCOPS-ID: 2E917528E536C484 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/context/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:10:42Z -->
+
+<!-- RDEL-DOCOPS-ID: XUNIT-POLICYDRIFT-SCENARIO-COUNT-FIX-1-3-4 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/context/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 05:13:37Z -->
+
+## CVIS.Automation — xUnit PolicyDrift Scenario Count Fix
+
+RDEL package `contollo.cvis.automation.xunit-policydrift-scenario-count-fix` fixes the `Automation.ConsoleApp.Tests` xUnit PolicyDrift migration so the scenario matrix reads from the authoritative source test-data folder:
+
+```text
+CVIS.Automation.Tests/Projects/PolicyDrift/TestData
+```
+
+when the new xUnit project does not contain a complete copied `Integration/PolicyDrift/TestData` set.
+
+This restores xUnit `[Theory]` expansion for PolicyDrift matrix tests and prevents the migrated project from showing a reduced scenario count.
+

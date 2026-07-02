@@ -1,4 +1,5 @@
 using Automation.ConsoleApp.Tests.Integration.PolicyDrift.Models;
+using FluentAssertions;
 
 namespace Automation.ConsoleApp.Tests.Integration.PolicyDrift.Assertions;
 
@@ -12,9 +13,18 @@ public static class PolicyDriftScenarioAssert
         scenario.ExpectedMinimumRecordCount.Should().BeGreaterThanOrEqualTo(0);
     }
 
-    public static void MarkAsHarnessScaffold(PolicyDriftScenarioCase scenario, string family)
+    public static void ValidateWorkflowDefinition(PolicyDriftWorkflowCase scenario)
     {
-        family.Should().NotBeNullOrWhiteSpace();
-        ValidateScenarioDefinition(scenario);
+        scenario.Name.Should().NotBeNullOrWhiteSpace();
+        scenario.ScenarioType.Should().NotBeNullOrWhiteSpace();
+        scenario.ExpectedFinalStatus.Should().NotBeNullOrWhiteSpace();
+        scenario.ExpectedMinimumDriftCount.Should().BeGreaterThanOrEqualTo(0);
+    }
+
+    public static void ValidateCyberArkFailureDefinition(CyberArkFailureCase scenario)
+    {
+        scenario.Name.Should().NotBeNullOrWhiteSpace();
+        scenario.ExpectedBehavior.Should().NotBeNullOrWhiteSpace();
+        scenario.SimulatedStatusCode.Should().BeGreaterThanOrEqualTo(0);
     }
 }

@@ -4,41 +4,6 @@ namespace Automation.ConsoleApp.Tests.Integration.PolicyDrift.Matrix;
 
 public static class PolicyDriftScenarioData
 {
-    private const string TestDataRoot = "Integration/PolicyDrift/TestData";
-
-    private static IEnumerable<object[]> LoadScenarioCases(string fileName)
-    {
-        var cases = UnitTestBase.LoadJsonArray<PolicyDriftScenarioCase>(
-            Path.Combine(TestDataRoot, fileName));
-
-        foreach (var testCase in cases)
-        {
-            yield return new object[] { testCase };
-        }
-    }
-
-    private static IEnumerable<object[]> LoadCyberArkFailureCases(string fileName)
-    {
-        var cases = UnitTestBase.LoadJsonArray<CyberArkFailureCase>(
-            Path.Combine(TestDataRoot, fileName));
-
-        foreach (var testCase in cases)
-        {
-            yield return new object[] { testCase };
-        }
-    }
-
-    private static IEnumerable<object[]> LoadWorkflowCases(string fileName)
-    {
-        var cases = UnitTestBase.LoadJsonArray<PolicyDriftWorkflowCase>(
-            Path.Combine(TestDataRoot, fileName));
-
-        foreach (var testCase in cases)
-        {
-            yield return new object[] { testCase };
-        }
-    }
-
     public static IEnumerable<object[]> CyberArkFailureCases =>
         LoadCyberArkFailureCases("cyberark-failure-cases.json");
 
@@ -68,4 +33,25 @@ public static class PolicyDriftScenarioData
 
     public static IEnumerable<object[]> ReportCases =>
         LoadScenarioCases("report-cases.json");
+
+    private static IEnumerable<object[]> LoadScenarioCases(string fileName)
+    {
+        return UnitTestBase
+            .LoadJsonArray<PolicyDriftScenarioCase>(Path.Combine("Projects", "PolicyDrift", "TestData", fileName))
+            .Select(static scenario => new object[] { scenario });
+    }
+
+    private static IEnumerable<object[]> LoadWorkflowCases(string fileName)
+    {
+        return UnitTestBase
+            .LoadJsonArray<PolicyDriftWorkflowCase>(Path.Combine("Projects", "PolicyDrift", "TestData", fileName))
+            .Select(static scenario => new object[] { scenario });
+    }
+
+    private static IEnumerable<object[]> LoadCyberArkFailureCases(string fileName)
+    {
+        return UnitTestBase
+            .LoadJsonArray<CyberArkFailureCase>(Path.Combine("Projects", "PolicyDrift", "TestData", fileName))
+            .Select(static scenario => new object[] { scenario });
+    }
 }
