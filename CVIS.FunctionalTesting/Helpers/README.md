@@ -20,12 +20,12 @@ Do not add Playwright browser, context, or page helpers here. Put browser-specif
 
 # Architecture
 
-`ApiClient` is intended to be used through `BaseAutomationCvisApiTest`, which creates and disposes it during the standard CVIS lifecycle.
+`ApiClient` is intended to be used through `CvisAutomationApiTestBase`, which creates and disposes it during the standard CVIS lifecycle.
 
 # Examples
 
 ```csharp
-public sealed class PlatformApiTests : BaseAutomationCvisApiTest
+public sealed class PlatformApiTests : CvisAutomationApiTestBase
 {
     [Test]
     public async Task Platforms_ShouldReturnSuccess()
@@ -38,9 +38,10 @@ public sealed class PlatformApiTests : BaseAutomationCvisApiTest
 
 # Common mistakes
 
-- Manually newing up `ApiClient` in every test when `BaseAutomationCvisApiTest` should be used.
+- Manually newing up `ApiClient` in every test when `CvisAutomationApiTestBase` should be used.
 - Adding browser helpers to this non-browser project.
 - Hardcoding URLs instead of using `FunctionalTestConfig`.
+- Using the removed `BaseAutomationCvisApiTest` name.
 
 # Related folders
 
