@@ -6,7 +6,7 @@ namespace CVIS.Automation.Tests.Examples;
 [TestFixture]
 [Category("PolicyDrift")]
 [Category("Functional")]
-public sealed class PolicyDriftValidationTests : BaseFunctionalTest
+public sealed class PolicyDriftValidationTests : CvisAutomationTestBase
 {
     [Test]
     public void Policy_RequiredFields_ArePresent()

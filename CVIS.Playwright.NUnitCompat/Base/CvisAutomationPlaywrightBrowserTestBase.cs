@@ -6,9 +6,9 @@ namespace CVIS.Playwright.NUnitCompat.Base;
 /// <summary>
 /// Official base class for CVIS browser-level Playwright tests.
 /// Inherit from this when a test needs Playwright and a shared browser, but not a fresh page per test.
-/// For a fresh page per test, use BaseAutomationCvisPlaywrightPageTabTest.
+/// For a fresh page per test, use CvisAutomationPlaywrightPageTabTestBase.
 /// </summary>
-public abstract class BaseAutomationCvisPlaywrightBrowserTest : BaseAutomationCvisTest
+public abstract class CvisAutomationPlaywrightBrowserTestBase : CvisAutomationTestBase
 {
     protected IPlaywright PlaywrightInstance { get; private set; } = null!;
     protected IBrowser Browser { get; private set; } = null!;

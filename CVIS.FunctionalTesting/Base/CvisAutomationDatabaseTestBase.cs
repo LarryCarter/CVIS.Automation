@@ -8,7 +8,7 @@ namespace CVIS.FunctionalTesting.Base;
 /// Inherit from this when the test needs SQL connection helpers.
 /// This class does not automatically open a connection for every test.
 /// </summary>
-public abstract class BaseAutomationCvisDatabaseTest : BaseAutomationCvisTest
+public abstract class CvisAutomationDatabaseTestBase : CvisAutomationTestBase
 {
     private readonly List<SqlConnection> _connections = new();
 

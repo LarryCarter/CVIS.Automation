@@ -24,11 +24,6 @@ Use this folder when choosing the correct base class for a non-browser test.
 # When NOT to use
 
 Do not use these base classes for browser tests. Browser tests belong under `CVIS.Playwright.NUnitCompat/Base`.
-
-Do not use obsolete aliases for new tests:
-
-```csharp
-BaseFunctionalTest
 ```
 
 # Architecture

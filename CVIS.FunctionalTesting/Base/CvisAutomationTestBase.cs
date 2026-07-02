@@ -10,7 +10,7 @@ namespace CVIS.FunctionalTesting.Base;
 /// but does not require API helpers, database helpers, or browser automation.
 /// </summary>
 [TestFixture]
-public abstract class BaseAutomationCvisTest
+public abstract class CvisAutomationTestBase
 {
     protected FunctionalTestConfig Config { get; private set; } = null!;
     protected TestLogger Logger { get; private set; } = null!;

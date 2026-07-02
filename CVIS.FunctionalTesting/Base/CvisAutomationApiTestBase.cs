@@ -6,7 +6,7 @@ namespace CVIS.FunctionalTesting.Base;
 /// Official base class for CVIS API automation tests.
 /// Inherit from this when the test needs ApiClient and API configuration.
 /// </summary>
-public abstract class BaseAutomationCvisApiTest : BaseAutomationCvisTest
+public abstract class CvisAutomationApiTestBase : CvisAutomationTestBase
 {
     protected ApiClient ApiClient { get; private set; } = null!;
 
