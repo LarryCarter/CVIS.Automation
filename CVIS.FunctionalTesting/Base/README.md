@@ -7,9 +7,9 @@ This folder contains the official non-browser CVIS automation base classes.
 # Responsibilities
 
 - Define the canonical non-browser NUnit lifecycle owner.
-- Provide API-specific setup through `BaseAutomationCvisApiTest`.
-- Provide database-specific helpers through `BaseAutomationCvisDatabaseTest`.
-- Preserve temporary compatibility aliases for old base class names.
+- Provide API-specific setup through `CvisAutomationApiTestBase`.
+- Provide database-specific helpers through `CvisAutomationDatabaseTestBase`.
+- Keep non-browser automation separate from Playwright/browser automation.
 
 # When to use
 
@@ -17,18 +17,19 @@ Use this folder when choosing the correct base class for a non-browser test.
 
 | Test type | Use |
 |---|---|
-| Normal NUnit automation, no browser | `BaseAutomationCvisTest` |
-| API automation | `BaseAutomationCvisApiTest` |
-| Database automation | `BaseAutomationCvisDatabaseTest` |
+| Normal NUnit automation, no browser | `CvisAutomationTestBase` |
+| API automation | `CvisAutomationApiTestBase` |
+| Database automation | `CvisAutomationDatabaseTestBase` |
 
 # When NOT to use
 
 Do not use these base classes for browser tests. Browser tests belong under `CVIS.Playwright.NUnitCompat/Base`.
-```
+
+Do not use the removed alias names `BaseFunctionalTest`, `BaseAutomationCvisTest`, `BaseAutomationCvisApiTest`, or `BaseAutomationCvisDatabaseTest`.
 
 # Architecture
 
-Only `BaseAutomationCvisTest` owns these NUnit lifecycle attributes:
+Only `CvisAutomationTestBase` owns these NUnit lifecycle attributes:
 
 ```csharp
 [OneTimeSetUp]
@@ -53,7 +54,7 @@ Reason: NUnit can run multiple setup and teardown methods across inheritance, bu
 API test:
 
 ```csharp
-public sealed class PlatformApiTests : BaseAutomationCvisApiTest
+public sealed class PlatformApiTests : CvisAutomationApiTestBase
 {
     [Test]
     public async Task Platforms_ShouldReturnSuccess()
@@ -67,7 +68,7 @@ public sealed class PlatformApiTests : BaseAutomationCvisApiTest
 Database test:
 
 ```csharp
-public sealed class DatabaseSmokeTests : BaseAutomationCvisDatabaseTest
+public sealed class DatabaseSmokeTests : CvisAutomationDatabaseTestBase
 {
     [Test]
     public async Task Database_ShouldOpen()
@@ -83,6 +84,7 @@ public sealed class DatabaseSmokeTests : BaseAutomationCvisDatabaseTest
 - Using the lifecycle report as the authoritative test count.
 - Adding Playwright imports here.
 - Adding NUnit lifecycle attributes to specialized base classes.
+- Reusing obsolete base-class names after the `CvisAutomation*TestBase` rename.
 
 # Related folders
 
