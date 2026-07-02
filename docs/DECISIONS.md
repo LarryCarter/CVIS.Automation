@@ -201,3 +201,22 @@ Use primitive `MemberData` row values for xUnit matrix tests and reconstruct sce
 - The xUnit project avoids NUnit-only `TestCaseData`.
 - Test data loading remains compatible with both new and original PolicyDrift test data locations.
 
+
+<!-- RDEL-DOCOPS-ID: DCEE33A73D2FF0DF -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/decisions/ADR-0009-xunit-policydrift-full-discovery.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:48:31Z -->
+
+# ADR-0009 - xUnit PolicyDrift Full Scenario Discovery
+
+## Decision
+
+PolicyDrift xUnit scenario matrices should use primitive `MemberData` rows instead of complex scenario objects.
+
+## Reason
+
+The NUnit source project reports hundreds of individual PolicyDrift scenario tests. The xUnit migration was still reporting far fewer tests because matrix scenarios were being collapsed under each theory/harness method.
+
+## Consequence
+
+Each scenario JSON row is represented as its own xUnit theory row, improving Visual Studio Test Explorer parity with the NUnit project.
+

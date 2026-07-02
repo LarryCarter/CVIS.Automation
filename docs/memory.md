@@ -109,3 +109,14 @@ Fix: add `using NUnit.Framework;` to `CVIS.Playwright.NUnitCompat/Base/BaseAutom
 - xUnit MemberData should use primitive row values rather than custom scenario objects when Visual Studio Test Explorer needs to show each JSON scenario as a separate discovered test.
 - PolicyDrift xUnit tests may load scenario data from the original NUnit project test data folder until all data is fully duplicated into the xUnit project.
 
+
+<!-- RDEL-DOCOPS-ID: 70AD28B560BE79C8 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/memory/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:48:31Z -->
+
+<!-- RDEL-DOCOPS-ID: XUNIT-POLICYDRIFT-FULL-DISCOVERY-1-3-6 -->
+
+- `Automation.ConsoleApp.Tests` PolicyDrift matrix tests should expose each scenario as a separate xUnit theory row.
+- Avoid complex object-only `MemberData` rows for these migrated PolicyDrift tests because Visual Studio/xUnit may collapse discovery into one test per theory.
+- Prefer primitive `MemberData` rows for discoverability: name, scenario type, expected behavior, expected final status, expected count.
+

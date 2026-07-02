@@ -170,3 +170,18 @@ public async Task GetPlatformsFailureOrVariation_ShouldFollowExpectedFallbackBeh
 
 `UnitTestBase.LoadJsonArray<T>` should search both `Automation.ConsoleApp.Tests/Integration/PolicyDrift/TestData` and the original `CVIS.Automation.Tests/Projects/PolicyDrift/TestData` path while the migration remains in parallel with the NUnit project.
 
+
+<!-- RDEL-DOCOPS-ID: 0B3D4A15BBBDBFF6 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/context/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:48:31Z -->
+
+<!-- RDEL-DOCOPS-ID: XUNIT-POLICYDRIFT-FULL-DISCOVERY-1-3-6 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/context/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 05:13:37Z -->
+
+## CVIS.Automation — xUnit PolicyDrift Full Scenario Discovery Fix
+
+RDEL package `contollo.cvis.automation.xunit.policydrift.full-scenario-discovery-fix` updates `Automation.ConsoleApp.Tests` so PolicyDrift xUnit matrix tests use primitive `MemberData` rows rather than complex scenario objects or collapsed harness loops.
+
+The intent is to make Visual Studio/xUnit discover and execute each PolicyDrift scenario JSON row as an individual test case, matching the NUnit scenario matrix behavior more closely.
+
