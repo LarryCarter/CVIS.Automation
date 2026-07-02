@@ -6,12 +6,13 @@ This document defines the standard structure for README.md files in major CVIS.A
 
 # Responsibilities
 
-Every major folder README must help developers and AI tools answer:
+Every major folder README must help developers answer:
 
 - What is this folder for?
 - When should I use it?
 - When should I not use it?
 - What examples show the correct pattern?
+- Which current base-class names should be used?
 
 # When to use
 
@@ -43,16 +44,28 @@ Every major folder README should use these sections:
 # Related folders
 ```
 
+README examples must use the current CVIS automation base-class names:
+
+```text
+CvisAutomationTestBase
+CvisAutomationApiTestBase
+CvisAutomationDatabaseTestBase
+CvisAutomationPlaywrightBrowserTestBase
+CvisAutomationPlaywrightPageTabTestBase
+```
+
 # Examples
 
 Folder README files should include at least one code example or command example when the folder contains executable code, base classes, scripts, or tooling.
+
+Base-class README files should include a capability table so developers can choose the right base class without creating domain-specific bases.
 
 # Common mistakes
 
 - Writing a README that only lists classes.
 - Omitting when not to use the folder.
 - Omitting examples for base class selection.
-- Forgetting AI-facing guidance when the folder is likely to be used by Copilot or other coding assistants.
+- Leaving old base-class names in documentation after a rename.
 
 # Related folders
 
