@@ -1,13 +1,25 @@
 [
   {
-    "name": "PolicyDrift_Baseline",
-    "scenarioType": "Baseline",
+    "name": "NoDrift",
+    "scenarioType": "NoDrift",
     "expectedFinalStatus": "Completed",
     "expectedMinimumDriftCount": 0
   },
   {
-    "name": "PolicyDrift_WithDrift",
-    "scenarioType": "DriftDetected",
+    "name": "PolicyAdded",
+    "scenarioType": "PolicyAdded",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumDriftCount": 1
+  },
+  {
+    "name": "PolicyRemoved",
+    "scenarioType": "PolicyRemoved",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumDriftCount": 1
+  },
+  {
+    "name": "PolicyChanged",
+    "scenarioType": "PolicyChanged",
     "expectedFinalStatus": "Completed",
     "expectedMinimumDriftCount": 1
   }

@@ -1,15 +1,281 @@
 [
   {
-    "name": "Processing_01",
-    "scenarioType": "ProcessingScenario01",
-    "expectedBehavior": "ValidatePolicyProcessing",
+    "name": "PolicyProcessing_NoDrift",
+    "scenarioType": "NoDrift",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "PolicyProcessing_PolicyAdded",
+    "scenarioType": "PolicyAdded",
+    "expectedBehavior": "ValidateDriftProcessing",
     "expectedFinalStatus": "Completed",
     "expectedMinimumRecordCount": 1
   },
   {
-    "name": "Processing_02",
-    "scenarioType": "ProcessingScenario02",
-    "expectedBehavior": "ValidatePolicyProcessing",
+    "name": "PolicyProcessing_PolicyRemoved",
+    "scenarioType": "PolicyRemoved",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_PolicyChanged",
+    "scenarioType": "PolicyChanged",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_PolicyRenamed",
+    "scenarioType": "PolicyRenamed",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_PolicyEnabled",
+    "scenarioType": "PolicyEnabled",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_PolicyDisabled",
+    "scenarioType": "PolicyDisabled",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_PlatformAdded",
+    "scenarioType": "PlatformAdded",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_PlatformRemoved",
+    "scenarioType": "PlatformRemoved",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_PlatformRenamed",
+    "scenarioType": "PlatformRenamed",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_DuplicatePolicyIgnored",
+    "scenarioType": "DuplicatePolicyIgnored",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "PolicyProcessing_CaseOnlyPolicyChange",
+    "scenarioType": "CaseOnlyPolicyChange",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_WhitespaceOnlyPolicyChange",
+    "scenarioType": "WhitespaceOnlyPolicyChange",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "PolicyProcessing_DescriptionChanged",
+    "scenarioType": "DescriptionChanged",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_CredentialManagementFlagChanged",
+    "scenarioType": "CredentialManagementFlagChanged",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_RotationIntervalChanged",
+    "scenarioType": "RotationIntervalChanged",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_ReconcileAccountChanged",
+    "scenarioType": "ReconcileAccountChanged",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_VerificationIntervalChanged",
+    "scenarioType": "VerificationIntervalChanged",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_PolicyXmlChanged",
+    "scenarioType": "PolicyXmlChanged",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_PolicyJsonChanged",
+    "scenarioType": "PolicyJsonChanged",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_PolicyMetadataChanged",
+    "scenarioType": "PolicyMetadataChanged",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_PolicyOwnerChanged",
+    "scenarioType": "PolicyOwnerChanged",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_PolicySafeMappingChanged",
+    "scenarioType": "PolicySafeMappingChanged",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_PolicyExceptionAdded",
+    "scenarioType": "PolicyExceptionAdded",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_PolicyExceptionRemoved",
+    "scenarioType": "PolicyExceptionRemoved",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_LargePolicySet",
+    "scenarioType": "LargePolicySet",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_EmptyPolicySet",
+    "scenarioType": "EmptyPolicySet",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "PolicyProcessing_NullPolicyInput",
+    "scenarioType": "NullPolicyInput",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_MalformedPolicyInput",
+    "scenarioType": "MalformedPolicyInput",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_OutOfOrderPolicyInput",
+    "scenarioType": "OutOfOrderPolicyInput",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "PolicyProcessing_SamePolicyDifferentOrder",
+    "scenarioType": "SamePolicyDifferentOrder",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "PolicyProcessing_UnexpectedFieldIgnored",
+    "scenarioType": "UnexpectedFieldIgnored",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_RequiredFieldMissing",
+    "scenarioType": "RequiredFieldMissing",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_RunStatusCompleted",
+    "scenarioType": "RunStatusCompleted",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_RunStatusCompletedWithWarnings",
+    "scenarioType": "RunStatusCompletedWithWarnings",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_RunStatusFailed",
+    "scenarioType": "RunStatusFailed",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_DriftResultInserted",
+    "scenarioType": "DriftResultInserted",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_DriftResultUpdated",
+    "scenarioType": "DriftResultUpdated",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_DriftHistoryWritten",
+    "scenarioType": "DriftHistoryWritten",
+    "expectedBehavior": "ValidateDriftProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "PolicyProcessing_DriftAuditWritten",
+    "scenarioType": "DriftAuditWritten",
+    "expectedBehavior": "ValidateDriftProcessing",
     "expectedFinalStatus": "Completed",
     "expectedMinimumRecordCount": 1
   }

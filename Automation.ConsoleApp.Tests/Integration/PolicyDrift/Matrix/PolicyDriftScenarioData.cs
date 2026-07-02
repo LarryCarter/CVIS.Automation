@@ -2,7 +2,6 @@ namespace Automation.ConsoleApp.Tests.Integration.PolicyDrift.Matrix;
 
 public static class PolicyDriftScenarioData
 {
-    public static IEnumerable<object[]> CyberArkFailureCases => LoadCyberArkFailureRows("cyberark-failure-cases.json");
     public static IEnumerable<object[]> CyberArkPlatformCases => LoadScenarioRows("cyberark-platform-cases.json");
     public static IEnumerable<object[]> CyberArkPolicyCases => LoadScenarioRows("cyberark-policy-cases.json");
     public static IEnumerable<object[]> DbFallbackCases => LoadScenarioRows("db-fallback-cases.json");
@@ -11,11 +10,12 @@ public static class PolicyDriftScenarioData
     public static IEnumerable<object[]> PolicyProcessingCases => LoadScenarioRows("policy-processing-cases.json");
     public static IEnumerable<object[]> AuditCases => LoadScenarioRows("audit-cases.json");
     public static IEnumerable<object[]> ReportCases => LoadScenarioRows("report-cases.json");
-    public static IEnumerable<object[]> PolicyDriftWorkflowCases => LoadWorkflowRows("policy-drift-workflow-cases.json");
+    public static IEnumerable<object[]> WorkflowCases => LoadWorkflowRows("policy-drift-workflow-cases.json");
+    public static IEnumerable<object[]> CyberArkFailureCases => LoadCyberArkFailureRows("cyberark-failure-cases.json");
 
     private static IEnumerable<object[]> LoadScenarioRows(string fileName)
     {
-        foreach (var scenario in UnitTestBase.LoadJsonArray<PolicyDriftScenarioCase>(PolicyDriftTestDataPath(fileName)))
+        foreach (var scenario in UnitTestBase.LoadJsonArray<PolicyDriftScenarioCase>(Path.Combine("Integration", "PolicyDrift", "TestData", fileName)))
         {
             yield return new object[]
             {
@@ -30,7 +30,7 @@ public static class PolicyDriftScenarioData
 
     private static IEnumerable<object[]> LoadWorkflowRows(string fileName)
     {
-        foreach (var scenario in UnitTestBase.LoadJsonArray<PolicyDriftWorkflowCase>(PolicyDriftTestDataPath(fileName)))
+        foreach (var scenario in UnitTestBase.LoadJsonArray<PolicyDriftWorkflowCase>(Path.Combine("Integration", "PolicyDrift", "TestData", fileName)))
         {
             yield return new object[]
             {
@@ -44,7 +44,7 @@ public static class PolicyDriftScenarioData
 
     private static IEnumerable<object[]> LoadCyberArkFailureRows(string fileName)
     {
-        foreach (var scenario in UnitTestBase.LoadJsonArray<CyberArkFailureCase>(PolicyDriftTestDataPath(fileName)))
+        foreach (var scenario in UnitTestBase.LoadJsonArray<CyberArkFailureCase>(Path.Combine("Integration", "PolicyDrift", "TestData", fileName)))
         {
             yield return new object[]
             {
@@ -53,10 +53,5 @@ public static class PolicyDriftScenarioData
                 scenario.ExpectedBehavior
             };
         }
-    }
-
-    private static string PolicyDriftTestDataPath(string fileName)
-    {
-        return Path.Combine("Integration", "PolicyDrift", "TestData", fileName);
     }
 }

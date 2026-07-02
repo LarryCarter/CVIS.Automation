@@ -133,3 +133,12 @@ Fix: add `using NUnit.Framework;` to `CVIS.Playwright.NUnitCompat/Base/BaseAutom
 
 The xUnit `Automation.ConsoleApp.Tests` PolicyDrift migration must preserve the full source scenario count. When migrated xUnit tests request `Integration/PolicyDrift/TestData/*.json`, the loader should prefer the authoritative original path under `CVIS.Automation.Tests/Projects/PolicyDrift/TestData`.
 
+
+<!-- RDEL-DOCOPS-ID: B8CBDB0BBFF34EAD -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/memory/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:57:25Z -->
+
+<!-- RDEL-DOCOPS-ID: XUNIT-POLICYDRIFT-FULL-TESTDATA-MEMORY-1-3-8 -->
+
+- Automation.ConsoleApp.Tests PolicyDrift xUnit scenario count depends on full local TestData JSON files, not truncated smoke samples.
+

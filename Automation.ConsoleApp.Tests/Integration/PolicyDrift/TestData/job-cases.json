@@ -1,15 +1,176 @@
 [
   {
-    "name": "Job_01",
-    "scenarioType": "JobScenario01",
-    "expectedBehavior": "ValidateScheduledJobHandling",
+    "name": "Job_JobStarts",
+    "scenarioType": "JobStarts",
+    "expectedBehavior": "ValidateScheduledJobBehavior",
     "expectedFinalStatus": "Completed",
     "expectedMinimumRecordCount": 1
   },
   {
-    "name": "Job_02",
-    "scenarioType": "JobScenario02",
-    "expectedBehavior": "ValidateScheduledJobHandling",
+    "name": "Job_JobCompletes",
+    "scenarioType": "JobCompletes",
+    "expectedBehavior": "ValidateScheduledJobBehavior",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Job_JobFails",
+    "scenarioType": "JobFails",
+    "expectedBehavior": "ValidateScheduledJobBehavior",
+    "expectedFinalStatus": "FailedOrSkipped",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Job_JobRetries",
+    "scenarioType": "JobRetries",
+    "expectedBehavior": "ValidateScheduledJobBehavior",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Job_JobTimesOut",
+    "scenarioType": "JobTimesOut",
+    "expectedBehavior": "ValidateScheduledJobBehavior",
+    "expectedFinalStatus": "FailedOrSkipped",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Job_JobAlreadyRunning",
+    "scenarioType": "JobAlreadyRunning",
+    "expectedBehavior": "ValidateScheduledJobBehavior",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Job_JobDisabled",
+    "scenarioType": "JobDisabled",
+    "expectedBehavior": "ValidateScheduledJobBehavior",
+    "expectedFinalStatus": "FailedOrSkipped",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Job_JobMissingSchedule",
+    "scenarioType": "JobMissingSchedule",
+    "expectedBehavior": "ValidateScheduledJobBehavior",
+    "expectedFinalStatus": "FailedOrSkipped",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Job_JobManualTrigger",
+    "scenarioType": "JobManualTrigger",
+    "expectedBehavior": "ValidateScheduledJobBehavior",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Job_JobScheduledTrigger",
+    "scenarioType": "JobScheduledTrigger",
+    "expectedBehavior": "ValidateScheduledJobBehavior",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Job_JobWritesStartLog",
+    "scenarioType": "JobWritesStartLog",
+    "expectedBehavior": "ValidateScheduledJobBehavior",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Job_JobWritesCompleteLog",
+    "scenarioType": "JobWritesCompleteLog",
+    "expectedBehavior": "ValidateScheduledJobBehavior",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Job_JobWritesErrorLog",
+    "scenarioType": "JobWritesErrorLog",
+    "expectedBehavior": "ValidateScheduledJobBehavior",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Job_JobWritesCorrelationId",
+    "scenarioType": "JobWritesCorrelationId",
+    "expectedBehavior": "ValidateScheduledJobBehavior",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Job_JobUsesQaConfig",
+    "scenarioType": "JobUsesQaConfig",
+    "expectedBehavior": "ValidateScheduledJobBehavior",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Job_JobUsesUatConfig",
+    "scenarioType": "JobUsesUatConfig",
+    "expectedBehavior": "ValidateScheduledJobBehavior",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Job_JobUsesOcpConfig",
+    "scenarioType": "JobUsesOcpConfig",
+    "expectedBehavior": "ValidateScheduledJobBehavior",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Job_JobHandlesMissingConfig",
+    "scenarioType": "JobHandlesMissingConfig",
+    "expectedBehavior": "ValidateScheduledJobBehavior",
+    "expectedFinalStatus": "FailedOrSkipped",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Job_JobHandlesInvalidConfig",
+    "scenarioType": "JobHandlesInvalidConfig",
+    "expectedBehavior": "ValidateScheduledJobBehavior",
+    "expectedFinalStatus": "FailedOrSkipped",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Job_JobHandlesCyberArkFailure",
+    "scenarioType": "JobHandlesCyberArkFailure",
+    "expectedBehavior": "ValidateScheduledJobBehavior",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Job_JobHandlesDbFallback",
+    "scenarioType": "JobHandlesDbFallback",
+    "expectedBehavior": "ValidateScheduledJobBehavior",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Job_JobHandlesZipFailure",
+    "scenarioType": "JobHandlesZipFailure",
+    "expectedBehavior": "ValidateScheduledJobBehavior",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Job_JobHandlesNoDrift",
+    "scenarioType": "JobHandlesNoDrift",
+    "expectedBehavior": "ValidateScheduledJobBehavior",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Job_JobHandlesDetectedDrift",
+    "scenarioType": "JobHandlesDetectedDrift",
+    "expectedBehavior": "ValidateScheduledJobBehavior",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Job_JobPublishesCompletionStatus",
+    "scenarioType": "JobPublishesCompletionStatus",
+    "expectedBehavior": "ValidateScheduledJobBehavior",
     "expectedFinalStatus": "Completed",
     "expectedMinimumRecordCount": 1
   }

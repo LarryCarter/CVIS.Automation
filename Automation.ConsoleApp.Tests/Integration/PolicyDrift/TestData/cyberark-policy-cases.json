@@ -1,21 +1,280 @@
 [
   {
-    "name": "GetPolicy_01",
-    "scenarioType": "GetPolicyScenario01",
+    "name": "GetPolicy_ValidPlatform",
+    "scenarioType": "ValidPlatform",
     "expectedBehavior": "ValidatePolicyCallHandling",
     "expectedFinalStatus": "Completed",
     "expectedMinimumRecordCount": 1
   },
   {
-    "name": "GetPolicy_02",
-    "scenarioType": "GetPolicyScenario02",
+    "name": "GetPolicy_InvalidPlatformName",
+    "scenarioType": "InvalidPlatformName",
     "expectedBehavior": "ValidatePolicyCallHandling",
     "expectedFinalStatus": "LoggedAndContinued",
     "expectedMinimumRecordCount": 1
   },
   {
-    "name": "GetPolicy_03",
-    "scenarioType": "GetPolicyScenario03",
+    "name": "GetPolicy_BlankPlatformName",
+    "scenarioType": "BlankPlatformName",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "LoggedAndContinued",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_WhitespacePlatformName",
+    "scenarioType": "WhitespacePlatformName",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_Unauthorized401",
+    "scenarioType": "Unauthorized401",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_Forbidden403",
+    "scenarioType": "Forbidden403",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_ServerError500",
+    "scenarioType": "ServerError500",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_ServiceUnavailable503",
+    "scenarioType": "ServiceUnavailable503",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_Timeout",
+    "scenarioType": "Timeout",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_MalformedJson",
+    "scenarioType": "MalformedJson",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_EmptyBody",
+    "scenarioType": "EmptyBody",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "GetPolicy_MissingRequiredFields",
+    "scenarioType": "MissingRequiredFields",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_ExtraFields",
+    "scenarioType": "ExtraFields",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_DuplicatePolicies",
+    "scenarioType": "DuplicatePolicies",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_LargePayload",
+    "scenarioType": "LargePayload",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_PolicyDisabled",
+    "scenarioType": "PolicyDisabled",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_PolicyRenamed",
+    "scenarioType": "PolicyRenamed",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_PolicyDeleted",
+    "scenarioType": "PolicyDeleted",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "GetPolicy_RateLimited429",
+    "scenarioType": "RateLimited429",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_PartialContent206",
+    "scenarioType": "PartialContent206",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_PlatformBatch021",
+    "scenarioType": "PlatformBatch021",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_PlatformBatch022",
+    "scenarioType": "PlatformBatch022",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_PlatformBatch023",
+    "scenarioType": "PlatformBatch023",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_PlatformBatch024",
+    "scenarioType": "PlatformBatch024",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_PlatformBatch025",
+    "scenarioType": "PlatformBatch025",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_PlatformBatch026",
+    "scenarioType": "PlatformBatch026",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_PlatformBatch027",
+    "scenarioType": "PlatformBatch027",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_PlatformBatch028",
+    "scenarioType": "PlatformBatch028",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_PlatformBatch029",
+    "scenarioType": "PlatformBatch029",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_PlatformBatch030",
+    "scenarioType": "PlatformBatch030",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_PlatformBatch031",
+    "scenarioType": "PlatformBatch031",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_PlatformBatch032",
+    "scenarioType": "PlatformBatch032",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_PlatformBatch033",
+    "scenarioType": "PlatformBatch033",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_PlatformBatch034",
+    "scenarioType": "PlatformBatch034",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_PlatformBatch035",
+    "scenarioType": "PlatformBatch035",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_PlatformBatch036",
+    "scenarioType": "PlatformBatch036",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_PlatformBatch037",
+    "scenarioType": "PlatformBatch037",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_PlatformBatch038",
+    "scenarioType": "PlatformBatch038",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_PlatformBatch039",
+    "scenarioType": "PlatformBatch039",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_PlatformBatch040",
+    "scenarioType": "PlatformBatch040",
     "expectedBehavior": "ValidatePolicyCallHandling",
     "expectedFinalStatus": "Completed",
     "expectedMinimumRecordCount": 1

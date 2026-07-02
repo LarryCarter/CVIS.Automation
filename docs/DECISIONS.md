@@ -235,3 +235,12 @@ Decision: `Automation.ConsoleApp.Tests` should resolve PolicyDrift scenario JSON
 
 Reason: The migration goal is count and scenario parity with the source NUnit PolicyDrift suite. Incomplete copied local JSON files collapse the xUnit discovered scenario count.
 
+
+<!-- RDEL-DOCOPS-ID: 9E658C57A7C386EC -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/decisions/ADR-0009-xunit-policydrift-full-testdata-count-fix.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:57:25Z -->
+
+# ADR-0009 - xUnit PolicyDrift Full TestData Count Fix
+
+Decision: keep full PolicyDrift scenario JSON files inside the xUnit project so Visual Studio and `dotnet test` discover the expanded xUnit theories from local copied TestData.
+

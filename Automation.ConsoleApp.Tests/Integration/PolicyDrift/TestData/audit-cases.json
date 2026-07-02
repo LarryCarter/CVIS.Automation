@@ -1,15 +1,176 @@
 [
   {
-    "name": "Audit_01",
-    "scenarioType": "AuditScenario01",
-    "expectedBehavior": "ValidateAuditRecord",
+    "name": "Audit_RunStarted",
+    "scenarioType": "RunStarted",
+    "expectedBehavior": "ValidateAuditOrLogRecord",
     "expectedFinalStatus": "Completed",
     "expectedMinimumRecordCount": 1
   },
   {
-    "name": "Audit_02",
-    "scenarioType": "AuditScenario02",
-    "expectedBehavior": "ValidateAuditRecord",
+    "name": "Audit_RunCompleted",
+    "scenarioType": "RunCompleted",
+    "expectedBehavior": "ValidateAuditOrLogRecord",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Audit_RunFailed",
+    "scenarioType": "RunFailed",
+    "expectedBehavior": "ValidateAuditOrLogRecord",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Audit_CyberArkGetPlatformsFailureLogged",
+    "scenarioType": "CyberArkGetPlatformsFailureLogged",
+    "expectedBehavior": "ValidateAuditOrLogRecord",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Audit_CyberArkGetPolicyFailureLogged",
+    "scenarioType": "CyberArkGetPolicyFailureLogged",
+    "expectedBehavior": "ValidateAuditOrLogRecord",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Audit_DbFallbackUsedLogged",
+    "scenarioType": "DbFallbackUsedLogged",
+    "expectedBehavior": "ValidateAuditOrLogRecord",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Audit_ZipDownloadedLogged",
+    "scenarioType": "ZipDownloadedLogged",
+    "expectedBehavior": "ValidateAuditOrLogRecord",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Audit_ZipFailedLogged",
+    "scenarioType": "ZipFailedLogged",
+    "expectedBehavior": "ValidateAuditOrLogRecord",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Audit_DriftDetectedLogged",
+    "scenarioType": "DriftDetectedLogged",
+    "expectedBehavior": "ValidateAuditOrLogRecord",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Audit_NoDriftLogged",
+    "scenarioType": "NoDriftLogged",
+    "expectedBehavior": "ValidateAuditOrLogRecord",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Audit_CorrelationIdOnAllRows",
+    "scenarioType": "CorrelationIdOnAllRows",
+    "expectedBehavior": "ValidateAuditOrLogRecord",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Audit_CreatedByAutomation",
+    "scenarioType": "CreatedByAutomation",
+    "expectedBehavior": "ValidateAuditOrLogRecord",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Audit_CreatedDatePopulated",
+    "scenarioType": "CreatedDatePopulated",
+    "expectedBehavior": "ValidateAuditOrLogRecord",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Audit_ModifiedDatePopulated",
+    "scenarioType": "ModifiedDatePopulated",
+    "expectedBehavior": "ValidateAuditOrLogRecord",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Audit_ErrorSeverityCaptured",
+    "scenarioType": "ErrorSeverityCaptured",
+    "expectedBehavior": "ValidateAuditOrLogRecord",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Audit_WarningSeverityCaptured",
+    "scenarioType": "WarningSeverityCaptured",
+    "expectedBehavior": "ValidateAuditOrLogRecord",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Audit_InfoSeverityCaptured",
+    "scenarioType": "InfoSeverityCaptured",
+    "expectedBehavior": "ValidateAuditOrLogRecord",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Audit_RetryAttemptCaptured",
+    "scenarioType": "RetryAttemptCaptured",
+    "expectedBehavior": "ValidateAuditOrLogRecord",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Audit_FallbackReasonCaptured",
+    "scenarioType": "FallbackReasonCaptured",
+    "expectedBehavior": "ValidateAuditOrLogRecord",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Audit_FinalSummaryCaptured",
+    "scenarioType": "FinalSummaryCaptured",
+    "expectedBehavior": "ValidateAuditOrLogRecord",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Audit_PolicyCountCaptured",
+    "scenarioType": "PolicyCountCaptured",
+    "expectedBehavior": "ValidateAuditOrLogRecord",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Audit_PlatformCountCaptured",
+    "scenarioType": "PlatformCountCaptured",
+    "expectedBehavior": "ValidateAuditOrLogRecord",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Audit_DriftCountCaptured",
+    "scenarioType": "DriftCountCaptured",
+    "expectedBehavior": "ValidateAuditOrLogRecord",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Audit_ExceptionStackNotNullOnFailure",
+    "scenarioType": "ExceptionStackNotNullOnFailure",
+    "expectedBehavior": "ValidateAuditOrLogRecord",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Audit_NoSecretValuesLogged",
+    "scenarioType": "NoSecretValuesLogged",
+    "expectedBehavior": "ValidateAuditOrLogRecord",
     "expectedFinalStatus": "Completed",
     "expectedMinimumRecordCount": 1
   }

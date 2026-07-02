@@ -204,3 +204,15 @@ CVIS.Automation.Tests/Projects/PolicyDrift/TestData
 
 This is required because the migrated xUnit-local data files may be incomplete, causing xUnit discovery to show far fewer PolicyDrift tests than the source NUnit project.
 
+
+<!-- RDEL-DOCOPS-ID: E2C97A374164AE94 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/context/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:57:25Z -->
+
+<!-- RDEL-DOCOPS-ID: XUNIT-POLICYDRIFT-FULL-TESTDATA-COUNT-FIX-1-3-8 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/context/update.md -->
+
+## CVIS.Automation — xUnit PolicyDrift Full TestData Count Fix
+
+RDEL package `contollo.cvis.automation.xunit-policydrift-full-testdata-count-fix` restores full xUnit PolicyDrift scenario coverage by replacing truncated local xUnit TestData files with full scenario copies. The xUnit matrix loader now loads local files under `Automation.ConsoleApp.Tests/Integration/PolicyDrift/TestData`.
+
