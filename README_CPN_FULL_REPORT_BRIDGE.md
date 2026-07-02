@@ -1,22 +1,19 @@
 # CPN Full NUnit Report Bridge
 
-## Why the CPN report only showed 2 tests
+## Purpose
 
-The lifecycle CPN report records tests that inherit from CPN base classes:
+The CVIS report bridge builds the human and machine-readable CVIS reports from real NUnit runner output.
 
-```csharp
-CVISPlaywrightTest
-CVISBrowserTest
-CVISContextTest
-CVISPageTest
-CVISApiTest
+## Source inputs
+
+The bridge reads:
+
+```text
+TestResults\TRX\**\*.trx
+TestResults\NUnitXml\**\*.xml
 ```
 
-Most existing tests are plain NUnit automation tests. They appear in Visual Studio and NUnit XML/TRX, but they are not recorded through the CPN lifecycle.
-
-## Fix
-
-This bridge parses NUnit XML after the test run and generates a full CPN-style report containing all NUnit tests.
+TRX and NUnit XML are produced by `dotnet test`. The reporting tool combines and deduplicates those entries into one authoritative CVIS report package.
 
 ## Full report output
 
@@ -25,63 +22,37 @@ TestResults\CPN\cpn-report.html
 TestResults\CPN\cpn-report.json
 TestResults\CPN\cpn-report-all-tests.html
 TestResults\CPN\cpn-report-all-tests.json
+TestResults\CPN\cpn-report-summary.txt
 TestResults\CPN\Tests\*.json
 ```
 
 ## Local command
 
 ```powershell
-.\scripts\run-cvis-automation-reporting-local.ps1
-```
-
-For CPN-only tests:
-
-```powershell
-.\scripts\run-cpn-reporting-local.ps1
+.\scripts\run-cvis-authoritative-report-local.ps1 -Configuration Debug -MinimumTotal 250
 ```
 
 ## Manual command sequence
 
 ```powershell
-$env:CPN_REPORT_ENABLED = "true"
-$env:CPN_REPORT_ROOT = "$PWD\TestResults\CPN"
-
 dotnet test .\CVIS.Automation.Tests\CVIS.Automation.Tests.csproj `
   --logger "trx;LogFileName=cvis-automation-tests.trx" `
-  --results-directory ".\TestResults\NUnit" `
-  -- NUnit.TestOutputXml=.\TestResults\NUnitXml
+  --results-directory ".\TestResults\TRX\CVIS.Automation.Tests" `
+  -- NUnit.TestOutputXml=.\TestResults\NUnitXml\CVIS.Automation.Tests
 
-powershell -ExecutionPolicy Bypass -File .\scripts\merge-nunitxml-into-cpn-report.ps1 `
-  -NUnitXmlRoot ".\TestResults\NUnitXml" `
-  -CpnRoot ".\TestResults\CPN" `
-  -FrameworkName "CVIS.Automation.Tests"
+dotnet run --project .\CVIS.Playwright.Reporting.Tool\CVIS.Playwright.Reporting.Tool.csproj -- `
+  --trx-root .\TestResults\TRX `
+  --nunit-xml-root .\TestResults\NUnitXml `
+  --output-root .\TestResults\CPN `
+  --framework-name "CVIS Authoritative Test Run" `
+  --minimum-total 250
 ```
 
-## HyperExecute YAML sample
+## HyperExecute YAML pattern
 
 ```yaml
-version: "0.1"
-runson: win
-
-autosplit: false
-concurrency: 1
-testRunnerExecutor: cmd
-workingDirectory: .
-
-env:
-  CPN_REPORT_ENABLED: "true"
-  CPN_REPORT_ROOT: ".\TestResults\CPN"
-
-pre:
-  - if exist .\TestResults rmdir /s /q .\TestResults
-  - dotnet restore .\CVIS.Automation.Tests\CVIS.Automation.Tests.csproj
-  - dotnet build .\CVIS.Automation.Tests\CVIS.Automation.Tests.csproj --no-restore
-
 testSuites:
-  - dotnet test .\CVIS.Automation.Tests\CVIS.Automation.Tests.csproj --no-build --logger "trx;LogFileName=cvis-automation-tests.trx" --results-directory ".\TestResults\NUnit" -- NUnit.TestOutputXml=.\TestResults\NUnitXml
-
-post:
-  - powershell -ExecutionPolicy Bypass -File .\scripts\merge-nunitxml-into-cpn-report.ps1 -NUnitXmlRoot .\TestResults\NUnitXml -CpnRoot .\TestResults\CPN -FrameworkName CVIS.Automation.Tests
+  - powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run-cvis-authoritative-report-local.ps1
 
 report: true
 partialReports:
@@ -91,9 +62,28 @@ partialReports:
 
 mergeArtifacts: true
 uploadArtefacts:
-  - name: cvis-test-output
+  - name: cvis-authoritative-test-output
     path:
       - .\TestResults\NUnitXml
-      - .\TestResults\NUnit
+      - .\TestResults\TRX
       - .\TestResults\CPN
 ```
+
+## Required pipeline checks
+
+The pipeline should fail when any of these are missing:
+
+```text
+TestResults\TRX\**\*.trx
+TestResults\NUnitXml\**\*.xml
+TestResults\CPN\cpn-report.html
+TestResults\CPN\cpn-report.json
+TestResults\CPN\cpn-report-all-tests.html
+TestResults\CPN\cpn-report-all-tests.json
+TestResults\CPN\cpn-report-summary.txt
+TestResults\CPN\Tests\*.json
+```
+
+## Lifecycle distinction
+
+`cpn-lifecycle-report.html` is separate diagnostic output. The full report bridge does not rely on lifecycle-only counts.
