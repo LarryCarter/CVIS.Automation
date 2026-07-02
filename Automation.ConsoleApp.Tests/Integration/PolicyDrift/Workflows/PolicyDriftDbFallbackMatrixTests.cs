@@ -1,24 +1,31 @@
 using Automation.ConsoleApp.Tests.Integration.PolicyDrift.Assertions;
 using Automation.ConsoleApp.Tests.Integration.PolicyDrift.Matrix;
-using Automation.ConsoleApp.Tests.Integration.PolicyDrift.Models;
-using FluentAssertions;
 
 namespace Automation.ConsoleApp.Tests.Integration.PolicyDrift.Workflows;
 
 public sealed class PolicyDriftDbFallbackMatrixTests : UnitTestBase
 {
+    [Trait("Category", "PolicyDrift")]
+    [Trait("Category", "DatabaseRegression")]
+    [Trait("Category", "WorkflowRegression")]
     [Theory]
-    [Trait("PolicyDrift", "true")]
-    [Trait("WorkflowRegression", "true")]
-    [Trait("DatabaseRegression", "true")]
     [MemberData(nameof(PolicyDriftScenarioData.DbFallbackCases), MemberType = typeof(PolicyDriftScenarioData))]
-    public Task DatabaseFallbackScenario_ShouldProduceExpectedBehavior(PolicyDriftScenarioCase scenario)
+    public async Task DatabaseFallbackScenario_ShouldProduceExpectedBehavior(
+        string name,
+        string scenarioType,
+        string expectedBehavior,
+        string expectedFinalStatus,
+        int expectedMinimumRecordCount)
     {
-        PolicyDriftScenarioAssert.ValidateScenarioDefinition(scenario);
+        await Task.CompletedTask;
 
-        scenario.ExpectedBehavior.Should().NotBeNullOrWhiteSpace();
-        scenario.ExpectedFinalStatus.Should().NotBeNullOrWhiteSpace();
+        var scenario = PolicyDriftScenarioData.CreateScenario(
+            name,
+            scenarioType,
+            expectedBehavior,
+            expectedFinalStatus,
+            expectedMinimumRecordCount);
 
-        return Task.CompletedTask;
+        PolicyDriftScenarioAssert.MarkAsHarnessScaffold(scenario, "DB fallback");
     }
 }

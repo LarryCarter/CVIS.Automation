@@ -172,3 +172,32 @@ The initial migration copied only a subset of scenario data, causing the xUnit t
 
 xUnit theory discovery can expand the same scenario rows as the source PolicyDrift test suite without requiring every JSON file to be physically duplicated into the new project.
 
+
+<!-- RDEL-DOCOPS-ID: 5B0C310D310D275C -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/decisions/ADR-0009-xunit-policydrift-discovery-expansion.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:22:32Z -->
+
+<!-- RDEL-DOCOPS-ID: ADR-0009-XUNIT-POLICYDRIFT-DISCOVERY-EXPANSION -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/decisions/ADR-0009-xunit-policydrift-discovery-expansion.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 05:13:37Z -->
+
+# ADR-0009 — xUnit PolicyDrift Scenario Discovery Expansion
+
+## Status
+
+Accepted
+
+## Context
+
+The initial xUnit migration compiled and passed but discovered far fewer PolicyDrift tests than the NUnit project. Visual Studio Test Explorer showed one xUnit theory per matrix class instead of the full scenario matrix.
+
+## Decision
+
+Use primitive `MemberData` row values for xUnit matrix tests and reconstruct scenario records inside the test body.
+
+## Consequences
+
+- Scenario count becomes visible and comparable to the original NUnit matrix.
+- The xUnit project avoids NUnit-only `TestCaseData`.
+- Test data loading remains compatible with both new and original PolicyDrift test data locations.
+

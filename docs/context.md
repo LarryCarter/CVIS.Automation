@@ -132,3 +132,41 @@ when the new xUnit project does not contain a complete copied `Integration/Polic
 
 This restores xUnit `[Theory]` expansion for PolicyDrift matrix tests and prevents the migrated project from showing a reduced scenario count.
 
+
+<!-- RDEL-DOCOPS-ID: 412899E72657E041 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/context/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:22:32Z -->
+
+<!-- RDEL-DOCOPS-ID: XUNIT-POLICYDRIFT-DISCOVERY-EXPANSION-1-3-5 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/context/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 05:13:37Z -->
+
+## CVIS.Automation — xUnit PolicyDrift Scenario Discovery Expansion
+
+RDEL package `contollo.cvis.automation.xunit-policydrift-discovery-expansion` updates `Automation.ConsoleApp.Tests` so PolicyDrift xUnit matrix tests expose scenario rows as individual test cases.
+
+The prior xUnit migration still produced collapsed matrix theories in Visual Studio Test Explorer. The fix is to avoid passing custom scenario objects directly through `MemberData`; instead, matrix data providers return primitive values and each test reconstructs `PolicyDriftScenarioCase` inside the test body.
+
+Canonical xUnit PolicyDrift matrix pattern:
+
+```csharp
+[Theory]
+[MemberData(nameof(PolicyDriftScenarioData.CyberArkPlatformCases), MemberType = typeof(PolicyDriftScenarioData))]
+public async Task GetPlatformsFailureOrVariation_ShouldFollowExpectedFallbackBehavior(
+    string name,
+    string scenarioType,
+    string expectedBehavior,
+    string expectedFinalStatus,
+    int expectedMinimumRecordCount)
+{
+    var scenario = PolicyDriftScenarioData.CreateScenario(
+        name,
+        scenarioType,
+        expectedBehavior,
+        expectedFinalStatus,
+        expectedMinimumRecordCount);
+}
+```
+
+`UnitTestBase.LoadJsonArray<T>` should search both `Automation.ConsoleApp.Tests/Integration/PolicyDrift/TestData` and the original `CVIS.Automation.Tests/Projects/PolicyDrift/TestData` path while the migration remains in parallel with the NUnit project.
+

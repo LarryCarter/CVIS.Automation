@@ -4,54 +4,131 @@ namespace Automation.ConsoleApp.Tests.Integration.PolicyDrift.Matrix;
 
 public static class PolicyDriftScenarioData
 {
-    public static IEnumerable<object[]> CyberArkFailureCases =>
-        LoadCyberArkFailureCases("cyberark-failure-cases.json");
+    private const string SourceProjectPolicyDriftTestDataPath = "CVIS.Automation.Tests/Projects/PolicyDrift/TestData";
+    private const string LocalPolicyDriftTestDataPath = "Integration/PolicyDrift/TestData";
 
-    public static IEnumerable<object[]> PolicyDriftWorkflowCases =>
-        LoadWorkflowCases("policy-drift-workflow-cases.json");
+    public static IEnumerable<object[]> CyberArkFailureCases =>
+        LoadCyberArkFailureRows("cyberark-failure-cases.json");
+
+    public static IEnumerable<object[]> WorkflowCases =>
+        LoadWorkflowRows("policy-drift-workflow-cases.json");
 
     public static IEnumerable<object[]> CyberArkPlatformCases =>
-        LoadScenarioCases("cyberark-platform-cases.json");
+        LoadScenarioRows("cyberark-platform-cases.json");
 
     public static IEnumerable<object[]> CyberArkPolicyCases =>
-        LoadScenarioCases("cyberark-policy-cases.json");
+        LoadScenarioRows("cyberark-policy-cases.json");
 
     public static IEnumerable<object[]> DbFallbackCases =>
-        LoadScenarioCases("db-fallback-cases.json");
+        LoadScenarioRows("db-fallback-cases.json");
 
     public static IEnumerable<object[]> ZipCases =>
-        LoadScenarioCases("zip-cases.json");
+        LoadScenarioRows("zip-cases.json");
 
     public static IEnumerable<object[]> JobCases =>
-        LoadScenarioCases("job-cases.json");
+        LoadScenarioRows("job-cases.json");
 
     public static IEnumerable<object[]> PolicyProcessingCases =>
-        LoadScenarioCases("policy-processing-cases.json");
+        LoadScenarioRows("policy-processing-cases.json");
 
     public static IEnumerable<object[]> AuditCases =>
-        LoadScenarioCases("audit-cases.json");
+        LoadScenarioRows("audit-cases.json");
 
     public static IEnumerable<object[]> ReportCases =>
-        LoadScenarioCases("report-cases.json");
+        LoadScenarioRows("report-cases.json");
 
-    private static IEnumerable<object[]> LoadScenarioCases(string fileName)
+    public static PolicyDriftScenarioCase CreateScenario(
+        string name,
+        string scenarioType,
+        string expectedBehavior,
+        string expectedFinalStatus,
+        int expectedMinimumRecordCount)
     {
-        return UnitTestBase
-            .LoadJsonArray<PolicyDriftScenarioCase>(Path.Combine("Projects", "PolicyDrift", "TestData", fileName))
-            .Select(static scenario => new object[] { scenario });
+        return new PolicyDriftScenarioCase
+        {
+            Name = name,
+            ScenarioType = scenarioType,
+            ExpectedBehavior = expectedBehavior,
+            ExpectedFinalStatus = expectedFinalStatus,
+            ExpectedMinimumRecordCount = expectedMinimumRecordCount
+        };
     }
 
-    private static IEnumerable<object[]> LoadWorkflowCases(string fileName)
+    public static CyberArkFailureCase CreateCyberArkFailureCase(
+        string name,
+        int simulatedStatusCode,
+        string expectedBehavior)
     {
-        return UnitTestBase
-            .LoadJsonArray<PolicyDriftWorkflowCase>(Path.Combine("Projects", "PolicyDrift", "TestData", fileName))
-            .Select(static scenario => new object[] { scenario });
+        return new CyberArkFailureCase(
+            name,
+            simulatedStatusCode,
+            expectedBehavior);
     }
 
-    private static IEnumerable<object[]> LoadCyberArkFailureCases(string fileName)
+    public static PolicyDriftWorkflowCase CreateWorkflowCase(
+        string name,
+        string scenarioType,
+        string expectedFinalStatus,
+        int expectedMinimumDriftCount)
     {
-        return UnitTestBase
-            .LoadJsonArray<CyberArkFailureCase>(Path.Combine("Projects", "PolicyDrift", "TestData", fileName))
-            .Select(static scenario => new object[] { scenario });
+        return new PolicyDriftWorkflowCase(
+            name,
+            scenarioType,
+            expectedFinalStatus,
+            expectedMinimumDriftCount);
+    }
+
+    private static IEnumerable<object[]> LoadScenarioRows(string fileName)
+    {
+        foreach (var scenario in LoadPolicyDriftJsonArray<PolicyDriftScenarioCase>(fileName))
+        {
+            yield return new object[]
+            {
+                scenario.Name,
+                scenario.ScenarioType,
+                scenario.ExpectedBehavior,
+                scenario.ExpectedFinalStatus,
+                scenario.ExpectedMinimumRecordCount
+            };
+        }
+    }
+
+    private static IEnumerable<object[]> LoadCyberArkFailureRows(string fileName)
+    {
+        foreach (var scenario in LoadPolicyDriftJsonArray<CyberArkFailureCase>(fileName))
+        {
+            yield return new object[]
+            {
+                scenario.Name,
+                scenario.SimulatedStatusCode,
+                scenario.ExpectedBehavior
+            };
+        }
+    }
+
+    private static IEnumerable<object[]> LoadWorkflowRows(string fileName)
+    {
+        foreach (var scenario in LoadPolicyDriftJsonArray<PolicyDriftWorkflowCase>(fileName))
+        {
+            yield return new object[]
+            {
+                scenario.Name,
+                scenario.ScenarioType,
+                scenario.ExpectedFinalStatus,
+                scenario.ExpectedMinimumDriftCount
+            };
+        }
+    }
+
+    private static IEnumerable<T> LoadPolicyDriftJsonArray<T>(string fileName)
+    {
+        try
+        {
+            return UnitTestBase.LoadJsonArray<T>(Path.Combine(LocalPolicyDriftTestDataPath, fileName));
+        }
+        catch (FileNotFoundException)
+        {
+            return UnitTestBase.LoadJsonArray<T>(Path.Combine(SourceProjectPolicyDriftTestDataPath, fileName));
+        }
     }
 }

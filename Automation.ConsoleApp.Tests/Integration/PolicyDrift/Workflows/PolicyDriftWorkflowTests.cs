@@ -1,21 +1,30 @@
-using Automation.ConsoleApp.Tests.Integration.PolicyDrift.Assertions;
 using Automation.ConsoleApp.Tests.Integration.PolicyDrift.Matrix;
-using Automation.ConsoleApp.Tests.Integration.PolicyDrift.Models;
-using FluentAssertions;
 
 namespace Automation.ConsoleApp.Tests.Integration.PolicyDrift.Workflows;
 
 public sealed class PolicyDriftWorkflowTests : UnitTestBase
 {
+    [Trait("Category", "PolicyDrift")]
+    [Trait("Category", "WorkflowRegression")]
     [Theory]
-    [Trait("PolicyDrift", "true")]
-    [Trait("WorkflowRegression", "true")]
-    [MemberData(nameof(PolicyDriftScenarioData.PolicyDriftWorkflowCases), MemberType = typeof(PolicyDriftScenarioData))]
-    public Task PolicyDriftScenario_ShouldProduceExpectedFinalState(PolicyDriftWorkflowCase testCase)
+    [MemberData(nameof(PolicyDriftScenarioData.WorkflowCases), MemberType = typeof(PolicyDriftScenarioData))]
+    public async Task PolicyDriftScenario_ShouldProduceExpectedFinalState(
+        string name,
+        string scenarioType,
+        string expectedFinalStatus,
+        int expectedMinimumDriftCount)
     {
-        PolicyDriftScenarioAssert.ValidateWorkflowDefinition(testCase);
-        testCase.ExpectedFinalStatus.Should().Be("Completed");
+        await Task.CompletedTask;
 
-        return Task.CompletedTask;
+        var testCase = PolicyDriftScenarioData.CreateWorkflowCase(
+            name,
+            scenarioType,
+            expectedFinalStatus,
+            expectedMinimumDriftCount);
+
+        testCase.Name.Should().NotBeNullOrWhiteSpace();
+        testCase.ScenarioType.Should().NotBeNullOrWhiteSpace();
+        testCase.ExpectedFinalStatus.Should().Be("Completed");
+        testCase.ExpectedMinimumDriftCount.Should().BeGreaterThanOrEqualTo(0);
     }
 }

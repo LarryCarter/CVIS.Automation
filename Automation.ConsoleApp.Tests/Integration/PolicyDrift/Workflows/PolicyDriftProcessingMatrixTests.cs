@@ -1,24 +1,31 @@
 using Automation.ConsoleApp.Tests.Integration.PolicyDrift.Assertions;
 using Automation.ConsoleApp.Tests.Integration.PolicyDrift.Matrix;
-using Automation.ConsoleApp.Tests.Integration.PolicyDrift.Models;
-using FluentAssertions;
 
 namespace Automation.ConsoleApp.Tests.Integration.PolicyDrift.Workflows;
 
 public sealed class PolicyDriftProcessingMatrixTests : UnitTestBase
 {
+    [Trait("Category", "PolicyDrift")]
+    [Trait("Category", "PolicyProcessingRegression")]
+    [Trait("Category", "WorkflowRegression")]
     [Theory]
-    [Trait("PolicyDrift", "true")]
-    [Trait("WorkflowRegression", "true")]
-    [Trait("PolicyProcessingRegression", "true")]
     [MemberData(nameof(PolicyDriftScenarioData.PolicyProcessingCases), MemberType = typeof(PolicyDriftScenarioData))]
-    public Task PolicyProcessingScenario_ShouldProduceExpectedDriftBehavior(PolicyDriftScenarioCase scenario)
+    public async Task PolicyProcessingScenario_ShouldProduceExpectedDriftBehavior(
+        string name,
+        string scenarioType,
+        string expectedBehavior,
+        string expectedFinalStatus,
+        int expectedMinimumRecordCount)
     {
-        PolicyDriftScenarioAssert.ValidateScenarioDefinition(scenario);
+        await Task.CompletedTask;
 
-        scenario.ExpectedBehavior.Should().NotBeNullOrWhiteSpace();
-        scenario.ExpectedFinalStatus.Should().NotBeNullOrWhiteSpace();
+        var scenario = PolicyDriftScenarioData.CreateScenario(
+            name,
+            scenarioType,
+            expectedBehavior,
+            expectedFinalStatus,
+            expectedMinimumRecordCount);
 
-        return Task.CompletedTask;
+        PolicyDriftScenarioAssert.MarkAsHarnessScaffold(scenario, "policy processing");
     }
 }

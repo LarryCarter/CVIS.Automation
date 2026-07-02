@@ -1,24 +1,32 @@
 using Automation.ConsoleApp.Tests.Integration.PolicyDrift.Assertions;
 using Automation.ConsoleApp.Tests.Integration.PolicyDrift.Matrix;
-using Automation.ConsoleApp.Tests.Integration.PolicyDrift.Models;
-using FluentAssertions;
 
 namespace Automation.ConsoleApp.Tests.Integration.PolicyDrift.Workflows;
 
 public sealed class PolicyDriftCyberArkPolicyMatrixTests : UnitTestBase
 {
+    [Trait("Category", "PolicyDrift")]
+    [Trait("Category", "CyberArk")]
+    [Trait("Category", "ApiRegression")]
+    [Trait("Category", "WorkflowRegression")]
     [Theory]
-    [Trait("PolicyDrift", "true")]
-    [Trait("WorkflowRegression", "true")]
-    [Trait("CyberArk", "true")]
     [MemberData(nameof(PolicyDriftScenarioData.CyberArkPolicyCases), MemberType = typeof(PolicyDriftScenarioData))]
-    public Task GetPolicyVariation_ShouldFollowExpectedBehavior(PolicyDriftScenarioCase scenario)
+    public async Task GetPolicyVariation_ShouldFollowExpectedBehavior(
+        string name,
+        string scenarioType,
+        string expectedBehavior,
+        string expectedFinalStatus,
+        int expectedMinimumRecordCount)
     {
-        PolicyDriftScenarioAssert.ValidateScenarioDefinition(scenario);
+        await Task.CompletedTask;
 
-        scenario.ExpectedBehavior.Should().NotBeNullOrWhiteSpace();
-        scenario.ExpectedFinalStatus.Should().NotBeNullOrWhiteSpace();
+        var scenario = PolicyDriftScenarioData.CreateScenario(
+            name,
+            scenarioType,
+            expectedBehavior,
+            expectedFinalStatus,
+            expectedMinimumRecordCount);
 
-        return Task.CompletedTask;
+        PolicyDriftScenarioAssert.MarkAsHarnessScaffold(scenario, "CyberArk GetPolicy");
     }
 }

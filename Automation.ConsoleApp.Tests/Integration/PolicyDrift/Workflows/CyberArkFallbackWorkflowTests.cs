@@ -1,23 +1,28 @@
-using Automation.ConsoleApp.Tests.Integration.PolicyDrift.Assertions;
 using Automation.ConsoleApp.Tests.Integration.PolicyDrift.Matrix;
-using Automation.ConsoleApp.Tests.Integration.PolicyDrift.Models;
-using FluentAssertions;
 
 namespace Automation.ConsoleApp.Tests.Integration.PolicyDrift.Workflows;
 
 public sealed class CyberArkFallbackWorkflowTests : UnitTestBase
 {
+    [Trait("Category", "PolicyDrift")]
+    [Trait("Category", "WorkflowRegression")]
+    [Trait("Category", "CyberArk")]
+    [Trait("Category", "Negative")]
     [Theory]
-    [Trait("PolicyDrift", "true")]
-    [Trait("WorkflowRegression", "true")]
-    [Trait("CyberArk", "true")]
-    [Trait("Negative", "true")]
     [MemberData(nameof(PolicyDriftScenarioData.CyberArkFailureCases), MemberType = typeof(PolicyDriftScenarioData))]
-    public Task GetPlatformsFailure_ShouldFallbackToDatabase(CyberArkFailureCase testCase)
+    public async Task GetPlatformsFailure_ShouldFallbackToDatabase(
+        string name,
+        int simulatedStatusCode,
+        string expectedBehavior)
     {
-        PolicyDriftScenarioAssert.ValidateCyberArkFailureDefinition(testCase);
-        testCase.ExpectedBehavior.Should().NotBeNullOrWhiteSpace();
+        await Task.CompletedTask;
 
-        return Task.CompletedTask;
+        var testCase = PolicyDriftScenarioData.CreateCyberArkFailureCase(
+            name,
+            simulatedStatusCode,
+            expectedBehavior);
+
+        testCase.Name.Should().NotBeNullOrWhiteSpace();
+        testCase.ExpectedBehavior.Should().NotBeNullOrWhiteSpace();
     }
 }

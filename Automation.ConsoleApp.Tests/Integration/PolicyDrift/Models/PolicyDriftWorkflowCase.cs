@@ -4,7 +4,4 @@ public sealed record PolicyDriftWorkflowCase(
     string Name,
     string ScenarioType,
     string ExpectedFinalStatus,
-    int ExpectedMinimumDriftCount)
-{
-    public override string ToString() => Name;
-}
+    int ExpectedMinimumDriftCount);

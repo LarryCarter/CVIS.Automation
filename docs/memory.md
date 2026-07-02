@@ -96,3 +96,16 @@ Fix: add `using NUnit.Framework;` to `CVIS.Playwright.NUnitCompat/Base/BaseAutom
 - The xUnit PolicyDrift migration must preserve scenario count by loading JSON rows from the original `CVIS.Automation.Tests/Projects/PolicyDrift/TestData` directory when the new project has incomplete copied TestData.
 - xUnit scenario matrix tests should use `[Theory]` + `[MemberData]`, not a single `[Fact]` per matrix file.
 
+
+<!-- RDEL-DOCOPS-ID: 8957349D330CA60F -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/memory/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:22:32Z -->
+
+<!-- RDEL-DOCOPS-ID: XUNIT-POLICYDRIFT-DISCOVERY-EXPANSION-1-3-5 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/memory/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 05:13:37Z -->
+
+- Automation.ConsoleApp.Tests PolicyDrift matrix tests must preserve the scenario count from CVIS.Automation.Tests.
+- xUnit MemberData should use primitive row values rather than custom scenario objects when Visual Studio Test Explorer needs to show each JSON scenario as a separate discovered test.
+- PolicyDrift xUnit tests may load scenario data from the original NUnit project test data folder until all data is fully duplicated into the xUnit project.
+
