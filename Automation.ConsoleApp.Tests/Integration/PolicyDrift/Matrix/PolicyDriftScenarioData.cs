@@ -1,3 +1,5 @@
+using Automation.ConsoleApp.Tests.Integration.PolicyDrift.Models;
+
 namespace Automation.ConsoleApp.Tests.Integration.PolicyDrift.Matrix;
 
 public static class PolicyDriftScenarioData
@@ -12,9 +14,6 @@ public static class PolicyDriftScenarioData
     public static IEnumerable<object[]> ReportCases => LoadScenarioRows("report-cases.json");
 
     public static IEnumerable<object[]> WorkflowCases => LoadWorkflowRows("policy-drift-workflow-cases.json");
-
-    // Compatibility alias for the xUnit workflow test after full-data migration.
-    // Some generated workflow tests referenced PolicyDriftWorkflowCases directly.
     public static IEnumerable<object[]> PolicyDriftWorkflowCases => WorkflowCases;
 
     public static IEnumerable<object[]> CyberArkFailureCases => LoadCyberArkFailureRows("cyberark-failure-cases.json");

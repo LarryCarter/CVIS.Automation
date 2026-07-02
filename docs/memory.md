@@ -151,3 +151,12 @@ The xUnit `Automation.ConsoleApp.Tests` PolicyDrift migration must preserve the 
 
 - Added `PolicyDriftScenarioData.PolicyDriftWorkflowCases` alias for xUnit PolicyDrift workflow tests.
 
+
+<!-- RDEL-DOCOPS-ID: E2C1B970CC321697 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/memory/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 07:01:59Z -->
+
+<!-- RDEL-DOCOPS-ID: XUNIT-PD-COMPILE-FIX-1-4-0 -->
+
+Remember: Automation.ConsoleApp.Tests matrix data providers require the PolicyDrift model namespace and UnitTestBase must expose Analysis for smoke harness assertions.
+

@@ -255,3 +255,16 @@ Decision: keep full PolicyDrift scenario JSON files inside the xUnit project so 
 
 Decision: keep `WorkflowCases` and add `PolicyDriftWorkflowCases` as an alias instead of renaming the existing data member. This minimizes risk and preserves compatibility with generated xUnit test references.
 
+
+<!-- RDEL-DOCOPS-ID: D9D7C009A90C4C7A -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/decisions/ADR-0011-xunit-policydrift-compile-fix.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 07:01:59Z -->
+
+<!-- RDEL-DOCOPS-ID: XUNIT-PD-COMPILE-FIX-1-4-0 -->
+
+# ADR-0011 - xUnit PolicyDrift Compile Fix
+
+Decision: keep the lightweight smoke-harness `Analysis` property on `UnitTestBase` and make xUnit matrix providers explicitly import `Automation.ConsoleApp.Tests.Integration.PolicyDrift.Models`.
+
+Reason: this preserves the migrated test structure while allowing scenario expansion and compilation without relying on implicit namespace resolution.
+

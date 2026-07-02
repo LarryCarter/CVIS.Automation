@@ -229,3 +229,16 @@ RDEL package `contollo.cvis.automation.xunit-policydrift-full-testdata-count-fix
 
 RDEL package `contollo.cvis.automation.xunit-policydrift-workflow-data-alias-fix` adds `PolicyDriftScenarioData.PolicyDriftWorkflowCases` as a compatibility alias for `WorkflowCases` so the xUnit workflow test project compiles after the full PolicyDrift test data migration.
 
+
+<!-- RDEL-DOCOPS-ID: FE2EE130AA74B454 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/context/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 07:01:59Z -->
+
+<!-- RDEL-DOCOPS-ID: XUNIT-PD-COMPILE-FIX-1-4-0 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/context/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 07:10:00Z -->
+
+## CVIS.Automation — xUnit PolicyDrift Compile Fix
+
+RDEL package `contollo.cvis.automation.xunit-policydrift-compile-fix` fixes the xUnit PolicyDrift migration compile errors by restoring the `Analysis` harness property on `UnitTestBase` and importing the PolicyDrift model namespace in the scenario data provider.
+
