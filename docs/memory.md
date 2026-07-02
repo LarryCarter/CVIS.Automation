@@ -44,3 +44,12 @@ Fix: add `using NUnit.Framework;` to `CVIS.Playwright.NUnitCompat/Base/BaseAutom
 - RDEL 1.2.8 created/updated `Automation.ConsoleApp.Tests` as the xUnit-only migration target for PolicyDrift tests.
 - PolicyDrift NUnit patterns were converted to xUnit `[Fact]`, `[Theory]`, `[InlineData]`, `[MemberData]`, and `[Trait]` patterns.
 
+
+<!-- RDEL-DOCOPS-ID: CA16E90CB91D7F05 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/memory/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 05:51:21Z -->
+
+<!-- RDEL-DOCOPS-ID: XUNIT-CONFIG-PACKAGE-REFS-MEMORY-1-3-0 -->
+
+- `Automation.ConsoleApp.Tests` requires explicit `Microsoft.Extensions.Configuration` package references because its base/config tests use configuration builder APIs and central package management is enabled.
+

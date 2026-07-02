@@ -53,3 +53,18 @@ A new xUnit-only project `Automation.ConsoleApp.Tests` is the canonical target f
 
 The existing NUnit project remains in place. The new project is isolated and must not include NUnit packages, NUnit usings, NUnit attributes, or NUnit assertions.
 
+
+<!-- RDEL-DOCOPS-ID: 902E5CA07C38EB4E -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/context/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 05:51:21Z -->
+
+<!-- RDEL-DOCOPS-ID: XUNIT-CONFIG-PACKAGE-REFS-1-3-0 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/context/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 05:55:00Z -->
+
+## CVIS.Automation - xUnit Configuration Package References Fix
+
+RDEL package `contollo.cvis.automation.xunit.configuration-package-references-fix` fixes the `Automation.ConsoleApp.Tests` project after the xUnit PolicyDrift migration by adding explicit `Microsoft.Extensions.Configuration` package references.
+
+The xUnit project uses `IConfigurationRoot`, `ConfigurationBuilder`, `SetBasePath`, `AddJsonFile`, `AddEnvironmentVariables`, and `GetValue<T>()`, so it requires the corresponding configuration packages under central package management.
+

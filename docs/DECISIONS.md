@@ -79,3 +79,22 @@ This preserves the original NUnit project and provides a clean migration surface
 
 The solution now contains `Automation.ConsoleApp.Tests`. Future PolicyDrift xUnit additions should use this project and the `Integration/PolicyDrift` layout.
 
+
+<!-- RDEL-DOCOPS-ID: 690C5CAD742101F3 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/decisions/ADR-0009-xunit-configuration-package-references.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 05:51:21Z -->
+
+# ADR-0009 - Add explicit configuration packages for Automation.ConsoleApp.Tests
+
+## Decision
+
+Add explicit Microsoft.Extensions.Configuration package references and central package versions for the new xUnit test project.
+
+## Reason
+
+The xUnit migration introduced tests and helpers using `IConfigurationRoot`, `ConfigurationBuilder`, JSON config loading, environment variables, and binder helpers. These APIs are not supplied by xUnit or Microsoft.NET.Test.Sdk.
+
+## Consequence
+
+The project can compile its configuration-based tests without relying on transitive package assumptions.
+
