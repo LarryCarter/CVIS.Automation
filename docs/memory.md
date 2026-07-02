@@ -120,3 +120,16 @@ Fix: add `using NUnit.Framework;` to `CVIS.Playwright.NUnitCompat/Base/BaseAutom
 - Avoid complex object-only `MemberData` rows for these migrated PolicyDrift tests because Visual Studio/xUnit may collapse discovery into one test per theory.
 - Prefer primitive `MemberData` rows for discoverability: name, scenario type, expected behavior, expected final status, expected count.
 
+
+<!-- RDEL-DOCOPS-ID: BCDBE88FCEF59181 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/memory/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:53:36Z -->
+
+<!-- RDEL-DOCOPS-ID: XUNIT-POLICYDRIFT-SOURCE-TESTDATA-MEMORY-1-3-7 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/memory/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:55:00Z -->
+
+## Memory: xUnit PolicyDrift Scenario Count
+
+The xUnit `Automation.ConsoleApp.Tests` PolicyDrift migration must preserve the full source scenario count. When migrated xUnit tests request `Integration/PolicyDrift/TestData/*.json`, the loader should prefer the authoritative original path under `CVIS.Automation.Tests/Projects/PolicyDrift/TestData`.
+

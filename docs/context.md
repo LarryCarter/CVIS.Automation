@@ -185,3 +185,22 @@ RDEL package `contollo.cvis.automation.xunit.policydrift.full-scenario-discovery
 
 The intent is to make Visual Studio/xUnit discover and execute each PolicyDrift scenario JSON row as an individual test case, matching the NUnit scenario matrix behavior more closely.
 
+
+<!-- RDEL-DOCOPS-ID: 3199EEF23813C38D -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/context/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:53:36Z -->
+
+<!-- RDEL-DOCOPS-ID: XUNIT-POLICYDRIFT-SOURCE-TESTDATA-LOADER-1-3-7 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/context/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:55:00Z -->
+
+## CVIS.Automation — xUnit PolicyDrift Source TestData Loader Fix
+
+RDEL package `contollo.cvis.automation.xunit.policydrift.source-testdata-loader-fix` updates `Automation.ConsoleApp.Tests/UnitTestBase.cs` so PolicyDrift scenario data resolves against the original NUnit project TestData folder first:
+
+```text
+CVIS.Automation.Tests/Projects/PolicyDrift/TestData
+```
+
+This is required because the migrated xUnit-local data files may be incomplete, causing xUnit discovery to show far fewer PolicyDrift tests than the source NUnit project.
+

@@ -220,3 +220,18 @@ The NUnit source project reports hundreds of individual PolicyDrift scenario tes
 
 Each scenario JSON row is represented as its own xUnit theory row, improving Visual Studio Test Explorer parity with the NUnit project.
 
+
+<!-- RDEL-DOCOPS-ID: A0A7C9449AAF5DDE -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/decisions/ADR-0010-xunit-policydrift-source-testdata-loader.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:53:36Z -->
+
+<!-- RDEL-DOCOPS-ID: ADR-0010-XUNIT-POLICYDRIFT-SOURCE-TESTDATA-LOADER -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/decisions/ADR-0010-xunit-policydrift-source-testdata-loader.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:55:00Z -->
+
+## ADR-0010: Prefer Original PolicyDrift TestData for Migrated xUnit Tests
+
+Decision: `Automation.ConsoleApp.Tests` should resolve PolicyDrift scenario JSON from `CVIS.Automation.Tests/Projects/PolicyDrift/TestData` before using copied local fallback data.
+
+Reason: The migration goal is count and scenario parity with the source NUnit PolicyDrift suite. Incomplete copied local JSON files collapse the xUnit discovered scenario count.
+
