@@ -38,23 +38,42 @@ Domains are test areas. Base classes are capability layers.
 
 | Need | Inherit from |
 |---|---|
-| Normal NUnit functional test, no browser | `BaseAutomationCvisTest` |
-| API test | `BaseAutomationCvisApiTest` |
-| SQL/database test | `BaseAutomationCvisDatabaseTest` |
-| Playwright browser-level setup | `BaseAutomationCvisPlaywrightBrowserTest` |
-| Playwright fresh page/tab per test | `BaseAutomationCvisPlaywrightPageTabTest` |
+| Normal NUnit functional test, no browser | `CvisAutomationTestBase` |
+| API test | `CvisAutomationApiTestBase` |
+| SQL/database test | `CvisAutomationDatabaseTestBase` |
+| Playwright browser-level setup | `CvisAutomationPlaywrightBrowserTestBase` |
+| Playwright fresh page/tab per test | `CvisAutomationPlaywrightPageTabTestBase` |
+
+## Final base hierarchy
+
+```text
+CvisAutomationTestBase
+├── CvisAutomationApiTestBase
+├── CvisAutomationDatabaseTestBase
+└── CvisAutomationPlaywrightBrowserTestBase
+    └── CvisAutomationPlaywrightPageTabTestBase
+```
+
+`CvisAutomationTestBase` is the only base class that owns NUnit lifecycle attributes. Specialized bases extend it by overriding lifecycle hooks.
 
 ## Clean final naming
 
-| Old | New | Meaning |
+| Old name | Current name | Meaning |
 |---|---|---|
-| `BaseFunctionalTest` | `BaseAutomationCvisTest` | normal NUnit functional test, no browser |
-| `CVISPlaywrightTest` | `BaseAutomationCvisPlaywrightBrowserTest` | Playwright available, browser-level setup |
-| `CVISPageTest` | `BaseAutomationCvisPlaywrightPageTabTest` | Playwright plus fresh page per test |
+| `BaseFunctionalTest` | `CvisAutomationTestBase` | normal NUnit functional test, no browser |
+| `BaseAutomationCvisTest` | `CvisAutomationTestBase` | normal NUnit functional test, no browser |
+| `BaseAutomationCvisApiTest` | `CvisAutomationApiTestBase` | API test with `ApiClient` lifecycle |
+| `BaseAutomationCvisDatabaseTest` | `CvisAutomationDatabaseTestBase` | SQL/database test helpers |
+| `BaseAutomationCvisPlaywrightBrowserTest` | `CvisAutomationPlaywrightBrowserTestBase` | Playwright available, browser-level setup |
+| `BaseAutomationCvisPlaywrightPageTabTest` | `CvisAutomationPlaywrightPageTabTestBase` | Playwright plus fresh context/page per test |
 
-Legacy names may remain temporarily as obsolete compatibility aliases. New code must use the new names.
+The temporary aliases under the `Base` folders were removed. New test code must use the current `CvisAutomation*TestBase` names.
 
-## Reporting
+## Playwright compatibility layer
+
+The root `CVIS.Playwright.NUnitCompat` classes such as `CVISPlaywrightTest`, `CVISBrowserTest`, `CVISContextTest`, and `CVISPageTest` are the Microsoft Playwright/NUnit compatibility layer. They are not the canonical CVIS automation base hierarchy for new CVIS tests.
+
+# Reporting
 
 The report that should match real NUnit execution is:
 
@@ -75,7 +94,7 @@ The lifecycle report only reflects tests that went through lifecycle hooks. Do n
 Normal functional test:
 
 ```csharp
-public sealed class ConfigSmokeTests : BaseAutomationCvisTest
+public sealed class ConfigSmokeTests : CvisAutomationTestBase
 {
     [Test]
     public void Config_ShouldLoad()
@@ -88,7 +107,7 @@ public sealed class ConfigSmokeTests : BaseAutomationCvisTest
 API test:
 
 ```csharp
-public sealed class PlatformApiTests : BaseAutomationCvisApiTest
+public sealed class PlatformApiTests : CvisAutomationApiTestBase
 {
     [Test]
     public async Task Platforms_ShouldReturnSuccess()
@@ -102,7 +121,7 @@ public sealed class PlatformApiTests : BaseAutomationCvisApiTest
 Browser page test:
 
 ```csharp
-public sealed class LoginPageTests : BaseAutomationCvisPlaywrightPageTabTest
+public sealed class LoginPageTests : CvisAutomationPlaywrightPageTabTestBase
 {
     [Test]
     public async Task LoginPage_ShouldOpen()
@@ -119,6 +138,7 @@ public sealed class LoginPageTests : BaseAutomationCvisPlaywrightPageTabTest
 - Using lifecycle report totals as if they are full test totals.
 - Creating domain-specific base classes.
 - Adding NUnit lifecycle attributes to specialized base classes instead of overriding lifecycle hooks.
+- Reintroducing obsolete alias classes instead of updating test inheritance to the current names.
 
 # Related folders
 
