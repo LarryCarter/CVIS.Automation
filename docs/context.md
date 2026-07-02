@@ -98,3 +98,16 @@ RDEL package `contollo.cvis.automation.xunit-policydrift-scenario-expansion` upd
 
 The xUnit project should mirror PolicyDrift coverage from the NUnit project, including API, Console, Database, Workflows, Assertions, Matrix, Models, and TestData areas.
 
+
+<!-- RDEL-DOCOPS-ID: A7299C7671C23F48 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/context/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:06:23Z -->
+
+<!-- RDEL-DOCOPS-ID: XUNIT-LOADJSONARRAY-ACCESSIBILITY-FIX-1-3-3 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/context/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:12:00Z -->
+
+## CVIS.Automation — RDEL 1.3.3 xUnit PolicyDrift LoadJsonArray Accessibility Fix
+
+`Automation.ConsoleApp.Tests/UnitTestBase.cs` now exposes `LoadJsonArray<T>(string)` as `public static` so static xUnit `MemberData` providers such as `PolicyDriftScenarioData` can load PolicyDrift JSON scenario files without CS0122 accessibility errors.
+

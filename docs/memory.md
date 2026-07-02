@@ -73,3 +73,14 @@ Fix: add `using NUnit.Framework;` to `CVIS.Playwright.NUnitCompat/Base/BaseAutom
 - Scenario matrix tests must use `[Theory]` with `[MemberData]` returning `IEnumerable<object[]>` to preserve one test case per JSON scenario.
 - Runtime-disabled smoke tests should return early instead of using NUnit `Assert.Ignore`.
 
+
+<!-- RDEL-DOCOPS-ID: D80F9B912FBF1391 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/memory/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:06:23Z -->
+
+<!-- RDEL-DOCOPS-ID: XUNIT-LOADJSONARRAY-ACCESSIBILITY-FIX-MEMORY-1-3-3 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/memory/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:12:00Z -->
+
+- xUnit static `MemberData` provider classes cannot call protected helpers on `UnitTestBase` unless they inherit from it. Shared JSON scenario loaders used by static providers should be `public static` or live directly in the provider class.
+

@@ -130,3 +130,18 @@ Decision: PolicyDrift scenario matrix tests in `Automation.ConsoleApp.Tests` use
 
 Reason: xUnit requires `object[]` data rows for `MemberData`; preserving a row per JSON scenario maintains equivalent scenario coverage after migration from NUnit.
 
+
+<!-- RDEL-DOCOPS-ID: 21C73D8043D00E41 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/decisions/ADR-0010-xunit-loadjsonarray-accessibility-fix.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:06:23Z -->
+
+<!-- RDEL-DOCOPS-ID: ADR-0010-XUNIT-LOADJSONARRAY-ACCESSIBILITY-FIX -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/decisions/ADR-0010-xunit-loadjsonarray-accessibility-fix.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:12:00Z -->
+
+## ADR-0010 — Expose shared xUnit JSON test-data loader
+
+Decision: make `UnitTestBase.LoadJsonArray<T>(string)` public static.
+
+Reason: `PolicyDriftScenarioData` is a static xUnit data provider and must access the loader without inheriting from `UnitTestBase`.
+

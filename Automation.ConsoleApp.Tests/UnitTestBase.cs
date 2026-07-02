@@ -48,7 +48,7 @@ public class UnitTestBase
         await Task.CompletedTask;
     }
 
-    protected static IEnumerable<T> LoadJsonArray<T>(string relativePath)
+    public static IEnumerable<T> LoadJsonArray<T>(string relativePath)
     {
         var candidates = new[]
         {
