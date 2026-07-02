@@ -18,12 +18,9 @@ public sealed class PolicyDriftValidationTests : CvisAutomationTestBase
             Status = "Active"
         };
 
-        Assert.Multiple(() =>
-        {
-            Assert.That(policy.Id, Is.Not.Null.And.Not.Empty);
-            Assert.That(policy.Name, Is.Not.Null.And.Not.Empty);
-            Assert.That(policy.Status, Is.EqualTo("Active"));
-        });
+        Assert.That(policy.Id, Is.Not.Null.And.Not.Empty);
+        Assert.That(policy.Name, Is.Not.Null.And.Not.Empty);
+        Assert.That(policy.Status, Is.EqualTo("Active"));
     }
 
     [TestCase("P001", "Active", true)]

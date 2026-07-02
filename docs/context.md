@@ -68,3 +68,18 @@ RDEL package `contollo.cvis.automation.xunit.configuration-package-references-fi
 
 The xUnit project uses `IConfigurationRoot`, `ConfigurationBuilder`, `SetBasePath`, `AddJsonFile`, `AddEnvironmentVariables`, and `GetValue<T>()`, so it requires the corresponding configuration packages under central package management.
 
+
+<!-- RDEL-DOCOPS-ID: 18D7CF88249C3D27 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/context/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 05:55:06Z -->
+
+<!-- RDEL-DOCOPS-ID: NUNIT-ASSERT-MULTIPLE-FIX-1-3-1 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/context/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 05:13:37Z -->
+
+## CVIS.Automation — NUnit Assert.Multiple Ambiguity Fix
+
+RDEL package `contollo.cvis.automation.nunit-assert-multiple-ambiguity-fix` updates the legacy NUnit `CVIS.Automation.Tests/Examples/PolicyDriftValidationTests.cs` file to avoid the NUnit 4 overload ambiguity between `Assert.Multiple(TestDelegate)` and `Assert.Multiple(Action)`.
+
+The fix preserves the same assertions but executes them directly instead of wrapping them in `Assert.Multiple`.
+

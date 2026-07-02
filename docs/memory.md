@@ -53,3 +53,12 @@ Fix: add `using NUnit.Framework;` to `CVIS.Playwright.NUnitCompat/Base/BaseAutom
 
 - `Automation.ConsoleApp.Tests` requires explicit `Microsoft.Extensions.Configuration` package references because its base/config tests use configuration builder APIs and central package management is enabled.
 
+
+<!-- RDEL-DOCOPS-ID: C749A7903EE53331 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/memory/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 05:55:06Z -->
+
+<!-- RDEL-DOCOPS-ID: NUNIT-ASSERT-MULTIPLE-FIX-1-3-1 -->
+
+- Fixed legacy NUnit compile ambiguity in `CVIS.Automation.Tests/Examples/PolicyDriftValidationTests.cs` by removing the ambiguous `Assert.Multiple(() => ...)` wrapper while preserving equivalent assertions.
+

@@ -98,3 +98,24 @@ The xUnit migration introduced tests and helpers using `IConfigurationRoot`, `Co
 
 The project can compile its configuration-based tests without relying on transitive package assumptions.
 
+
+<!-- RDEL-DOCOPS-ID: 33C82E0433367FCE -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/decisions/ADR-0009-nunit-assert-multiple-fix.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 05:55:06Z -->
+
+<!-- RDEL-DOCOPS-ID: ADR-0009-NUNIT-ASSERT-MULTIPLE-FIX -->
+
+# ADR-0009 — Avoid Ambiguous NUnit Assert.Multiple Overload
+
+## Decision
+
+For the legacy NUnit `PolicyDriftValidationTests` example test, use direct `Assert.That` statements instead of `Assert.Multiple(() => ...)`.
+
+## Reason
+
+The current package set exposes both `Assert.Multiple(TestDelegate)` and `Assert.Multiple(Action)`, which causes CS0121 overload ambiguity for lambda expressions.
+
+## Consequence
+
+The test compiles without changing the intended validation behavior.
+
