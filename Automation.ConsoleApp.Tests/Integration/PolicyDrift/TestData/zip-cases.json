@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Zip_01",
+    "scenarioType": "ZipScenario01",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Zip_02",
+    "scenarioType": "ZipScenario02",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "Zip_03",
+    "scenarioType": "ZipScenario03",
+    "expectedBehavior": "ValidateZipHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  }
+]

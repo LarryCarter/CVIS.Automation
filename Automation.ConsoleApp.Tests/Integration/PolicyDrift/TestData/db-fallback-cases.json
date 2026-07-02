@@ -1,0 +1,23 @@
+[
+  {
+    "name": "DbFallback_01",
+    "scenarioType": "DbFallbackScenario01",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "DbFallback_02",
+    "scenarioType": "DbFallbackScenario02",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "FailedOrLogged",
+    "expectedMinimumRecordCount": 0
+  },
+  {
+    "name": "DbFallback_03",
+    "scenarioType": "DbFallbackScenario03",
+    "expectedBehavior": "ValidateFallbackPath",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  }
+]

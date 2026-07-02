@@ -1,0 +1,23 @@
+[
+  {
+    "name": "GetPolicy_01",
+    "scenarioType": "GetPolicyScenario01",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_02",
+    "scenarioType": "GetPolicyScenario02",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "LoggedAndContinued",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPolicy_03",
+    "scenarioType": "GetPolicyScenario03",
+    "expectedBehavior": "ValidatePolicyCallHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  }
+]

@@ -34,3 +34,13 @@ Cause: `BaseAutomationCvisPlaywrightPageTabTest.cs` referenced `TestContext.Curr
 
 Fix: add `using NUnit.Framework;` to `CVIS.Playwright.NUnitCompat/Base/BaseAutomationCvisPlaywrightPageTabTest.cs`.
 
+
+<!-- RDEL-DOCOPS-ID: D15E66C88AC2548A -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/memory/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 05:46:59Z -->
+
+<!-- RDEL-DOCOPS-ID: XUNIT-POLICYDRIFT-FULL-MIGRATION-MEMORY-1-2-8 -->
+
+- RDEL 1.2.8 created/updated `Automation.ConsoleApp.Tests` as the xUnit-only migration target for PolicyDrift tests.
+- PolicyDrift NUnit patterns were converted to xUnit `[Fact]`, `[Theory]`, `[InlineData]`, `[MemberData]`, and `[Trait]` patterns.
+

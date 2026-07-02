@@ -58,3 +58,24 @@ Reason: `TestContext` is an NUnit type. Without the using directive or a fully q
 
 Status: Accepted.
 
+
+<!-- RDEL-DOCOPS-ID: D96F6BB590E48969 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/decisions/ADR-0008-xunit-policydrift-full-migration.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 05:46:59Z -->
+
+<!-- RDEL-DOCOPS-ID: ADR-0008-XUNIT-POLICYDRIFT-FULL-MIGRATION -->
+
+# ADR-0008 — xUnit-only PolicyDrift Migration Project
+
+## Decision
+
+Create/maintain `Automation.ConsoleApp.Tests` as an xUnit-only project for the PolicyDrift migration instead of mixing xUnit into the existing NUnit project.
+
+## Rationale
+
+This preserves the original NUnit project and provides a clean migration surface with isolated package references and xUnit test discovery.
+
+## Consequences
+
+The solution now contains `Automation.ConsoleApp.Tests`. Future PolicyDrift xUnit additions should use this project and the `Integration/PolicyDrift` layout.
+

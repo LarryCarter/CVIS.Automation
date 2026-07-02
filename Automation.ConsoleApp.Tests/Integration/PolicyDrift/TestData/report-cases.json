@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Report_01",
+    "scenarioType": "ReportScenario01",
+    "expectedBehavior": "ValidateReportOutput",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Report_02",
+    "scenarioType": "ReportScenario02",
+    "expectedBehavior": "ValidateReportOutput",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  }
+]

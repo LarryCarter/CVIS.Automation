@@ -38,3 +38,18 @@ CVIS.Playwright.NUnitCompat/Base/BaseAutomationCvisPlaywrightPageTabTest.cs
 
 Do not remove the `using NUnit.Framework;` directive from that file unless the `TestContext` reference is also removed or fully qualified.
 
+
+<!-- RDEL-DOCOPS-ID: 8C8480278EC46425 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/context/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 05:46:59Z -->
+
+<!-- RDEL-DOCOPS-ID: XUNIT-POLICYDRIFT-FULL-MIGRATION-1-2-8 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/context/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 05:13:37Z -->
+
+## CVIS.Automation — RDEL 1.2.8 xUnit PolicyDrift Full Migration
+
+A new xUnit-only project `Automation.ConsoleApp.Tests` is the canonical target for the migrated PolicyDrift tests. It mirrors the requested layout under `Integration/PolicyDrift` and uses xUnit attributes only.
+
+The existing NUnit project remains in place. The new project is isolated and must not include NUnit packages, NUnit usings, NUnit attributes, or NUnit assertions.
+

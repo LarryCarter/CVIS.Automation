@@ -1,0 +1,14 @@
+[
+  {
+    "name": "PolicyDrift_Baseline",
+    "scenarioType": "Baseline",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumDriftCount": 0
+  },
+  {
+    "name": "PolicyDrift_WithDrift",
+    "scenarioType": "DriftDetected",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumDriftCount": 1
+  }
+]

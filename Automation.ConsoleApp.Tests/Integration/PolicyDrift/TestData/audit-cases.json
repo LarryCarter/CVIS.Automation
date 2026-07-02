@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Audit_01",
+    "scenarioType": "AuditScenario01",
+    "expectedBehavior": "ValidateAuditRecord",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Audit_02",
+    "scenarioType": "AuditScenario02",
+    "expectedBehavior": "ValidateAuditRecord",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  }
+]

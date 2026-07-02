@@ -1,0 +1,23 @@
+[
+  {
+    "name": "GetPlatforms_01",
+    "scenarioType": "GetPlatformsScenario01",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_02",
+    "scenarioType": "GetPlatformsScenario02",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "GetPlatforms_03",
+    "scenarioType": "GetPlatformsScenario03",
+    "expectedBehavior": "FallbackToDatabase",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  }
+]

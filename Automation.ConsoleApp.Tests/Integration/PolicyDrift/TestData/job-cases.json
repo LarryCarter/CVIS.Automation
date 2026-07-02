@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Job_01",
+    "scenarioType": "JobScenario01",
+    "expectedBehavior": "ValidateScheduledJobHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Job_02",
+    "scenarioType": "JobScenario02",
+    "expectedBehavior": "ValidateScheduledJobHandling",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  }
+]

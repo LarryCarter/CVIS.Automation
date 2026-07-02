@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Unauthorized",
+    "simulatedStatusCode": 401,
+    "expectedBehavior": "FallbackToDatabase"
+  },
+  {
+    "name": "Forbidden",
+    "simulatedStatusCode": 403,
+    "expectedBehavior": "FallbackToDatabase"
+  },
+  {
+    "name": "ServerError",
+    "simulatedStatusCode": 500,
+    "expectedBehavior": "FallbackToDatabase"
+  },
+  {
+    "name": "Timeout",
+    "simulatedStatusCode": 0,
+    "expectedBehavior": "FallbackToDatabase"
+  },
+  {
+    "name": "MalformedJson",
+    "simulatedStatusCode": 200,
+    "expectedBehavior": "LogParseFailureAndFallback"
+  }
+]

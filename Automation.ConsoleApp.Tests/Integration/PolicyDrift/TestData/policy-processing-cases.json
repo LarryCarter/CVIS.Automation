@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Processing_01",
+    "scenarioType": "ProcessingScenario01",
+    "expectedBehavior": "ValidatePolicyProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  },
+  {
+    "name": "Processing_02",
+    "scenarioType": "ProcessingScenario02",
+    "expectedBehavior": "ValidatePolicyProcessing",
+    "expectedFinalStatus": "Completed",
+    "expectedMinimumRecordCount": 1
+  }
+]
