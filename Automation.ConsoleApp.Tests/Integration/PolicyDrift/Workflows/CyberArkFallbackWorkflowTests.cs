@@ -1,26 +1,16 @@
+using Automation.ConsoleApp.Tests.Integration.PolicyDrift.Matrix;
 using Automation.ConsoleApp.Tests.Integration.PolicyDrift.Models;
 
 namespace Automation.ConsoleApp.Tests.Integration.PolicyDrift.Workflows;
 
 public sealed class CyberArkFallbackWorkflowTests : UnitTestBase
 {
-    public static IEnumerable<object[]> CyberArkFailureCases()
-    {
-        var cases = LoadJsonArray<CyberArkFailureCase>(
-            "Integration", "PolicyDrift", "TestData", "cyberark-failure-cases.json");
-
-        foreach (var testCase in cases)
-        {
-            yield return new object[] { testCase };
-        }
-    }
-
     [Theory]
-    [MemberData(nameof(CyberArkFailureCases))]
-    [Trait("Category", "PolicyDrift")]
+    [Trait("PolicyDrift", "true")]
     [Trait("Category", "WorkflowRegression")]
     [Trait("Category", "CyberArk")]
     [Trait("Category", "Negative")]
+    [MemberData(nameof(PolicyDriftScenarioData.CyberArkFailureCases), MemberType = typeof(PolicyDriftScenarioData))]
     public async Task GetPlatformsFailure_ShouldFallbackToDatabase(CyberArkFailureCase testCase)
     {
         await Task.CompletedTask;

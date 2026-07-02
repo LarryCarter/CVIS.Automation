@@ -7,15 +7,24 @@ namespace Automation.ConsoleApp.Tests.Integration.PolicyDrift.Workflows;
 public sealed class PolicyDriftAuditMatrixTests : UnitTestBase
 {
     [Theory]
-    [MemberData(nameof(PolicyDriftScenarioData.AuditCases), MemberType = typeof(PolicyDriftScenarioData))]
-    [Trait("Category", "PolicyDrift")]
+    [Trait("PolicyDrift", "true")]
     [Trait("Category", "AuditRegression")]
     [Trait("Category", "WorkflowRegression")]
+    [MemberData(nameof(PolicyDriftScenarioData.AuditCases), MemberType = typeof(PolicyDriftScenarioData))]
     public async Task AuditOrLogScenario_ShouldProduceExpectedRecord(PolicyDriftScenarioCase scenario)
     {
-        await Task.CompletedTask;
+        await ConfirmPlaywrightRuntimeAsync();
+
+        await WriteRegressionReportAsync(
+            project: "PolicyDrift",
+            family: "audit/log",
+            scenarioName: scenario.Name,
+            scenarioType: scenario.ScenarioType,
+            expectedBehavior: scenario.ExpectedBehavior,
+            expectedFinalStatus: scenario.ExpectedFinalStatus,
+            status: UnitTestData.ScaffoldReady,
+            details: "xUnit scenario data loaded. Scenario scaffold is ready for environment-specific wiring.");
 
         PolicyDriftScenarioAssert.MarkAsHarnessScaffold(scenario, "audit/log");
-        scenario.ExpectedFinalStatus.Should().NotBeNullOrWhiteSpace();
     }
 }

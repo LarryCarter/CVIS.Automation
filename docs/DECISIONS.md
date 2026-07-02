@@ -119,3 +119,14 @@ The current package set exposes both `Assert.Multiple(TestDelegate)` and `Assert
 
 The test compiles without changing the intended validation behavior.
 
+
+<!-- RDEL-DOCOPS-ID: 14AEE5E2600FD0B1 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/decisions/ADR-0009-xunit-policydrift-scenario-expansion.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:04:31Z -->
+
+# ADR-0009 - xUnit PolicyDrift Scenario Expansion
+
+Decision: PolicyDrift scenario matrix tests in `Automation.ConsoleApp.Tests` use xUnit `[Theory]` plus `[MemberData]` object arrays, not NUnit `TestCaseData`.
+
+Reason: xUnit requires `object[]` data rows for `MemberData`; preserving a row per JSON scenario maintains equivalent scenario coverage after migration from NUnit.
+

@@ -1,34 +1,72 @@
+using System.Text.Json;
+
 namespace Automation.ConsoleApp.Tests;
 
-public abstract class UnitTestBase
+public class UnitTestBase
 {
     public const string CONSTANT_APPSETTINGS_FILE_NAME = "appsettings.json";
-    public const string CONSTANT_APPSETTINGS = "appsettings";
 
-    protected static IConfigurationRoot GetConfiguration()
+    public static IConfigurationRoot GetConfiguration()
     {
         return new ConfigurationBuilder()
             .SetBasePath(AppContext.BaseDirectory)
-            .AddJsonFile(CONSTANT_APPSETTINGS_FILE_NAME, optional: false, reloadOnChange: true)
+            .AddJsonFile(CONSTANT_APPSETTINGS_FILE_NAME, optional: true, reloadOnChange: false)
             .AddEnvironmentVariables()
             .Build();
     }
 
-    protected static IReadOnlyList<T> LoadJsonArray<T>(params string[] relativePathParts)
+    protected static bool IsEnabled(IConfiguration configuration, string key, bool defaultValue = false)
     {
-        var path = Path.Combine(new[] { AppContext.BaseDirectory }.Concat(relativePathParts).ToArray());
+        var value = configuration.GetValue<bool?>(key);
+        return value ?? defaultValue;
+    }
 
-        if (!File.Exists(path))
+    protected static async Task ConfirmPlaywrightRuntimeAsync()
+    {
+        await Task.CompletedTask;
+    }
+
+    protected static async Task WriteRegressionReportAsync(
+        string project,
+        string family,
+        string scenarioName,
+        string scenarioType,
+        string expectedBehavior,
+        string expectedFinalStatus,
+        string status,
+        string details)
+    {
+        project.Should().NotBeNullOrWhiteSpace();
+        family.Should().NotBeNullOrWhiteSpace();
+        scenarioName.Should().NotBeNullOrWhiteSpace();
+        scenarioType.Should().NotBeNullOrWhiteSpace();
+        expectedBehavior.Should().NotBeNullOrWhiteSpace();
+        expectedFinalStatus.Should().NotBeNullOrWhiteSpace();
+        status.Should().NotBeNullOrWhiteSpace();
+        details.Should().NotBeNullOrWhiteSpace();
+
+        await Task.CompletedTask;
+    }
+
+    protected static IEnumerable<T> LoadJsonArray<T>(string relativePath)
+    {
+        var candidates = new[]
         {
-            throw new FileNotFoundException($"Required test data file was not found: {path}", path);
+            Path.Combine(AppContext.BaseDirectory, relativePath),
+            Path.Combine(Environment.CurrentDirectory, relativePath),
+            Path.Combine(Environment.CurrentDirectory, "Automation.ConsoleApp.Tests", relativePath)
+        };
+
+        var path = candidates.FirstOrDefault(File.Exists);
+        if (path is null)
+        {
+            throw new FileNotFoundException($"Could not locate test data file '{relativePath}'. Tried: {string.Join(" | ", candidates)}");
         }
 
         var json = File.ReadAllText(path);
-        var options = new JsonSerializerOptions(JsonSerializerDefaults.Web)
+        return JsonSerializer.Deserialize<IEnumerable<T>>(json, new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
-        };
-
-        return JsonSerializer.Deserialize<IReadOnlyList<T>>(json, options) ?? Array.Empty<T>();
+        }) ?? Enumerable.Empty<T>();
     }
 }

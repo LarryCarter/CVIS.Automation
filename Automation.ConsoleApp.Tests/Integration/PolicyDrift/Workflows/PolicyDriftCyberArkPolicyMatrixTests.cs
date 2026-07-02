@@ -7,16 +7,24 @@ namespace Automation.ConsoleApp.Tests.Integration.PolicyDrift.Workflows;
 public sealed class PolicyDriftCyberArkPolicyMatrixTests : UnitTestBase
 {
     [Theory]
-    [MemberData(nameof(PolicyDriftScenarioData.CyberArkPolicyCases), MemberType = typeof(PolicyDriftScenarioData))]
-    [Trait("Category", "PolicyDrift")]
+    [Trait("PolicyDrift", "true")]
     [Trait("Category", "CyberArk")]
-    [Trait("Category", "ApiRegression")]
     [Trait("Category", "WorkflowRegression")]
+    [MemberData(nameof(PolicyDriftScenarioData.CyberArkPolicyCases), MemberType = typeof(PolicyDriftScenarioData))]
     public async Task GetPolicyVariation_ShouldFollowExpectedBehavior(PolicyDriftScenarioCase scenario)
     {
-        await Task.CompletedTask;
+        await ConfirmPlaywrightRuntimeAsync();
+
+        await WriteRegressionReportAsync(
+            project: "PolicyDrift",
+            family: "CyberArk GetPolicy",
+            scenarioName: scenario.Name,
+            scenarioType: scenario.ScenarioType,
+            expectedBehavior: scenario.ExpectedBehavior,
+            expectedFinalStatus: scenario.ExpectedFinalStatus,
+            status: UnitTestData.ScaffoldReady,
+            details: "xUnit scenario data loaded. Scenario scaffold is ready for environment-specific wiring.");
 
         PolicyDriftScenarioAssert.MarkAsHarnessScaffold(scenario, "CyberArk GetPolicy");
-        scenario.ExpectedFinalStatus.Should().NotBeNullOrWhiteSpace();
     }
 }

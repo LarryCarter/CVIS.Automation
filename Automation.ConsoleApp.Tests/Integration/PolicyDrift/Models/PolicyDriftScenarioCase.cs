@@ -7,4 +7,6 @@ public sealed record PolicyDriftScenarioCase
     public string ExpectedBehavior { get; init; } = string.Empty;
     public string ExpectedFinalStatus { get; init; } = string.Empty;
     public int ExpectedMinimumRecordCount { get; init; }
+
+    public override string ToString() => Name;
 }

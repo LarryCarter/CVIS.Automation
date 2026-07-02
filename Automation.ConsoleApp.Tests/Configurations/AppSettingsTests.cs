@@ -1,11 +1,13 @@
 namespace Automation.ConsoleApp.Tests.Configurations;
 
-/// <summary>
-/// Validates required appsettings.json configuration for generated xUnit tests.
-/// </summary>
 public sealed class AppSettingsTests : UnitTestBase
 {
-    private readonly IConfigurationRoot _configuration = GetConfiguration();
+    private readonly IConfigurationRoot _configuration;
+
+    public AppSettingsTests()
+    {
+        _configuration = GetConfiguration();
+    }
 
     [Theory]
     [InlineData("HealthChecks", true)]
@@ -21,7 +23,6 @@ public sealed class AppSettingsTests : UnitTestBase
         var actualValue = section.GetValue<T>(key);
 
         section.Exists().Should().BeTrue($"section '{sectionName}' should exist");
-        actualValue.Should().NotBeNull();
         actualValue.Should().Be(expectedValue);
     }
 }

@@ -83,3 +83,18 @@ RDEL package `contollo.cvis.automation.nunit-assert-multiple-ambiguity-fix` upda
 
 The fix preserves the same assertions but executes them directly instead of wrapping them in `Assert.Multiple`.
 
+
+<!-- RDEL-DOCOPS-ID: 09C4D290055E6762 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/context/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:04:31Z -->
+
+<!-- RDEL-DOCOPS-ID: XUNIT-POLICYDRIFT-SCENARIO-EXPANSION-1-3-2 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/context/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 05:13:37Z -->
+
+## CVIS.Automation — xUnit PolicyDrift Scenario Expansion
+
+RDEL package `contollo.cvis.automation.xunit-policydrift-scenario-expansion` updates the new `Automation.ConsoleApp.Tests` xUnit project so PolicyDrift matrix tests expose scenario-driven theory cases using `MemberData` object arrays.
+
+The xUnit project should mirror PolicyDrift coverage from the NUnit project, including API, Console, Database, Workflows, Assertions, Matrix, Models, and TestData areas.
+

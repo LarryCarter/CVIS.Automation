@@ -62,3 +62,14 @@ Fix: add `using NUnit.Framework;` to `CVIS.Playwright.NUnitCompat/Base/BaseAutom
 
 - Fixed legacy NUnit compile ambiguity in `CVIS.Automation.Tests/Examples/PolicyDriftValidationTests.cs` by removing the ambiguous `Assert.Multiple(() => ...)` wrapper while preserving equivalent assertions.
 
+
+<!-- RDEL-DOCOPS-ID: 952DFDCE14FF1966 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/memory/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:04:31Z -->
+
+<!-- RDEL-DOCOPS-ID: XUNIT-POLICYDRIFT-SCENARIO-EXPANSION-1-3-2 -->
+
+- `Automation.ConsoleApp.Tests` is the xUnit-only PolicyDrift migration target.
+- Scenario matrix tests must use `[Theory]` with `[MemberData]` returning `IEnumerable<object[]>` to preserve one test case per JSON scenario.
+- Runtime-disabled smoke tests should return early instead of using NUnit `Assert.Ignore`.
+

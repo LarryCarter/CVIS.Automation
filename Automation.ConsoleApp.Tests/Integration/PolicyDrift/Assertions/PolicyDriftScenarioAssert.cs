@@ -14,7 +14,7 @@ public static class PolicyDriftScenarioAssert
 
     public static void MarkAsHarnessScaffold(PolicyDriftScenarioCase scenario, string family)
     {
-        ValidateScenarioDefinition(scenario);
         family.Should().NotBeNullOrWhiteSpace();
+        ValidateScenarioDefinition(scenario);
     }
 }

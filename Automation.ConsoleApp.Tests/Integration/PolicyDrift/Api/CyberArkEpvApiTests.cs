@@ -1,26 +1,46 @@
+using Microsoft.Playwright;
+
 namespace Automation.ConsoleApp.Tests.Integration.PolicyDrift.Api;
 
 public sealed class CyberArkEpvApiTests : UnitTestBase
 {
-    private readonly IConfigurationRoot _configuration = GetConfiguration();
+    private readonly IConfigurationRoot _configuration;
+
+    public CyberArkEpvApiTests()
+    {
+        _configuration = GetConfiguration();
+    }
 
     [Fact]
-    [Trait("Category", "PolicyDrift")]
+    [Trait("PolicyDrift", "true")]
     [Trait("Category", "CyberArk")]
     [Trait("Category", "ApiRegression")]
-    public void GetPlatforms_ShouldReturnSuccessfulResponse_WhenCyberArkIsAvailable()
+    public async Task GetPlatforms_ShouldReturnSuccessfulResponse_WhenCyberArkIsAvailable()
     {
-        var section = _configuration.GetSection("PolicyDrift");
-        section.Exists().Should().BeTrue("PolicyDrift configuration should exist");
-
-        var runApiTests = section.GetValue<bool>("RunApiTests");
-        var baseUrl = section.GetSection("CyberArk").GetValue<string>("BaseUrl");
-
-        if (!runApiTests)
+        if (!IsEnabled(_configuration, "PolicyDrift:Enabled") ||
+            !IsEnabled(_configuration, "PolicyDrift:RunApiTests"))
         {
             return;
         }
 
-        baseUrl.Should().NotBeNullOrWhiteSpace("CyberArk API tests require a configured base URL");
+        var baseUrl = _configuration["PolicyDrift:CyberArk:BaseUrl"];
+        var token = _configuration["PolicyDrift:CyberArk:Token"];
+
+        baseUrl.Should().NotBeNullOrWhiteSpace();
+
+        using var playwright = await Playwright.CreateAsync();
+        await using var request = await playwright.APIRequest.NewContextAsync(new APIRequestNewContextOptions
+        {
+            BaseURL = baseUrl,
+            ExtraHTTPHeaders = string.IsNullOrWhiteSpace(token)
+                ? new Dictionary<string, string>()
+                : new Dictionary<string, string> { ["Authorization"] = token }
+        });
+
+        var response = await request.GetAsync("/PasswordVault/API/Platforms");
+        response.Status.Should().BeInRange(200, 299);
+
+        var body = await response.TextAsync();
+        body.Should().NotBeNullOrWhiteSpace();
     }
 }

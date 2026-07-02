@@ -7,16 +7,24 @@ namespace Automation.ConsoleApp.Tests.Integration.PolicyDrift.Workflows;
 public sealed class PolicyDriftCyberArkPlatformMatrixTests : UnitTestBase
 {
     [Theory]
-    [MemberData(nameof(PolicyDriftScenarioData.CyberArkPlatformCases), MemberType = typeof(PolicyDriftScenarioData))]
-    [Trait("Category", "PolicyDrift")]
+    [Trait("PolicyDrift", "true")]
     [Trait("Category", "CyberArk")]
-    [Trait("Category", "Negative")]
     [Trait("Category", "WorkflowRegression")]
+    [MemberData(nameof(PolicyDriftScenarioData.CyberArkPlatformCases), MemberType = typeof(PolicyDriftScenarioData))]
     public async Task GetPlatformsFailureOrVariation_ShouldFollowExpectedFallbackBehavior(PolicyDriftScenarioCase scenario)
     {
-        await Task.CompletedTask;
+        await ConfirmPlaywrightRuntimeAsync();
+
+        await WriteRegressionReportAsync(
+            project: "PolicyDrift",
+            family: "CyberArk GetPlatforms",
+            scenarioName: scenario.Name,
+            scenarioType: scenario.ScenarioType,
+            expectedBehavior: scenario.ExpectedBehavior,
+            expectedFinalStatus: scenario.ExpectedFinalStatus,
+            status: UnitTestData.ScaffoldReady,
+            details: "xUnit scenario data loaded. Scenario scaffold is ready for environment-specific wiring.");
 
         PolicyDriftScenarioAssert.MarkAsHarnessScaffold(scenario, "CyberArk GetPlatforms");
-        scenario.ExpectedFinalStatus.Should().NotBeNullOrWhiteSpace();
     }
 }
