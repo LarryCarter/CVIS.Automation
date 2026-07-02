@@ -1,23 +1,30 @@
 # HyperExecute CPN Reporting
 
+## Purpose
+
+This document explains how HyperExecute consumes the CVIS test outputs and how the pipeline proves the report package was written.
+
 ## Output folders
 
 ```text
 TestResults
 ├── NUnitXml
-│   └── *.xml
-├── NUnit
-│   └── *.trx
+│   └── **\*.xml
+├── TRX
+│   └── **\*.trx
 └── CPN
     ├── cpn-report.html
     ├── cpn-report.json
+    ├── cpn-report-all-tests.html
+    ├── cpn-report-all-tests.json
+    ├── cpn-report-summary.txt
     └── Tests
         └── *.json
 ```
 
 ## HyperExecute parsed report
 
-HyperExecute should parse:
+HyperExecute should parse NUnit XML:
 
 ```text
 TestResults\NUnitXml
@@ -31,55 +38,54 @@ partialReports:
   frameworkName: nunit
 ```
 
-## CPN artifact report
+That is the pipeline parser input and the framework test-count source.
+
+## CVIS artifact report
+
+The CVIS report package is uploaded as artifacts:
 
 ```yaml
+mergeArtifacts: true
 uploadArtefacts:
-  - name: cpn-test-output
+  - name: cvis-authoritative-test-output
     path:
       - .\TestResults\NUnitXml
-      - .\TestResults\NUnit
+      - .\TestResults\TRX
       - .\TestResults\CPN
-```
-
-## Required environment variables
-
-```yaml
-env:
-  CPN_REPORT_ENABLED: "true"
-  CPN_REPORT_ROOT: ".\TestResults\CPN"
-```
-
-Local cmd:
-
-```powershell
-set CPN_REPORT_ENABLED=true
-set CPN_REPORT_ROOT=%CD%\TestResults\CPN
 ```
 
 ## Local command
 
 ```powershell
-set CPN_REPORT_ENABLED=true
-set CPN_REPORT_ROOT=%CD%\TestResults\CPN
-
-dotnet test .\CVIS.Playwright.NUnitCompat.Tests\CVIS.Playwright.NUnitCompat.Tests.csproj ^
-  --logger "trx;LogFileName=cpn-tests.trx" ^
-  --results-directory ".\TestResults\NUnit" ^
-  -- NUnit.TestOutputXml=.\TestResults\NUnitXml
+.\scripts\run-cvis-authoritative-report-local.ps1 -Configuration Debug -MinimumTotal 250
 ```
 
-## Local scripts
+## Pipeline command
 
-```powershell
-.\scripts\run-cpn-reporting-local.ps1
-.\scripts\run-cvis-automation-reporting-local.ps1
+The HyperExecute YAML runs the same authoritative script:
+
+```yaml
+testSuites:
+  - powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run-cvis-authoritative-report-local.ps1
+```
+
+## Required output checks
+
+The pipeline `post` section should fail if any required output is missing:
+
+```text
+TestResults\TRX\**\*.trx
+TestResults\NUnitXml\**\*.xml
+TestResults\CPN\cpn-report.html
+TestResults\CPN\cpn-report.json
+TestResults\CPN\cpn-report-all-tests.html
+TestResults\CPN\cpn-report-all-tests.json
+TestResults\CPN\cpn-report-summary.txt
+TestResults\CPN\Tests\*.json
 ```
 
 ## Important
 
-NUnit XML contains all NUnit tests.
+`cpn-report.html` and `cpn-report.json` are generated from TRX plus NUnit XML after the run. They are the authoritative CVIS report outputs.
 
-CPN HTML/JSON contains only tests that use CPN base classes.
-
-That is intentional. HyperExecute gets the full framework test count from NUnit XML, while the CPN report gives detailed CPN-owned reporting for tests running through the CPN layer.
+`cpn-lifecycle-report.html` is diagnostic lifecycle output only. Do not use it as the full test count.
