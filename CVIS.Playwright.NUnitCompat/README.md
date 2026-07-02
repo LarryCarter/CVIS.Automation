@@ -7,7 +7,7 @@ This project contains CVIS Playwright/NUnit compatibility and browser automation
 # Responsibilities
 
 - Provide Playwright-compatible NUnit support.
-- Provide official CVIS browser base classes under `Base`.
+- Provide official CVIS browser automation base classes under `Base`.
 - Keep browser automation separate from non-browser functional infrastructure.
 - Support lifecycle and report integration for browser tests.
 
@@ -19,16 +19,18 @@ Use one of these CVIS automation bases for new browser tests:
 
 | Need | Base class |
 |---|---|
-| Browser-level setup, no automatic fresh page | `BaseAutomationCvisPlaywrightBrowserTest` |
-| Fresh page/tab per test | `BaseAutomationCvisPlaywrightPageTabTest` |
+| Browser-level setup, no automatic fresh page | `CvisAutomationPlaywrightBrowserTestBase` |
+| Fresh page/tab per test | `CvisAutomationPlaywrightPageTabTestBase` |
 
 # When NOT to use
 
 Do not use this project for normal API, database, config, or console tests that do not need a browser.
 
-Do not inherit old names for new CVIS automation tests:
+Do not use old base names for new CVIS automation tests:
 
 ```csharp
+BaseAutomationCvisPlaywrightBrowserTest
+BaseAutomationCvisPlaywrightPageTabTest
 CVISPlaywrightTest
 CVISPageTest
 ```
@@ -37,10 +39,20 @@ CVISPageTest
 
 Browser automation extends the normal CVIS lifecycle through hook overrides. Specialized browser base classes should not declare their own NUnit lifecycle attributes.
 
+Final CVIS automation browser hierarchy:
+
+```text
+CvisAutomationTestBase
+└── CvisAutomationPlaywrightBrowserTestBase
+    └── CvisAutomationPlaywrightPageTabTestBase
+```
+
+The root compatibility classes `CVISPlaywrightTest`, `CVISBrowserTest`, `CVISContextTest`, and `CVISPageTest` remain the Microsoft Playwright/NUnit adapter layer. They are separate from the canonical CVIS automation base hierarchy under `Base`.
+
 # Examples
 
 ```csharp
-public sealed class LoginPageTests : BaseAutomationCvisPlaywrightPageTabTest
+public sealed class LoginPageTests : CvisAutomationPlaywrightPageTabTestBase
 {
     [Test]
     public async Task LoginPage_ShouldOpen()
@@ -56,6 +68,7 @@ public sealed class LoginPageTests : BaseAutomationCvisPlaywrightPageTabTest
 - Using browser base classes for non-browser tests.
 - Using the root compatibility-layer classes when a CVIS automation base class is intended.
 - Confusing lifecycle diagnostics with authoritative NUnit results.
+- Using old `BaseAutomationCvisPlaywright*` names after the rename to `CvisAutomationPlaywright*TestBase`.
 
 # Related folders
 
