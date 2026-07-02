@@ -6,7 +6,27 @@
 TestResults\CPN\cpn-report.html
 ```
 
-That report is generated from NUnit XML after `dotnet test`, so it includes all NUnit tests.
+That report is generated from TRX plus NUnit XML after `dotnet test`, so it represents the authoritative test run.
+
+Machine-readable equivalent:
+
+```text
+TestResults\CPN\cpn-report.json
+```
+
+All-tests aliases:
+
+```text
+TestResults\CPN\cpn-report-all-tests.html
+TestResults\CPN\cpn-report-all-tests.json
+```
+
+Summary and per-test detail:
+
+```text
+TestResults\CPN\cpn-report-summary.txt
+TestResults\CPN\Tests\*.json
+```
 
 ## Lifecycle-only report
 
@@ -14,12 +34,12 @@ That report is generated from NUnit XML after `dotnet test`, so it includes all 
 TestResults\CPN\cpn-lifecycle-report.html
 ```
 
-That report only includes tests that directly inherit from CPN base classes.
+That report only reflects lifecycle diagnostics. It must not be used as the authoritative test count.
 
 ## Run the full automation report
 
 ```powershell
-.\scripts\run-cvis-automation-reporting-local.ps1
+.\scripts\run-cvis-authoritative-report-local.ps1 -Configuration Debug -MinimumTotal 250
 ```
 
 Then open:
@@ -28,43 +48,47 @@ Then open:
 TestResults\CPN\cpn-report.html
 ```
 
-## HyperExecute sample
+## Pipeline pattern
+
+Use:
+
+```text
+hyperexecute-cvis-authoritative-nunit.yaml
+```
+
+The pipeline should parse NUnit XML:
 
 ```yaml
-version: "0.1"
-runson: win
-
-autosplit: false
-concurrency: 1
-testRunnerExecutor: cmd
-workingDirectory: .
-
-env:
-  CPN_REPORT_ENABLED: "true"
-  CPN_REPORT_ROOT: ".\TestResults\CPN"
-
-pre:
-  - if exist .\TestResults rmdir /s /q .\TestResults
-  - dotnet restore .\CVIS.Automation.Tests\CVIS.Automation.Tests.csproj
-  - dotnet build .\CVIS.Automation.Tests\CVIS.Automation.Tests.csproj --no-restore
-
-testSuites:
-  - dotnet test .\CVIS.Automation.Tests\CVIS.Automation.Tests.csproj --no-build --logger "trx;LogFileName=cvis-automation-tests.trx" --results-directory ".\TestResults\NUnit" -- NUnit.TestOutputXml=.\TestResults\NUnitXml
-
-post:
-  - powershell -ExecutionPolicy Bypass -File .\scripts\merge-nunitxml-into-cpn-report.ps1 -NUnitXmlRoot .\TestResults\NUnitXml -CpnRoot .\TestResults\CPN -FrameworkName CVIS.Automation.Tests
-
 report: true
 partialReports:
   type: nunit
   location: .\TestResults\NUnitXml
   frameworkName: nunit
+```
 
+The pipeline should upload all report families:
+
+```yaml
 mergeArtifacts: true
 uploadArtefacts:
-  - name: cvis-test-output
+  - name: cvis-authoritative-test-output
     path:
       - .\TestResults\NUnitXml
-      - .\TestResults\NUnit
+      - .\TestResults\TRX
       - .\TestResults\CPN
+```
+
+## Required checks
+
+The pipeline should fail when any of these are missing:
+
+```text
+TestResults\TRX\**\*.trx
+TestResults\NUnitXml\**\*.xml
+TestResults\CPN\cpn-report.html
+TestResults\CPN\cpn-report.json
+TestResults\CPN\cpn-report-all-tests.html
+TestResults\CPN\cpn-report-all-tests.json
+TestResults\CPN\cpn-report-summary.txt
+TestResults\CPN\Tests\*.json
 ```
