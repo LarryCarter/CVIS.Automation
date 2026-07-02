@@ -12,7 +12,7 @@ This repository provides the shared automation infrastructure for CVIS functiona
 - Provide optional Playwright base classes only when browser automation is needed.
 - Provide configuration loading, API helpers, database helpers, and lifecycle diagnostics.
 - Generate authoritative reports from real NUnit/TRX execution output.
-- Keep documentation clear enough that developers and AI assistants choose the correct base class.
+- Keep documentation clear enough that developers choose the correct base class.
 
 # When to use
 
@@ -75,19 +75,72 @@ The root `CVIS.Playwright.NUnitCompat` classes such as `CVISPlaywrightTest`, `CV
 
 # Reporting
 
-The report that should match real NUnit execution is:
+## Local authoritative run
 
-```text
-TestResults\CPN\cpn-report.html
+```powershell
+.\scripts\run-cvis-authoritative-report-local.ps1 -Configuration Debug -MinimumTotal 250
 ```
 
-Lifecycle report is diagnostic only:
+The script discovers `*.Tests.csproj` projects, writes TRX and NUnit XML, then generates the CVIS report package.
+
+## Report outputs
+
+| Output | Path | Purpose |
+|---|---|---|
+| TRX | `TestResults\TRX\**\*.trx` | Visual Studio / runner-compatible results |
+| NUnit XML | `TestResults\NUnitXml\**\*.xml` | HyperExecute parser input |
+| CVIS HTML | `TestResults\CPN\cpn-report.html` | main human-readable authoritative report |
+| CVIS JSON | `TestResults\CPN\cpn-report.json` | main machine-readable authoritative report |
+| All-tests HTML | `TestResults\CPN\cpn-report-all-tests.html` | explicit all-tests HTML report alias |
+| All-tests JSON | `TestResults\CPN\cpn-report-all-tests.json` | explicit all-tests JSON report alias |
+| Summary | `TestResults\CPN\cpn-report-summary.txt` | totals summary |
+| Per-test JSON | `TestResults\CPN\Tests\*.json` | one JSON file per test case |
+
+The lifecycle report is diagnostic only:
 
 ```text
 TestResults\CPN\cpn-lifecycle-report.html
 ```
 
-The lifecycle report only reflects tests that went through lifecycle hooks. Do not use it as the test total.
+Do not use lifecycle output as the authoritative test count.
+
+# Pipeline
+
+Use:
+
+```text
+hyperexecute-cvis-authoritative-nunit.yaml
+```
+
+The pipeline runs:
+
+```powershell
+.\scripts\run-cvis-authoritative-report-local.ps1
+```
+
+HyperExecute parses NUnit XML:
+
+```yaml
+report: true
+partialReports:
+  type: nunit
+  location: .\TestResults\NUnitXml
+  frameworkName: nunit
+```
+
+The pipeline uploads all reporting outputs:
+
+```yaml
+mergeArtifacts: true
+uploadArtefacts:
+  - name: cvis-authoritative-test-output
+    path:
+      - .\TestResults\NUnitXml
+      - .\TestResults\TRX
+      - .\TestResults\CPN
+```
+
+The pipeline must fail if any required report output is missing. The current YAML checks for TRX files, NUnit XML files, `cpn-report.html`, `cpn-report.json`, all-tests HTML/JSON aliases, summary text, and per-test JSON files.
 
 # Examples
 
@@ -139,6 +192,7 @@ public sealed class LoginPageTests : CvisAutomationPlaywrightPageTabTestBase
 - Creating domain-specific base classes.
 - Adding NUnit lifecycle attributes to specialized base classes instead of overriding lifecycle hooks.
 - Reintroducing obsolete alias classes instead of updating test inheritance to the current names.
+- Uploading `TestResults\CPN` but forgetting that the pipeline parser must read `TestResults\NUnitXml`.
 
 # Related folders
 
@@ -149,28 +203,16 @@ public sealed class LoginPageTests : CvisAutomationPlaywrightPageTabTestBase
 - `CVIS.Automation.Tests` — CVIS domain test implementations.
 - `scripts` — local report and execution helpers.
 
+# Supporting docs
+
+- `README_AUTHORITATIVE_TEST_REPORTING.md`
+- `README_CPN_REPORT_OUTPUT.md`
+- `README_CPN_FULL_REPORT_BRIDGE.md`
+- `README_CPN_FULL_VS_LIFECYCLE_REPORTS.md`
+- `README_HYPEREXECUTE_CPN_REPORTING.md`
+
 # Local full run
 
 ```powershell
 .\scripts\run-cvis-authoritative-report-local.ps1
-```
-
-# HyperExecute
-
-Use:
-
-```text
-hyperexecute-cvis-authoritative-nunit.yaml
-```
-
-HyperExecute parses:
-
-```text
-TestResults\NUnitXml
-```
-
-The CVIS HTML report is uploaded as an artifact from:
-
-```text
-TestResults\CPN
 ```
