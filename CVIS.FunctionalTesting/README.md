@@ -21,9 +21,9 @@ Use one of these base classes:
 
 | Need | Base class |
 |---|---|
-| Normal NUnit functional test, no browser | `BaseAutomationCvisTest` |
-| API test | `BaseAutomationCvisApiTest` |
-| SQL/database test | `BaseAutomationCvisDatabaseTest` |
+| Normal NUnit functional test, no browser | `CvisAutomationTestBase` |
+| API test | `CvisAutomationApiTestBase` |
+| SQL/database test | `CvisAutomationDatabaseTestBase` |
 
 # When NOT to use
 
@@ -31,9 +31,11 @@ Do not put browser-specific Playwright lifecycle code here. Browser automation b
 
 Do not create domain-specific base classes here.
 
+Do not use old names such as `BaseFunctionalTest`, `BaseAutomationCvisTest`, `BaseAutomationCvisApiTest`, or `BaseAutomationCvisDatabaseTest`.
+
 # Architecture
 
-`BaseAutomationCvisTest` owns the NUnit lifecycle attributes for the non-browser functional base hierarchy.
+`CvisAutomationTestBase` owns the NUnit lifecycle attributes for the non-browser functional base hierarchy.
 
 Specialized base classes override lifecycle hooks instead of declaring new NUnit lifecycle attributes:
 
@@ -44,10 +46,18 @@ OnTestTearDownAsync
 OnFixtureTearDownAsync
 ```
 
+Final non-browser hierarchy:
+
+```text
+CvisAutomationTestBase
+├── CvisAutomationApiTestBase
+└── CvisAutomationDatabaseTestBase
+```
+
 # Examples
 
 ```csharp
-public sealed class ConfigSmokeTests : BaseAutomationCvisTest
+public sealed class ConfigSmokeTests : CvisAutomationTestBase
 {
     [Test]
     public void Config_ShouldLoad()
@@ -62,7 +72,8 @@ public sealed class ConfigSmokeTests : BaseAutomationCvisTest
 - Adding Playwright references to this project.
 - Creating `PolicyDriftBaseTest`, `UnityBaseTest`, or `LegacySustainmentBaseTest`.
 - Putting NUnit `[SetUp]` or `[TearDown]` attributes in specialized base classes.
-- Using `BaseAutomationCvisTest` for API tests that should use `BaseAutomationCvisApiTest`.
+- Using `CvisAutomationTestBase` for API tests that should use `CvisAutomationApiTestBase`.
+- Using old `BaseAutomationCvis` names after the rename to `CvisAutomation` names.
 
 # Related folders
 
