@@ -244,3 +244,14 @@ Reason: The migration goal is count and scenario parity with the source NUnit Po
 
 Decision: keep full PolicyDrift scenario JSON files inside the xUnit project so Visual Studio and `dotnet test` discover the expanded xUnit theories from local copied TestData.
 
+
+<!-- RDEL-DOCOPS-ID: C00E76B4D58EB754 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/decisions/ADR-0010-xunit-policydrift-workflow-data-alias-fix.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:59:27Z -->
+
+<!-- RDEL-DOCOPS-ID: ADR-0010-XUNIT-POLICYDRIFT-WORKFLOW-DATA-ALIAS-FIX -->
+
+# ADR-0010: xUnit PolicyDrift Workflow Data Alias
+
+Decision: keep `WorkflowCases` and add `PolicyDriftWorkflowCases` as an alias instead of renaming the existing data member. This minimizes risk and preserves compatibility with generated xUnit test references.
+

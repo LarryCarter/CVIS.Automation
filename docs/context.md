@@ -216,3 +216,16 @@ This is required because the migrated xUnit-local data files may be incomplete, 
 
 RDEL package `contollo.cvis.automation.xunit-policydrift-full-testdata-count-fix` restores full xUnit PolicyDrift scenario coverage by replacing truncated local xUnit TestData files with full scenario copies. The xUnit matrix loader now loads local files under `Automation.ConsoleApp.Tests/Integration/PolicyDrift/TestData`.
 
+
+<!-- RDEL-DOCOPS-ID: B3AE0565C6905A88 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/context/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:59:27Z -->
+
+<!-- RDEL-DOCOPS-ID: XUNIT-POLICYDRIFT-WORKFLOW-DATA-ALIAS-1-3-9 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/context/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 07:05:00Z -->
+
+## CVIS.Automation — xUnit PolicyDrift Workflow Data Alias Fix
+
+RDEL package `contollo.cvis.automation.xunit-policydrift-workflow-data-alias-fix` adds `PolicyDriftScenarioData.PolicyDriftWorkflowCases` as a compatibility alias for `WorkflowCases` so the xUnit workflow test project compiles after the full PolicyDrift test data migration.
+

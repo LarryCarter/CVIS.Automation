@@ -142,3 +142,12 @@ The xUnit `Automation.ConsoleApp.Tests` PolicyDrift migration must preserve the 
 
 - Automation.ConsoleApp.Tests PolicyDrift xUnit scenario count depends on full local TestData JSON files, not truncated smoke samples.
 
+
+<!-- RDEL-DOCOPS-ID: 77DF97EA151F69E5 -->
+<!-- RDEL-DOCOPS-SOURCE: .rdel-docops/memory/update.md -->
+<!-- RDEL-DOCOPS-UTC: 2026-07-02 06:59:27Z -->
+
+<!-- RDEL-DOCOPS-ID: XUNIT-POLICYDRIFT-WORKFLOW-DATA-ALIAS-MEMORY-1-3-9 -->
+
+- Added `PolicyDriftScenarioData.PolicyDriftWorkflowCases` alias for xUnit PolicyDrift workflow tests.
+
