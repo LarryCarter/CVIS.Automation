@@ -13,7 +13,16 @@ testSuites:
   - powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run-cvis-authoritative-report-local.ps1
 
 post:
-  - if not exist .\TestResults\CPN\cpn-report.html exit /b 1
+  - powershell -NoProfile -ExecutionPolicy Bypass -Command "if (-not (Test-Path '.\TestResults\TRX')) { Write-Error 'Missing TRX output folder'; exit 1 }"
+  - powershell -NoProfile -ExecutionPolicy Bypass -Command "if (-not (Get-ChildItem '.\TestResults\TRX' -Recurse -Filter '*.trx' -ErrorAction SilentlyContinue)) { Write-Error 'Missing TRX result files'; exit 1 }"
+  - powershell -NoProfile -ExecutionPolicy Bypass -Command "if (-not (Test-Path '.\TestResults\NUnitXml')) { Write-Error 'Missing NUnitXml output folder'; exit 1 }"
+  - powershell -NoProfile -ExecutionPolicy Bypass -Command "if (-not (Get-ChildItem '.\TestResults\NUnitXml' -Recurse -Filter '*.xml' -ErrorAction SilentlyContinue)) { Write-Error 'Missing NUnit XML result files'; exit 1 }"
+  - powershell -NoProfile -ExecutionPolicy Bypass -Command "if (-not (Test-Path '.\TestResults\CPN\cpn-report.html')) { Write-Error 'Missing cpn-report.html'; exit 1 }"
+  - powershell -NoProfile -ExecutionPolicy Bypass -Command "if (-not (Test-Path '.\TestResults\CPN\cpn-report.json')) { Write-Error 'Missing cpn-report.json'; exit 1 }"
+  - powershell -NoProfile -ExecutionPolicy Bypass -Command "if (-not (Test-Path '.\TestResults\CPN\cpn-report-all-tests.html')) { Write-Error 'Missing cpn-report-all-tests.html'; exit 1 }"
+  - powershell -NoProfile -ExecutionPolicy Bypass -Command "if (-not (Test-Path '.\TestResults\CPN\cpn-report-all-tests.json')) { Write-Error 'Missing cpn-report-all-tests.json'; exit 1 }"
+  - powershell -NoProfile -ExecutionPolicy Bypass -Command "if (-not (Test-Path '.\TestResults\CPN\cpn-report-summary.txt')) { Write-Error 'Missing cpn-report-summary.txt'; exit 1 }"
+  - powershell -NoProfile -ExecutionPolicy Bypass -Command "if (-not (Get-ChildItem '.\TestResults\CPN\Tests' -Recurse -Filter '*.json' -ErrorAction SilentlyContinue)) { Write-Error 'Missing per-test CPN JSON files'; exit 1 }"
 
 report: true
 partialReports:
