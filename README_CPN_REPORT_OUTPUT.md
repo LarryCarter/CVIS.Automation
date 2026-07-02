@@ -1,134 +1,104 @@
 # CPN Report Output
 
-## Why you only saw the NUnit folder
+## Purpose
 
-This command creates NUnit/TRX output:
+This document defines the report folders, file formats, and pipeline handoff points for CVIS reporting.
 
-```powershell
-dotnet test .\CVIS.Playwright.NUnitCompat.Tests\CVIS.Playwright.NUnitCompat.Tests.csproj ^
-  --logger "trx;LogFileName=cpn-tests.trx" ^
-  --results-directory ".\TestResults\NUnit" ^
-  -- NUnit.TestOutputXml=.\TestResults\NUnitXml
-```
+## Output folders
 
-That creates:
+The authoritative local and pipeline run writes three output families:
 
 ```text
-TestResults\NUnit
-TestResults\NUnitXml
+TestResults
+├── TRX
+│   └── **\*.trx
+├── NUnitXml
+│   └── **\*.xml
+└── CPN
+    ├── cpn-report.html
+    ├── cpn-report.json
+    ├── cpn-report-all-tests.html
+    ├── cpn-report-all-tests.json
+    ├── cpn-report-summary.txt
+    └── Tests
+        └── *.json
 ```
 
-It does not guarantee:
+## Which output is used for what?
 
-```text
-TestResults\CPN
-```
-
-unless CPN reporting is enabled and the CPN report root is set.
+| Output | Consumer | Purpose |
+|---|---|---|
+| `TestResults\TRX\**\*.trx` | Visual Studio, Azure, artifact review | Standard Microsoft test result format |
+| `TestResults\NUnitXml\**\*.xml` | HyperExecute `partialReports` | Framework parser input and test count |
+| `TestResults\CPN\cpn-report.html` | Humans | Main readable CVIS report |
+| `TestResults\CPN\cpn-report.json` | Tools | Main machine-readable CVIS report |
+| `TestResults\CPN\cpn-report-all-tests.html` | Humans | Explicit all-tests readable report alias |
+| `TestResults\CPN\cpn-report-all-tests.json` | Tools | Explicit all-tests machine-readable alias |
+| `TestResults\CPN\cpn-report-summary.txt` | Console/artifact summary | Totals and source summary |
+| `TestResults\CPN\Tests\*.json` | Tools/debugging | Per-test detail files |
 
 ## Correct local command
 
 Run this from the solution root:
 
 ```powershell
-set CPN_REPORT_ENABLED=true
-set CPN_REPORT_ROOT=%CD%\TestResults\CPN
-
-dotnet test .\CVIS.Playwright.NUnitCompat.Tests\CVIS.Playwright.NUnitCompat.Tests.csproj ^
-  --logger "trx;LogFileName=cpn-tests.trx" ^
-  --results-directory ".\TestResults\NUnit" ^
-  -- NUnit.TestOutputXml=.\TestResults\NUnitXml
+.\scripts\run-cvis-authoritative-report-local.ps1 -Configuration Debug -MinimumTotal 250
 ```
 
-Expected folders:
+The script runs every discovered `*.Tests.csproj`, writes TRX and NUnit XML, then builds the CVIS report from those outputs.
 
-```text
-TestResults
-├── NUnitXml
-│   └── *.xml
-├── NUnit
-│   └── cpn-tests.trx
-└── CPN
-    ├── cpn-report.html
-    ├── cpn-report.json
-    └── Tests
-        └── *.json
-```
-
-## Easier local scripts
+## Manual report-tool command
 
 ```powershell
-.\scripts\run-cpn-reporting-local.ps1
+dotnet run --project .\CVIS.Playwright.Reporting.Tool\CVIS.Playwright.Reporting.Tool.csproj -- `
+  --trx-root .\TestResults\TRX `
+  --nunit-xml-root .\TestResults\NUnitXml `
+  --output-root .\TestResults\CPN `
+  --framework-name "CVIS Authoritative Test Run" `
+  --minimum-total 250
 ```
 
-```powershell
-.\scripts\run-cvis-automation-reporting-local.ps1
-```
+## Pipeline requirement
 
-## Important
-
-CPN reports are only created for tests that inherit from CPN base classes:
-
-```csharp
-CVISPlaywrightTest
-CVISBrowserTest
-CVISContextTest
-CVISPageTest
-CVISApiTest
-```
-
-Plain NUnit tests still appear in NUnit/TRX/XML, but they do not appear in the CPN HTML report.
-
-## HyperExecute sample YAML
+The pipeline must parse NUnit XML, not the CPN HTML file:
 
 ```yaml
-version: "0.1"
-runson: win
-
-autosplit: false
-concurrency: 1
-testRunnerExecutor: cmd
-workingDirectory: .
-
-env:
-  CPN_REPORT_ENABLED: "true"
-  CPN_REPORT_ROOT: ".\\TestResults\\CPN"
-
-pre:
-  - if exist .\\TestResults rmdir /s /q .\\TestResults
-  - dotnet restore .\\CVIS.Playwright.NUnitCompat.Tests\\CVIS.Playwright.NUnitCompat.Tests.csproj
-  - dotnet build .\\CVIS.Playwright.NUnitCompat.Tests\\CVIS.Playwright.NUnitCompat.Tests.csproj --no-restore
-
-testSuites:
-  - dotnet test .\\CVIS.Playwright.NUnitCompat.Tests\\CVIS.Playwright.NUnitCompat.Tests.csproj --no-build --logger "trx;LogFileName=cpn-tests.trx" --results-directory ".\\TestResults\\NUnit" -- NUnit.TestOutputXml=.\\TestResults\\NUnitXml
-
 report: true
 partialReports:
   type: nunit
-  location: .\\TestResults\\NUnitXml
+  location: .\TestResults\NUnitXml
   frameworkName: nunit
+```
 
+The pipeline must upload all three folders:
+
+```yaml
 mergeArtifacts: true
 uploadArtefacts:
-  - name: cpn-test-output
+  - name: cvis-authoritative-test-output
     path:
-      - .\\TestResults\\NUnitXml
-      - .\\TestResults\\NUnit
-      - .\\TestResults\\CPN
+      - .\TestResults\NUnitXml
+      - .\TestResults\TRX
+      - .\TestResults\CPN
 ```
 
-## Which folder goes where?
+## Required pipeline checks
+
+Fail the pipeline if any required format is missing:
 
 ```text
-HyperExecute report parser:
-  TestResults\NUnitXml
-
-Visual Studio / Azure / dotnet artifact:
-  TestResults\NUnit
-
-CPN human report:
-  TestResults\CPN\cpn-report.html
-
-CPN machine report:
-  TestResults\CPN\cpn-report.json
+TestResults\TRX\**\*.trx
+TestResults\NUnitXml\**\*.xml
+TestResults\CPN\cpn-report.html
+TestResults\CPN\cpn-report.json
+TestResults\CPN\cpn-report-all-tests.html
+TestResults\CPN\cpn-report-all-tests.json
+TestResults\CPN\cpn-report-summary.txt
+TestResults\CPN\Tests\*.json
 ```
+
+## Important distinction
+
+`cpn-report.html` is the authoritative CVIS human report generated from TRX and NUnit XML.
+
+`cpn-lifecycle-report.html` is diagnostic lifecycle output only and must not be used as the full test count.
