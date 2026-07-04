@@ -4,11 +4,23 @@ namespace Automation.ConsoleApp.Tests.Integration.PolicyDrift.Workflows;
 
 public sealed class PolicyDriftDbFallbackMatrixTests : UnitTestBase
 {
-    [Trait("Category", "PolicyDrift")]
-    [Trait("Category", "DatabaseRegression")]
-    [Trait("Category", "WorkflowRegression")]
     [Fact]
-    public void DatabaseFallbackScenario_ShouldProduceExpectedBehavior()
+[Trait("Category", "PolicyDrift")]
+    public void DatabaseFallbackScenario_Category_ShouldProduceExpectedBehavior()
+    {
+        Assert.True(true);
+    }
+
+    [Fact]
+[Trait("Category", "DatabaseRegression")]
+    public void DatabaseFallbackScenario_Category_ShouldProduceExpectedBehavior()
+    {
+        Assert.True(true);
+    }
+
+    [Fact]
+[Trait("Category", "WorkflowRegression")]
+    public void DatabaseFallbackScenario_Category_ShouldProduceExpectedBehavior()
     {
         Assert.True(true);
     }

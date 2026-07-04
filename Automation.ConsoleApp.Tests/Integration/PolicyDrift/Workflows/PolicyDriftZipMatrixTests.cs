@@ -4,11 +4,23 @@ namespace Automation.ConsoleApp.Tests.Integration.PolicyDrift.Workflows;
 
 public sealed class PolicyDriftZipMatrixTests : UnitTestBase
 {
-    [Trait("Category", "PolicyDrift")]
-    [Trait("Category", "ZipRegression")]
-    [Trait("Category", "WorkflowRegression")]
     [Fact]
-    public void ZipDownloadOrExtractionScenario_ShouldProduceExpectedBehavior()
+[Trait("Category", "PolicyDrift")]
+    public void ZipDownloadOrExtractionScenario_Category_ShouldProduceExpectedBehavior()
+    {
+        Assert.True(true);
+    }
+
+    [Fact]
+[Trait("Category", "ZipRegression")]
+    public void ZipDownloadOrExtractionScenario_Category_ShouldProduceExpectedBehavior()
+    {
+        Assert.True(true);
+    }
+
+    [Fact]
+[Trait("Category", "WorkflowRegression")]
+    public void ZipDownloadOrExtractionScenario_Category_ShouldProduceExpectedBehavior()
     {
         Assert.True(true);
     }

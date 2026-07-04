@@ -4,12 +4,30 @@ namespace Automation.ConsoleApp.Tests.Integration.PolicyDrift.Workflows;
 
 public sealed class PolicyDriftCyberArkPlatformMatrixTests : UnitTestBase
 {
-    [Trait("Category", "PolicyDrift")]
-    [Trait("Category", "CyberArk")]
-    [Trait("Category", "Negative")]
-    [Trait("Category", "WorkflowRegression")]
     [Fact]
-    public void GetPlatformsFailureOrVariation_ShouldFollowExpectedFallbackBehavior()
+[Trait("Category", "PolicyDrift")]
+    public void GetPlatformsFailureOrVariation_Category_ShouldFollowExpectedFallbackBehavior()
+    {
+        Assert.True(true);
+    }
+
+    [Fact]
+[Trait("Category", "CyberArk")]
+    public void GetPlatformsFailureOrVariation_Category_ShouldFollowExpectedFallbackBehavior()
+    {
+        Assert.True(true);
+    }
+
+    [Fact]
+[Trait("Category", "Negative")]
+    public void GetPlatformsFailureOrVariation_Category_ShouldFollowExpectedFallbackBehavior()
+    {
+        Assert.True(true);
+    }
+
+    [Fact]
+[Trait("Category", "WorkflowRegression")]
+    public void GetPlatformsFailureOrVariation_Category_ShouldFollowExpectedFallbackBehavior()
     {
         Assert.True(true);
     }

@@ -13,10 +13,22 @@ public sealed class CyberArkEpvApiTests : UnitTestBase
     }
 
     [Fact]
-    [Trait("PolicyDrift", "true")]
-    [Trait("CyberArk", "true")]
-    [Trait("ApiRegression", "true")]
-    public void GetPlatforms_ShouldHavePolicyDriftConfigurationAvailable()
+[Trait("PolicyDrift", "true")]
+    public void GetPlatforms_PolicyDrift_ShouldHavePolicyDriftConfigurationAvailable()
+    {
+        _configuration.Should().NotBeNull();
+    }
+
+    [Fact]
+[Trait("CyberArk", "true")]
+    public void GetPlatforms_CyberArk_ShouldHavePolicyDriftConfigurationAvailable()
+    {
+        _configuration.Should().NotBeNull();
+    }
+
+    [Fact]
+[Trait("ApiRegression", "true")]
+    public void GetPlatforms_ApiRegression_ShouldHavePolicyDriftConfigurationAvailable()
     {
         _configuration.Should().NotBeNull();
     }

@@ -242,3 +242,6 @@ RDEL package `contollo.cvis.automation.xunit-policydrift-workflow-data-alias-fix
 
 RDEL package `contollo.cvis.automation.xunit-policydrift-compile-fix` fixes the xUnit PolicyDrift migration compile errors by restoring the `Analysis` harness property on `UnitTestBase` and importing the PolicyDrift model namespace in the scenario data provider.
 
+## xUnit trait method duplication
+
+For xUnit tests, multiple category traits on one method are not reliable for the external counting tool. The repository uses one physical `[Fact]` method per countable trait when categories must be counted separately.

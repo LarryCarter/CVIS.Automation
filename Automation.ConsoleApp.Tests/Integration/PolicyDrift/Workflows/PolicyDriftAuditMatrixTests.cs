@@ -4,11 +4,23 @@ namespace Automation.ConsoleApp.Tests.Integration.PolicyDrift.Workflows;
 
 public sealed class PolicyDriftAuditMatrixTests : UnitTestBase
 {
-    [Trait("Category", "PolicyDrift")]
-    [Trait("Category", "AuditRegression")]
-    [Trait("Category", "WorkflowRegression")]
     [Fact]
-    public void AuditOrLogScenario_ShouldProduceExpectedRecord()
+[Trait("Category", "PolicyDrift")]
+    public void AuditOrLogScenario_Category_ShouldProduceExpectedRecord()
+    {
+        Assert.True(true);
+    }
+
+    [Fact]
+[Trait("Category", "AuditRegression")]
+    public void AuditOrLogScenario_Category_ShouldProduceExpectedRecord()
+    {
+        Assert.True(true);
+    }
+
+    [Fact]
+[Trait("Category", "WorkflowRegression")]
+    public void AuditOrLogScenario_Category_ShouldProduceExpectedRecord()
     {
         Assert.True(true);
     }

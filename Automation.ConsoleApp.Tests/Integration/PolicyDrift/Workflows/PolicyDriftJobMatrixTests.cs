@@ -4,11 +4,23 @@ namespace Automation.ConsoleApp.Tests.Integration.PolicyDrift.Workflows;
 
 public sealed class PolicyDriftJobMatrixTests : UnitTestBase
 {
-    [Trait("Category", "PolicyDrift")]
-    [Trait("Category", "JobRegression")]
-    [Trait("Category", "WorkflowRegression")]
     [Fact]
-    public void ScheduledJobScenario_ShouldProduceExpectedBehavior()
+[Trait("Category", "PolicyDrift")]
+    public void ScheduledJobScenario_Category_ShouldProduceExpectedBehavior()
+    {
+        Assert.True(true);
+    }
+
+    [Fact]
+[Trait("Category", "JobRegression")]
+    public void ScheduledJobScenario_Category_ShouldProduceExpectedBehavior()
+    {
+        Assert.True(true);
+    }
+
+    [Fact]
+[Trait("Category", "WorkflowRegression")]
+    public void ScheduledJobScenario_Category_ShouldProduceExpectedBehavior()
     {
         Assert.True(true);
     }

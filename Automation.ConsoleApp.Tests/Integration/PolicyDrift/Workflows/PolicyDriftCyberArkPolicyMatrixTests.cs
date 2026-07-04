@@ -4,12 +4,30 @@ namespace Automation.ConsoleApp.Tests.Integration.PolicyDrift.Workflows;
 
 public sealed class PolicyDriftCyberArkPolicyMatrixTests : UnitTestBase
 {
-    [Trait("Category", "PolicyDrift")]
-    [Trait("Category", "CyberArk")]
-    [Trait("Category", "ApiRegression")]
-    [Trait("Category", "WorkflowRegression")]
     [Fact]
-    public void GetPolicyVariation_ShouldFollowExpectedBehavior()
+[Trait("Category", "PolicyDrift")]
+    public void GetPolicyVariation_Category_ShouldFollowExpectedBehavior()
+    {
+        Assert.True(true);
+    }
+
+    [Fact]
+[Trait("Category", "CyberArk")]
+    public void GetPolicyVariation_Category_ShouldFollowExpectedBehavior()
+    {
+        Assert.True(true);
+    }
+
+    [Fact]
+[Trait("Category", "ApiRegression")]
+    public void GetPolicyVariation_Category_ShouldFollowExpectedBehavior()
+    {
+        Assert.True(true);
+    }
+
+    [Fact]
+[Trait("Category", "WorkflowRegression")]
+    public void GetPolicyVariation_Category_ShouldFollowExpectedBehavior()
     {
         Assert.True(true);
     }

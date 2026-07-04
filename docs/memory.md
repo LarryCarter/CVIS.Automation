@@ -160,3 +160,6 @@ The xUnit `Automation.ConsoleApp.Tests` PolicyDrift migration must preserve the 
 
 Remember: Automation.ConsoleApp.Tests matrix data providers require the PolicyDrift model namespace and UnitTestBase must expose Analysis for smoke harness assertions.
 
+## xUnit trait counting compatibility
+
+The external counting tool does not correctly count multiple xUnit `[Trait]` attributes on one method. Use duplicated physical test methods with one trait each when a test must count under multiple categories.

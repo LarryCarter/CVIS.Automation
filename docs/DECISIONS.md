@@ -268,3 +268,10 @@ Decision: keep the lightweight smoke-harness `Analysis` property on `UnitTestBas
 
 Reason: this preserves the migrated test structure while allowing scenario expansion and compilation without relying on implicit namespace resolution.
 
+## 2026-07-01 — xUnit Trait Counting Compatibility
+
+Decision: xUnit `[Fact]` methods that need to count under more than one trait category must be represented as separate physical test methods, one trait per method.
+
+Reason: the external counting tool does not correctly count multiple `[Trait]` attributes on a single xUnit test method.
+
+Avoid relying on one method with multiple traits when the result must be counted by the external tool.
