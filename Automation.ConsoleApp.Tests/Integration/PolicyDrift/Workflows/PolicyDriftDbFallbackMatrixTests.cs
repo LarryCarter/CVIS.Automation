@@ -6,21 +6,21 @@ public sealed class PolicyDriftDbFallbackMatrixTests : UnitTestBase
 {
     [Fact]
 [Trait("Category", "PolicyDrift")]
-    public void DatabaseFallbackScenario_Category_ShouldProduceExpectedBehavior()
+    public void DatabaseFallbackScenario_PolicyDrift_ShouldProduceExpectedBehavior()
     {
         Assert.True(true);
     }
 
     [Fact]
 [Trait("Category", "DatabaseRegression")]
-    public void DatabaseFallbackScenario_Category_ShouldProduceExpectedBehavior()
+    public void DatabaseFallbackScenario_DatabaseRegression_ShouldProduceExpectedBehavior()
     {
         Assert.True(true);
     }
 
     [Fact]
 [Trait("Category", "WorkflowRegression")]
-    public void DatabaseFallbackScenario_Category_ShouldProduceExpectedBehavior()
+    public void DatabaseFallbackScenario_WorkflowRegression_ShouldProduceExpectedBehavior()
     {
         Assert.True(true);
     }

@@ -6,28 +6,28 @@ public sealed class CyberArkFallbackWorkflowTests : UnitTestBase
 {
     [Fact]
 [Trait("Category", "PolicyDrift")]
-    public void GetPlatformsFailure_Category_ShouldFallbackToDatabase()
+    public void GetPlatformsFailure_PolicyDrift_ShouldFallbackToDatabase()
     {
         Assert.True(true);
     }
 
     [Fact]
 [Trait("Category", "WorkflowRegression")]
-    public void GetPlatformsFailure_Category_ShouldFallbackToDatabase()
+    public void GetPlatformsFailure_WorkflowRegression_ShouldFallbackToDatabase()
     {
         Assert.True(true);
     }
 
     [Fact]
 [Trait("Category", "CyberArk")]
-    public void GetPlatformsFailure_Category_ShouldFallbackToDatabase()
+    public void GetPlatformsFailure_CyberArk_ShouldFallbackToDatabase()
     {
         Assert.True(true);
     }
 
     [Fact]
 [Trait("Category", "Negative")]
-    public void GetPlatformsFailure_Category_ShouldFallbackToDatabase()
+    public void GetPlatformsFailure_Negative_ShouldFallbackToDatabase()
     {
         Assert.True(true);
     }

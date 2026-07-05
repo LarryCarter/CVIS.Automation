@@ -6,21 +6,21 @@ public sealed class PolicyDriftJobMatrixTests : UnitTestBase
 {
     [Fact]
 [Trait("Category", "PolicyDrift")]
-    public void ScheduledJobScenario_Category_ShouldProduceExpectedBehavior()
+    public void ScheduledJobScenario_PolicyDrift_ShouldProduceExpectedBehavior()
     {
         Assert.True(true);
     }
 
     [Fact]
 [Trait("Category", "JobRegression")]
-    public void ScheduledJobScenario_Category_ShouldProduceExpectedBehavior()
+    public void ScheduledJobScenario_JobRegression_ShouldProduceExpectedBehavior()
     {
         Assert.True(true);
     }
 
     [Fact]
 [Trait("Category", "WorkflowRegression")]
-    public void ScheduledJobScenario_Category_ShouldProduceExpectedBehavior()
+    public void ScheduledJobScenario_WorkflowRegression_ShouldProduceExpectedBehavior()
     {
         Assert.True(true);
     }

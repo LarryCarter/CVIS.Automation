@@ -6,21 +6,21 @@ public sealed class PolicyDriftProcessingMatrixTests : UnitTestBase
 {
     [Fact]
 [Trait("Category", "PolicyDrift")]
-    public void PolicyProcessingScenario_Category_ShouldProduceExpectedDriftBehavior()
+    public void PolicyProcessingScenario_PolicyDrift_ShouldProduceExpectedDriftBehavior()
     {
         Assert.True(true);
     }
 
     [Fact]
 [Trait("Category", "PolicyProcessingRegression")]
-    public void PolicyProcessingScenario_Category_ShouldProduceExpectedDriftBehavior()
+    public void PolicyProcessingScenario_PolicyProcessingRegression_ShouldProduceExpectedDriftBehavior()
     {
         Assert.True(true);
     }
 
     [Fact]
 [Trait("Category", "WorkflowRegression")]
-    public void PolicyProcessingScenario_Category_ShouldProduceExpectedDriftBehavior()
+    public void PolicyProcessingScenario_WorkflowRegression_ShouldProduceExpectedDriftBehavior()
     {
         Assert.True(true);
     }

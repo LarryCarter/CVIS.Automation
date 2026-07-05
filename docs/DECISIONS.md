@@ -275,3 +275,26 @@ Decision: xUnit `[Fact]` methods that need to count under more than one trait ca
 Reason: the external counting tool does not correctly count multiple `[Trait]` attributes on a single xUnit test method.
 
 Avoid relying on one method with multiple traits when the result must be counted by the external tool.
+
+## 2026-07-01 — xUnit Category Trait Names Use Trait Value
+
+Decision: when duplicating xUnit tests for category-counting compatibility, method names must use the trait value when the trait key is `Category`.
+
+Correct:
+
+```csharp
+[Trait("Category", "PolicyDrift")]
+public void Example_PolicyDrift_ShouldPass()
+
+[Trait("Category", "ConsoleRegression")]
+public void Example_ConsoleRegression_ShouldPass()
+```
+
+Incorrect:
+
+```csharp
+public void Example_Category_ShouldPass()
+public void Example_Category_ShouldPass()
+```
+
+Reason: multiple traits commonly share the key `Category`, so using the key creates duplicate method names and causes CS0111/xUnit1024.

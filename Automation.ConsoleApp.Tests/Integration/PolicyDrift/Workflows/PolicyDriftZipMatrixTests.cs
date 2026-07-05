@@ -6,21 +6,21 @@ public sealed class PolicyDriftZipMatrixTests : UnitTestBase
 {
     [Fact]
 [Trait("Category", "PolicyDrift")]
-    public void ZipDownloadOrExtractionScenario_Category_ShouldProduceExpectedBehavior()
+    public void ZipDownloadOrExtractionScenario_PolicyDrift_ShouldProduceExpectedBehavior()
     {
         Assert.True(true);
     }
 
     [Fact]
 [Trait("Category", "ZipRegression")]
-    public void ZipDownloadOrExtractionScenario_Category_ShouldProduceExpectedBehavior()
+    public void ZipDownloadOrExtractionScenario_ZipRegression_ShouldProduceExpectedBehavior()
     {
         Assert.True(true);
     }
 
     [Fact]
 [Trait("Category", "WorkflowRegression")]
-    public void ZipDownloadOrExtractionScenario_Category_ShouldProduceExpectedBehavior()
+    public void ZipDownloadOrExtractionScenario_WorkflowRegression_ShouldProduceExpectedBehavior()
     {
         Assert.True(true);
     }

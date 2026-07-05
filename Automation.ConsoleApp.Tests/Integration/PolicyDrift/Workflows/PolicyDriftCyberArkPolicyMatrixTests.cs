@@ -6,28 +6,28 @@ public sealed class PolicyDriftCyberArkPolicyMatrixTests : UnitTestBase
 {
     [Fact]
 [Trait("Category", "PolicyDrift")]
-    public void GetPolicyVariation_Category_ShouldFollowExpectedBehavior()
+    public void GetPolicyVariation_PolicyDrift_ShouldFollowExpectedBehavior()
     {
         Assert.True(true);
     }
 
     [Fact]
 [Trait("Category", "CyberArk")]
-    public void GetPolicyVariation_Category_ShouldFollowExpectedBehavior()
+    public void GetPolicyVariation_CyberArk_ShouldFollowExpectedBehavior()
     {
         Assert.True(true);
     }
 
     [Fact]
 [Trait("Category", "ApiRegression")]
-    public void GetPolicyVariation_Category_ShouldFollowExpectedBehavior()
+    public void GetPolicyVariation_ApiRegression_ShouldFollowExpectedBehavior()
     {
         Assert.True(true);
     }
 
     [Fact]
 [Trait("Category", "WorkflowRegression")]
-    public void GetPolicyVariation_Category_ShouldFollowExpectedBehavior()
+    public void GetPolicyVariation_WorkflowRegression_ShouldFollowExpectedBehavior()
     {
         Assert.True(true);
     }

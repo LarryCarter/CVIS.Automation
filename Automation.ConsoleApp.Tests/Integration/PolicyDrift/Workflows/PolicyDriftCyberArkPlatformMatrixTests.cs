@@ -6,28 +6,28 @@ public sealed class PolicyDriftCyberArkPlatformMatrixTests : UnitTestBase
 {
     [Fact]
 [Trait("Category", "PolicyDrift")]
-    public void GetPlatformsFailureOrVariation_Category_ShouldFollowExpectedFallbackBehavior()
+    public void GetPlatformsFailureOrVariation_PolicyDrift_ShouldFollowExpectedFallbackBehavior()
     {
         Assert.True(true);
     }
 
     [Fact]
 [Trait("Category", "CyberArk")]
-    public void GetPlatformsFailureOrVariation_Category_ShouldFollowExpectedFallbackBehavior()
+    public void GetPlatformsFailureOrVariation_CyberArk_ShouldFollowExpectedFallbackBehavior()
     {
         Assert.True(true);
     }
 
     [Fact]
 [Trait("Category", "Negative")]
-    public void GetPlatformsFailureOrVariation_Category_ShouldFollowExpectedFallbackBehavior()
+    public void GetPlatformsFailureOrVariation_Negative_ShouldFollowExpectedFallbackBehavior()
     {
         Assert.True(true);
     }
 
     [Fact]
 [Trait("Category", "WorkflowRegression")]
-    public void GetPlatformsFailureOrVariation_Category_ShouldFollowExpectedFallbackBehavior()
+    public void GetPlatformsFailureOrVariation_WorkflowRegression_ShouldFollowExpectedFallbackBehavior()
     {
         Assert.True(true);
     }

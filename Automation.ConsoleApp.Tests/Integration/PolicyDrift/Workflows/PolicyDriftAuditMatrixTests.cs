@@ -6,21 +6,21 @@ public sealed class PolicyDriftAuditMatrixTests : UnitTestBase
 {
     [Fact]
 [Trait("Category", "PolicyDrift")]
-    public void AuditOrLogScenario_Category_ShouldProduceExpectedRecord()
+    public void AuditOrLogScenario_PolicyDrift_ShouldProduceExpectedRecord()
     {
         Assert.True(true);
     }
 
     [Fact]
 [Trait("Category", "AuditRegression")]
-    public void AuditOrLogScenario_Category_ShouldProduceExpectedRecord()
+    public void AuditOrLogScenario_AuditRegression_ShouldProduceExpectedRecord()
     {
         Assert.True(true);
     }
 
     [Fact]
 [Trait("Category", "WorkflowRegression")]
-    public void AuditOrLogScenario_Category_ShouldProduceExpectedRecord()
+    public void AuditOrLogScenario_WorkflowRegression_ShouldProduceExpectedRecord()
     {
         Assert.True(true);
     }

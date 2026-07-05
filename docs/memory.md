@@ -163,3 +163,9 @@ Remember: Automation.ConsoleApp.Tests matrix data providers require the PolicyDr
 ## xUnit trait counting compatibility
 
 The external counting tool does not correctly count multiple xUnit `[Trait]` attributes on one method. Use duplicated physical test methods with one trait each when a test must count under multiple categories.
+
+## xUnit category trait method names
+
+RDEL sequence 009 fixed sequence 008 duplicate method names.
+
+Rule: for `[Trait("Category", "...")]`, method names must include the category value, not the literal word `Category`.

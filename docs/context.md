@@ -245,3 +245,9 @@ RDEL package `contollo.cvis.automation.xunit-policydrift-compile-fix` fixes the 
 ## xUnit trait method duplication
 
 For xUnit tests, multiple category traits on one method are not reliable for the external counting tool. The repository uses one physical `[Fact]` method per countable trait when categories must be counted separately.
+
+## xUnit trait method-name repair
+
+When xUnit category traits are duplicated into physical methods, the method name uses the trait value.
+
+Example: `[Trait("Category", "PolicyDrift")]` becomes `_PolicyDrift_`, not `_Category_`.

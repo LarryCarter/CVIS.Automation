@@ -6,14 +6,14 @@ public sealed class PolicyDriftWorkflowTests : UnitTestBase
 {
     [Fact]
 [Trait("Category", "PolicyDrift")]
-    public void PolicyDriftScenario_Category_ShouldProduceExpectedFinalState()
+    public void PolicyDriftScenario_PolicyDrift_ShouldProduceExpectedFinalState()
     {
         Assert.True(true);
     }
 
     [Fact]
 [Trait("Category", "WorkflowRegression")]
-    public void PolicyDriftScenario_Category_ShouldProduceExpectedFinalState()
+    public void PolicyDriftScenario_WorkflowRegression_ShouldProduceExpectedFinalState()
     {
         Assert.True(true);
     }
