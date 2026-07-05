@@ -251,3 +251,9 @@ For xUnit tests, multiple category traits on one method are not reliable for the
 When xUnit category traits are duplicated into physical methods, the method name uses the trait value.
 
 Example: `[Trait("Category", "PolicyDrift")]` becomes `_PolicyDrift_`, not `_Category_`.
+
+## xUnit theory trait method duplication
+
+For xUnit `[Theory]` tests, multiple category traits on one method are not reliable for the external counting tool.
+
+The repository uses one physical `[Theory]` method per countable trait when categories must be counted separately. All theory data attributes are preserved on each duplicate.

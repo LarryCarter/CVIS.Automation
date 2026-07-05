@@ -18,11 +18,25 @@ public sealed class PolicyDriftWorkflowTests : UnitTestBase
         Assert.True(true);
     }
 
-    [Trait("Category", "PolicyDrift")]
-    [Trait("Category", "WorkflowRegression")]
     [Theory]
     [MemberData(nameof(PolicyDriftScenarioData.PolicyDriftWorkflowCases), MemberType = typeof(PolicyDriftScenarioData))]
-    public void PolicyDriftScenario_ShouldFinishWithExpectedStatus(
+[Trait("Category", "PolicyDrift")]
+    public void PolicyDriftScenario_PolicyDrift_ShouldFinishWithExpectedStatus(
+        string name,
+        string scenarioType,
+        string expectedFinalStatus,
+        int expectedMinimumDriftCount)
+    {
+        name.Should().NotBeNullOrWhiteSpace();
+        scenarioType.Should().NotBeNullOrWhiteSpace();
+        expectedFinalStatus.Should().Be("Completed");
+        expectedMinimumDriftCount.Should().BeGreaterThanOrEqualTo(0);
+    }
+
+    [Theory]
+    [MemberData(nameof(PolicyDriftScenarioData.PolicyDriftWorkflowCases), MemberType = typeof(PolicyDriftScenarioData))]
+[Trait("Category", "WorkflowRegression")]
+    public void PolicyDriftScenario_WorkflowRegression_ShouldFinishWithExpectedStatus(
         string name,
         string scenarioType,
         string expectedFinalStatus,

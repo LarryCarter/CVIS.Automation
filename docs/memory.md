@@ -169,3 +169,9 @@ The external counting tool does not correctly count multiple xUnit `[Trait]` att
 RDEL sequence 009 fixed sequence 008 duplicate method names.
 
 Rule: for `[Trait("Category", "...")]`, method names must include the category value, not the literal word `Category`.
+
+## xUnit theory trait duplication
+
+RDEL sequence 010 extends the sequence 008/009 xUnit trait-counting compatibility to `[Theory]` methods.
+
+Rule: one physical theory method per countable trait, preserving theory data attributes.

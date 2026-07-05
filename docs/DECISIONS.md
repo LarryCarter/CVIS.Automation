@@ -298,3 +298,25 @@ public void Example_Category_ShouldPass()
 ```
 
 Reason: multiple traits commonly share the key `Category`, so using the key creates duplicate method names and causes CS0111/xUnit1024.
+
+## 2026-07-01 — xUnit Theory Trait Counting Compatibility
+
+Decision: xUnit `[Theory]` methods follow the same external counting rule as `[Fact]` methods.
+
+If a theory needs to count under more than one trait category, it must be represented as one physical theory method per trait. Each generated method keeps the same theory data attributes, such as `[InlineData]`, `[MemberData]`, or `[ClassData]`, and receives exactly one countable `[Trait]`.
+
+When the trait key is `Category`, method names must use the trait value.
+
+Correct:
+
+```csharp
+[Theory]
+[InlineData("a")]
+[Trait("Category", "PolicyDrift")]
+public void Example_PolicyDrift_ShouldPass(string value)
+
+[Theory]
+[InlineData("a")]
+[Trait("Category", "ConsoleRegression")]
+public void Example_ConsoleRegression_ShouldPass(string value)
+```

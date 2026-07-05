@@ -32,13 +32,61 @@ public sealed class PolicyDriftCyberArkPolicyMatrixTests : UnitTestBase
         Assert.True(true);
     }
 
-    [Trait("Category", "PolicyDrift")]
-    [Trait("Category", "CyberArk")]
-    [Trait("Category", "ApiRegression")]
-    [Trait("Category", "WorkflowRegression")]
     [Theory]
     [MemberData(nameof(PolicyDriftScenarioData.CyberArkPolicyCases), MemberType = typeof(PolicyDriftScenarioData))]
-    public void PolicyDrift_CyberArkPolicy_Scenario_ShouldMatchExpectedDefinition(
+[Trait("Category", "PolicyDrift")]
+    public void PolicyDrift_CyberArkPolicy_Scenario_PolicyDrift_ShouldMatchExpectedDefinition(
+        string name,
+        string scenarioType,
+        string expectedBehavior,
+        string expectedFinalStatus,
+        int expectedMinimumRecordCount)
+    {
+        name.Should().NotBeNullOrWhiteSpace();
+        scenarioType.Should().NotBeNullOrWhiteSpace();
+        expectedBehavior.Should().NotBeNullOrWhiteSpace();
+        expectedFinalStatus.Should().NotBeNullOrWhiteSpace();
+        expectedMinimumRecordCount.Should().BeGreaterThanOrEqualTo(0);
+    }
+
+    [Theory]
+    [MemberData(nameof(PolicyDriftScenarioData.CyberArkPolicyCases), MemberType = typeof(PolicyDriftScenarioData))]
+[Trait("Category", "CyberArk")]
+    public void PolicyDrift_CyberArkPolicy_Scenario_CyberArk_ShouldMatchExpectedDefinition(
+        string name,
+        string scenarioType,
+        string expectedBehavior,
+        string expectedFinalStatus,
+        int expectedMinimumRecordCount)
+    {
+        name.Should().NotBeNullOrWhiteSpace();
+        scenarioType.Should().NotBeNullOrWhiteSpace();
+        expectedBehavior.Should().NotBeNullOrWhiteSpace();
+        expectedFinalStatus.Should().NotBeNullOrWhiteSpace();
+        expectedMinimumRecordCount.Should().BeGreaterThanOrEqualTo(0);
+    }
+
+    [Theory]
+    [MemberData(nameof(PolicyDriftScenarioData.CyberArkPolicyCases), MemberType = typeof(PolicyDriftScenarioData))]
+[Trait("Category", "ApiRegression")]
+    public void PolicyDrift_CyberArkPolicy_Scenario_ApiRegression_ShouldMatchExpectedDefinition(
+        string name,
+        string scenarioType,
+        string expectedBehavior,
+        string expectedFinalStatus,
+        int expectedMinimumRecordCount)
+    {
+        name.Should().NotBeNullOrWhiteSpace();
+        scenarioType.Should().NotBeNullOrWhiteSpace();
+        expectedBehavior.Should().NotBeNullOrWhiteSpace();
+        expectedFinalStatus.Should().NotBeNullOrWhiteSpace();
+        expectedMinimumRecordCount.Should().BeGreaterThanOrEqualTo(0);
+    }
+
+    [Theory]
+    [MemberData(nameof(PolicyDriftScenarioData.CyberArkPolicyCases), MemberType = typeof(PolicyDriftScenarioData))]
+[Trait("Category", "WorkflowRegression")]
+    public void PolicyDrift_CyberArkPolicy_Scenario_WorkflowRegression_ShouldMatchExpectedDefinition(
         string name,
         string scenarioType,
         string expectedBehavior,

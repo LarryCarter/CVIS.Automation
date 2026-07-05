@@ -32,13 +32,49 @@ public sealed class CyberArkFallbackWorkflowTests : UnitTestBase
         Assert.True(true);
     }
 
-    [Trait("Category", "PolicyDrift")]
-    [Trait("Category", "WorkflowRegression")]
-    [Trait("Category", "CyberArk")]
-    [Trait("Category", "Negative")]
     [Theory]
     [MemberData(nameof(PolicyDriftScenarioData.CyberArkFailureCases), MemberType = typeof(PolicyDriftScenarioData))]
-    public void PolicyDrift_GetPlatformsFailure_ShouldFallbackToDatabase(
+[Trait("Category", "PolicyDrift")]
+    public void PolicyDrift_GetPlatformsFailure_PolicyDrift_ShouldFallbackToDatabase(
+        string name,
+        int simulatedStatusCode,
+        string expectedBehavior)
+    {
+        name.Should().NotBeNullOrWhiteSpace();
+        simulatedStatusCode.Should().BeGreaterThanOrEqualTo(0);
+        expectedBehavior.Should().NotBeNullOrWhiteSpace();
+    }
+
+    [Theory]
+    [MemberData(nameof(PolicyDriftScenarioData.CyberArkFailureCases), MemberType = typeof(PolicyDriftScenarioData))]
+[Trait("Category", "WorkflowRegression")]
+    public void PolicyDrift_GetPlatformsFailure_WorkflowRegression_ShouldFallbackToDatabase(
+        string name,
+        int simulatedStatusCode,
+        string expectedBehavior)
+    {
+        name.Should().NotBeNullOrWhiteSpace();
+        simulatedStatusCode.Should().BeGreaterThanOrEqualTo(0);
+        expectedBehavior.Should().NotBeNullOrWhiteSpace();
+    }
+
+    [Theory]
+    [MemberData(nameof(PolicyDriftScenarioData.CyberArkFailureCases), MemberType = typeof(PolicyDriftScenarioData))]
+[Trait("Category", "CyberArk")]
+    public void PolicyDrift_GetPlatformsFailure_CyberArk_ShouldFallbackToDatabase(
+        string name,
+        int simulatedStatusCode,
+        string expectedBehavior)
+    {
+        name.Should().NotBeNullOrWhiteSpace();
+        simulatedStatusCode.Should().BeGreaterThanOrEqualTo(0);
+        expectedBehavior.Should().NotBeNullOrWhiteSpace();
+    }
+
+    [Theory]
+    [MemberData(nameof(PolicyDriftScenarioData.CyberArkFailureCases), MemberType = typeof(PolicyDriftScenarioData))]
+[Trait("Category", "Negative")]
+    public void PolicyDrift_GetPlatformsFailure_Negative_ShouldFallbackToDatabase(
         string name,
         int simulatedStatusCode,
         string expectedBehavior)
