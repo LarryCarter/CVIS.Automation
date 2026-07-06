@@ -257,3 +257,7 @@ Example: `[Trait("Category", "PolicyDrift")]` becomes `_PolicyDrift_`, not `_Cat
 For xUnit `[Theory]` tests, multiple category traits on one method are not reliable for the external counting tool.
 
 The repository uses one physical `[Theory]` method per countable trait when categories must be counted separately. All theory data attributes are preserved on each duplicate.
+
+## xUnit MemberData scenario count compatibility
+
+The external counter may not count individual MemberData rows. Generated `[Fact]` wrappers expose parseable rows as physical tests. Sequence 012 is guarded against wrong-repo application.

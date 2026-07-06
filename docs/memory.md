@@ -175,3 +175,7 @@ Rule: for `[Trait("Category", "...")]`, method names must include the category v
 RDEL sequence 010 extends the sequence 008/009 xUnit trait-counting compatibility to `[Theory]` methods.
 
 Rule: one physical theory method per countable trait, preserving theory data attributes.
+
+## xUnit MemberData scenario wrappers
+
+RDEL sequence 012 replaces the failed wrong-root sequence 011 application with a guarded package that requires CVIS.Automation.sln.

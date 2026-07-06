@@ -19,3 +19,7 @@ When generating xUnit `[Theory]` tests for this repository, do not put multiple 
 If a theory must count for multiple categories, generate one physical theory method per trait. Preserve all data attributes (`[InlineData]`, `[MemberData]`, `[ClassData]`) on each duplicated theory method.
 
 If the trait key is `Category`, use the trait value in the method name.
+
+## xUnit MemberData Counting Rule
+
+If a `[MemberData]` theory must be visible to the external counter per scenario, generate explicit wrapper facts or use simple `[InlineData]`. Packages must validate the target repository before transforming files.

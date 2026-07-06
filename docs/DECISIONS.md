@@ -320,3 +320,9 @@ public void Example_PolicyDrift_ShouldPass(string value)
 [Trait("Category", "ConsoleRegression")]
 public void Example_ConsoleRegression_ShouldPass(string value)
 ```
+
+## 2026-07-06 — Guarded xUnit MemberData Scenario Wrappers
+
+Decision: RDEL package 012 must fail fast unless it is run from the CVIS.Automation solution root.
+
+It generates explicit `[Fact]` wrapper methods for parseable xUnit `[MemberData]` rows when an external counting tool cannot see individual scenarios.
